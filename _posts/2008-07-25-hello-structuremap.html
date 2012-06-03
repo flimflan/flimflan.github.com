@@ -1,0 +1,85 @@
+---
+title: Hello StructureMap
+permalink: HelloStructureMap.html
+layout: migrated
+date: 2008-07-25
+id: 1f06b8f7-1fb7-4cde-899c-acd051b3b594
+published_at: 2008-07-25 09:11:05.515000000 -05:00
+tags: structuremap
+
+---
+
+<p>In a comment on <a href="http://devlicio.us/blogs/derik_whittaker/" target="_blank">Derik Whittaker</a>'s post about <a href="http://devlicio.us/blogs/derik_whittaker/archive/2008/07/24/using-your-app-config-web-config-to-store-your-structuremap-settings.aspx" target="_blank">using app.config with StructureMap</a>, Brian Johnston asks for a simple "hello world" example. I figured I could re-create the app that I used when I was first learning <a href="http://structuremap.sourceforge.net/" target="_blank">StructureMap</a>. This is a very simple demonstration of how to make an application use StructureMap. It does not get into the whys and whens for different scenarios. It is simply a piece of code that will let you see StructureMap "work" so that you can play with it. For more introductory details, I would highly recommend reading <a href="http://www.lostechies.com/blogs/chad_myers/" target="_blank">Chad Myers</a>' posts that cover <a href="http://www.lostechies.com/blogs/chad_myers/archive/2008/07/15/structuremap-basic-scenario-usage.aspx" target="_blank">Basic</a> and <a href="http://www.lostechies.com/blogs/chad_myers/archive/2008/07/17/structuremap-medium-level-usage-scenarios.aspx" target="_blank">Medium-level usage scenarios</a> for StructureMap.</p> <h2>Create the app</h2> <ol> <li>Open Visual Studio  <li>Go to File | New | Console Application (hopefully you have Tools | Options | Projects and Solutions | "Save new projects when created" UNCHECKED so you aren't forced to choose a path for this throwaway code)  <li>Add a reference to StructureMap.dll (agonize over how slow the Add Reference dialog box is to open because it needs to populate the list on the .NET tab which will go unused when we switch to the Browse tab)  <li>Replace the contents of Program.cs with the code at the bottom of this post <li>Run the application to see the English greeting.</li></ol> <h2>Notes</h2> <ul> <li>The call to ObjectFactory.GetInstance in the Main method demonstrates how you get an object from StructureMap. Notice that it only specifies the interface for the type you'd like to retrieve so the caller is decoupled from the actual implementation that is used.</li> <li>The ConfigureDependencies method is where I tell StructureMap which concrete implementations I would like to use for my interfaces. You can accomplish this same goal by decorating your interfaces and classes with attributes, or by using a configuration file.</li> <li>Aside from the two bullet items above in the Program class, none of the rest of the code has any reference to or knowledge of StructureMap.</li> <li>Notice that I only ever ask for an IAppEngine. I never had to explicitly ask for an IGreeter or IOutputDisplay. StructureMap was smart enough to recognize these dependencies of AppEngine and injected them automatically. </li> <li>Change the second line in ConfigureDependencies so that TheDefaultIsConcreteType&lt;FrenchGreeter&gt; and run the application again. Notice that you now see the French greeting. You have changed the implementation that is used by AppEngine, without changing any of the application code (if you agree that the Program class is just your launching point, and not really part of the application logic). If you were using a config file to configure StructureMap, you wouldn't have had to change any code at all to see the different behavior.</li></ul> <h2>Code</h2>
+
+<p><span style="font-weight:bold">Update:</span> I've created a <a href="http://gist.github.com/397213">gist</a> that shows the original example, but using the cleaner syntax introduced in more recent versions of StructureMap.</p>
+<script src="http://gist.github.com/397213.js?file=hello_structuremap.cs"></script>
+
+<h3>The original code from this post that used older StructureMap syntax:</h3>
+ <div class="wlWriterSmartContent" id="scid:57F11A72-B0E5-49c7-9094-E3A15BD5B5E6:68dc39b1-3528-4de0-ac36-a54d753ab1f6" style="padding-right: 0px; display: inline; padding-left: 0px; float: none; padding-bottom: 0px; margin: 0px; padding-top: 0px"><pre style="background-color:White;;overflow: auto;"><div><!--
+
+Code highlighting produced by Actipro CodeHighlighter (freeware)
+http://www.CodeHighlighter.com/
+
+--><span style="color: #0000FF;">using</span><span style="color: #000000;"> System;
+</span><span style="color: #0000FF;">using</span><span style="color: #000000;"> StructureMap;
+
+</span><span style="color: #0000FF;">namespace</span><span style="color: #000000;"> ConsoleApplication1 {
+    </span><span style="color: #0000FF;">class</span><span style="color: #000000;"> Program {
+        </span><span style="color: #0000FF;">private</span><span style="color: #000000;"> </span><span style="color: #0000FF;">static</span><span style="color: #000000;"> </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> Main(</span><span style="color: #0000FF;">string</span><span style="color: #000000;">[] args) {
+            ConfigureDependencies();
+
+            IAppEngine appEngine </span><span style="color: #000000;">=</span><span style="color: #000000;"> ObjectFactory.GetInstance</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">IAppEngine</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">();
+            appEngine.Run();
+        }
+
+        </span><span style="color: #0000FF;">private</span><span style="color: #000000;"> </span><span style="color: #0000FF;">static</span><span style="color: #000000;"> </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> ConfigureDependencies() {
+            StructureMapConfiguration.ForRequestedType</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">IAppEngine</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">().TheDefaultIsConcreteType</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">AppEngine</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">();
+            StructureMapConfiguration.ForRequestedType</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">IGreeter</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">().TheDefaultIsConcreteType</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">EnglishGreeter</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">();
+            StructureMapConfiguration.ForRequestedType</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">IOutputDisplay</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">().TheDefaultIsConcreteType</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">ConsoleOutputDisplay</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">();
+        }
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">class</span><span style="color: #000000;"> AppEngine : IAppEngine {
+        </span><span style="color: #0000FF;">private</span><span style="color: #000000;"> </span><span style="color: #0000FF;">readonly</span><span style="color: #000000;"> IGreeter greeter;
+        </span><span style="color: #0000FF;">private</span><span style="color: #000000;"> </span><span style="color: #0000FF;">readonly</span><span style="color: #000000;"> IOutputDisplay outputDisplay;
+
+        </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> AppEngine(IGreeter greeter, IOutputDisplay outputDisplay) {
+            </span><span style="color: #0000FF;">this</span><span style="color: #000000;">.greeter </span><span style="color: #000000;">=</span><span style="color: #000000;"> greeter;
+            </span><span style="color: #0000FF;">this</span><span style="color: #000000;">.outputDisplay </span><span style="color: #000000;">=</span><span style="color: #000000;"> outputDisplay;
+        }
+
+        </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> Run() {
+            outputDisplay.Show(greeter.GetGreeting());
+        }
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">interface</span><span style="color: #000000;"> IAppEngine {
+        </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> Run();
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">interface</span><span style="color: #000000;"> IGreeter {
+        </span><span style="color: #0000FF;">string</span><span style="color: #000000;"> GetGreeting();
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">class</span><span style="color: #000000;"> EnglishGreeter : IGreeter {
+        </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">string</span><span style="color: #000000;"> GetGreeting() {
+            </span><span style="color: #0000FF;">return</span><span style="color: #000000;"> </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">Hello</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">;
+        }
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">class</span><span style="color: #000000;"> FrenchGreeter : IGreeter {
+        </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">string</span><span style="color: #000000;"> GetGreeting() {
+            </span><span style="color: #0000FF;">return</span><span style="color: #000000;"> </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">Bonjour</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">;
+        }
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">interface</span><span style="color: #000000;"> IOutputDisplay {
+        </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> Show(</span><span style="color: #0000FF;">string</span><span style="color: #000000;"> message);
+    }
+
+    </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">class</span><span style="color: #000000;"> ConsoleOutputDisplay : IOutputDisplay {
+        </span><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> Show(</span><span style="color: #0000FF;">string</span><span style="color: #000000;"> message) {
+            Console.WriteLine(message);
+        }
+    }
+}</span></div></pre><!-- Code inserted with Steve Dunn's Windows Live Writer Code Formatter Plugin.  http://dunnhq.com --></div>

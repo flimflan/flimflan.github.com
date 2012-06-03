@@ -1,0 +1,15 @@
+---
+title: With apologies to A Few Good Men
+permalink: WithApologiesToAFewGoodMen.html
+layout: migrated
+date: 2004-05-20
+id: 211723d9-d6c7-4e9d-8056-e811006f6212
+published_at: 2004-05-20 17:49:00.000000000 -05:00
+
+---
+
+<P>&#8220;You want to catch the base exception?&nbsp; You want to catch the <EM>base</EM> exception?&nbsp; You can't <EM>handle</EM> the base exception!&#8221;&nbsp; Ok, Jack never said that.&nbsp; But he should have.</P>
+<P>This is a very important point that hasn't hit home with a lot of co-workers.&nbsp;&nbsp;I wonder if it stems from the VB habit of handling every error in a single On Error Goto statement (or worse, On Error Resume Next).&nbsp; I'll admit, I didn't initially buy into it, until I had a good understanding of what it meant.&nbsp; By catching the base exception, you are explicitly stating that you know how to handle the exception -- even though you don't know why it happened!&nbsp; If you knew it could happen and how to handle it, you would catch that specific exception type.&nbsp; </P>
+<P>Granted, you need to be able to log the error, so you know that it happened.&nbsp; That's where top-level &#8220;unhandled exception&#8220; events come into play: AppDomain.UnhandledException, Application.ThreadException, and HttpApplication.Error.</P>
+<P>For all the details&nbsp;go read <A href="http://msdn.microsoft.com/msdnmag/issues/04/06/NET/default.aspx">Jason Clark's article</A> in this month's MSDN Magazine.&nbsp; He does a great job of explaining how to properly handle exceptions.&nbsp; That's what inspired me to write this post.</P>
+<P>&nbsp;</P>

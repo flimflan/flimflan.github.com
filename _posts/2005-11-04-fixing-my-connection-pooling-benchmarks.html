@@ -1,0 +1,21 @@
+---
+title: Fixing my connection pooling benchmarks
+permalink: FixingMyConnectionPoolingBenchmarks.html
+layout: migrated
+date: 2005-11-04
+id: ad553aa7-c3f1-4394-b029-69b9b88af713
+published_at: 2005-11-04 11:12:58.234000000 -06:00
+tags: .NET
+
+---
+
+<P>The numbers in <A href="http://flimflan.com/blog/DoYouBelieveInConnectionPooling.aspx">my last post</A> were a little misleading (as you might expect from un-scientific homebrew benchmarks). I showed that ExplicitOpen (2.5 seconds) was slightly faster than ImplicitOpen (2.9 seconds), but both were significantly faster than NoConnectionPooling (7.5 seconds). The whole point of the test was to see how the performance of running 2 queries within a method could vary, based on different approaches. However, in order to get a larger sample size, I ran the methods within a loop for 1000 iterations. It was intended to just give me more test runs, but the loop actually had a side effect. When connection pooling was enabled (for ExplicitOpen and ImplicitOpen), the same connection was used for all 1000 iterations. I had only wanted the same connection to be used for the 2 queries within the methods. So when I turned connection pooling off, the dramatic difference wasn’t because running the 2 queries was much slower – it was because I was now making 2000 connections to the database instead of 1.</P>
+<P>If I wanted to compare the performance of running the 2 queries with connection pooling on and off, within a loop, I would need to make sure each iteration of the loop used a new connection in all 3 scenarios (ExplicitOpen, ImplicitOpen, NoConnectionPooling). <BR>An easy way to force a new connection is to change the connection string. I changed the signature of each of the methods to accept an integer argument:</P>
+<P><SPAN style="FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent"><SPAN style="FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent">static</SPAN> <SPAN style="FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent">void</SPAN> ExplicitOpen(<SPAN style="FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent">int</SPAN> iteration)<BR></SPAN></P>
+<P>I then added an Application Name property to the connection string; altering the application name for each iteration:</P>
+<P><SPAN style="FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent"><SPAN style="FONT-SIZE: 11px; COLOR: #666666; FONT-FAMILY: Courier New; BACKGROUND-COLOR: #e4e4e4">"data source=(local);initial catalog=issuevision;integrated security=true;application name=TestCP"</SPAN> <SPAN style="FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent">+</SPAN> iteration.ToString()<BR></SPAN></P>
+<P>The new results:</P>
+<P><SPAN style="FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Courier New; BACKGROUND-COLOR: transparent">ExplicitOpen 9.0<BR>ImplicitOpen 9.5<BR>NoConnectionPooling 7.6</SPAN></P>
+<P>These results show that ExplicitOpen is still faster than ImplicitOpen, but now NoConnectionPooling is much faster than the other 2. How can this be? Well, since none of the scenarios are reusing a connection across iterations, you gain an advantage by removing the connection pooling overhead by explicitly disabling it in the connection string.</P>
+<P>The original conclusion was correct (ExplicitOpen is slightly faster than ImplicitOpen), but it is difficult to measure the relative performance with connection pooling turned off. The results of running a single iteration of each method vary too widely to draw any conclusions -- you need the multiple iterations for things to average out.&nbsp;But once you introduce multiple iterations, you blur the effect of connection pooling. </P>
+<P>As a bonus, we can&nbsp;now conclude that if you know you are not going to re-use a connection (rare, unless each user of your application is given their own database login), it is better to turn off connection pooling explicitly.<BR></P>

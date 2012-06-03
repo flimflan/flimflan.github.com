@@ -1,0 +1,146 @@
+---
+title: The power of yield (return)
+permalink: ThePowerOfYieldreturn.html
+layout: migrated
+date: 2008-02-03
+id: 6bf33a2f-209e-4f1f-8e73-51e0e4ee2f77
+published_at: 2008-02-03 12:02:09.358625000 -06:00
+
+---
+
+<p>Yield is one of the coolest, yet underused, new .NET 2.0 features that you may not be familiar with. Yes, I'm talking about a 2.0 feature - even though 3.5 just came out, it is my experience that a large number of developers have still not embraced all that 2.0 gave us. Hopefully this article will help make this powerful, yet initially confusing, feature more approachable. <h2>Some background facts </h2> <p>When you "foreach" over an object (array, collection, etc), it must implement IEnumerable or IEnumerable&lt;T&gt; - the generic version which returns strongly typed objects (for the rest of this article, I'll just refer to IEnumerable).  <p>All arrays, and most collections (ArrayList, List&lt;T&gt;) implement IEnumerable, which is why you can "foreach" over them.  <p>If ALL you need to do to a collection is cycle through its members - you only need to reference it as an IEnumerable. That explains why the following code is perfectly valid: </p> <div class="wlWriterSmartContent" id="scid:57F11A72-B0E5-49c7-9094-E3A15BD5B5E7:2b7525b1-df35-4daa-90fa-57460b4fe534" style="padding-right: 0px; display: inline; padding-left: 0px; float: none; padding-bottom: 0px; margin: 0px; width: 1419px; padding-top: 0px"><pre style="background-color:White;;overflow: auto;"><div><!--
+
+Code highlighting produced by Actipro CodeHighlighter (freeware)
+http://www.CodeHighlighter.com/
+
+--><span style="color: #000000;">IEnumerable</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> numbers </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000FF;">new</span><span style="color: #000000;"> </span><span style="color: #0000FF;">int</span><span style="color: #000000;">[] { </span><span style="color: #800080;">1</span><span style="color: #000000;">, </span><span style="color: #800080;">2</span><span style="color: #000000;">, </span><span style="color: #800080;">3</span><span style="color: #000000;"> };
+</span><span style="color: #0000FF;">foreach</span><span style="color: #000000;"> (</span><span style="color: #0000FF;">int</span><span style="color: #000000;"> i </span><span style="color: #0000FF;">in</span><span style="color: #000000;"> numbers) { Console.WriteLine(i); } 
+</span></div></pre><!-- Code inserted with Steve Dunn's Windows Live Writer Code Formatter Plugin.  http://dunnhq.com --></div>
+<p>It is always better to depend on abstract types (interfaces, abstract base classes) rather than concrete types. This allows you to change the implementation of a method without impacting any of its callers. 
+<p>Consider this example where CallingMethod gets a set of numbers from MethodBeingCalled. It really doesn't care if it gets an array or a List or whatever. It just does a foreach over it, which means it only needs the functionality exposed by the IEnumerable interface. </p>
+<div class="wlWriterSmartContent" id="scid:57F11A72-B0E5-49c7-9094-E3A15BD5B5E7:9ec2ba9d-2df0-4af2-a0d0-cf92aeab21bd" style="padding-right: 0px; display: inline; padding-left: 0px; float: none; padding-bottom: 0px; margin: 0px; padding-top: 0px"><pre style="background-color:White;;overflow: auto;"><div><!--
+
+Code highlighting produced by Actipro CodeHighlighter (freeware)
+http://www.CodeHighlighter.com/
+
+--><span style="color: #0000FF;">public</span><span style="color: #000000;"> </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> CallingMethod()
+{
+    List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> numbers </span><span style="color: #000000;">=</span><span style="color: #000000;"> MethodBeingCalled();
+    </span><span style="color: #0000FF;">foreach</span><span style="color: #000000;"> (</span><span style="color: #0000FF;">int</span><span style="color: #000000;"> i </span><span style="color: #0000FF;">in</span><span style="color: #000000;"> numbers) { Console.WriteLine(i); }
+}
+
+</span><span style="color: #0000FF;">private</span><span style="color: #000000;"> List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> MethodBeingCalled()
+{
+    List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> numbers </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000FF;">new</span><span style="color: #000000;"> List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">();
+    numbers.AddRange(</span><span style="color: #0000FF;">new</span><span style="color: #000000;"> </span><span style="color: #0000FF;">int</span><span style="color: #000000;">[] { </span><span style="color: #800080;">1</span><span style="color: #000000;">, </span><span style="color: #800080;">2</span><span style="color: #000000;">, </span><span style="color: #800080;">3</span><span style="color: #000000;"> });
+    </span><span style="color: #0000FF;">return</span><span style="color: #000000;"> numbers;
+} 
+</span></div></pre><!-- Code inserted with Steve Dunn's Windows Live Writer Code Formatter Plugin.  http://dunnhq.com --></div>
+<p>
+<p>The problem with the current design is that the CallingMethod declares the list of numbers List&lt;int&gt;. That is a specific implementation detail. If CallingMethod needed to add more numbers to the list after it was returned from MethodBeingCalled, or if individual numbers were being accessed by their index, then it would make sense to declare it as a List&lt;T&gt; (or better, IList&lt;T&gt;). But it really only needs to cycle through the numbers in order. If MethodBeingCalled wanted to change its implementation to return an int[] instead, it would have to change its signature, and CallingMethod would also have to change. However, if CallingMethod had just declared its local variable as IEnumerable&lt;int&gt; (because that is the only functionality it truly depends on), then it would not have to change if MethodBeingCalled changes - as long as it still returns something that implements IEnumerable&lt;int&gt;. 
+<p>So what does foreach do? It asks the IEnumerable if it has any items. If so, it gets the next item and uses it within the loop. It then asks the IEnumerable again if it has more items, gets the next one, and so on, until there are no more items. The important thing to note here is that foreach never works with the entire collection all it once - it only deals with one item at a time. 
+<h2>Introducing yield </h2>
+<p>How can we use all of this information? If you have a method that returns a collection of data, and you can be sure that callers are only going to be interested in looping over each item in the collection, one at a time (which is very common), you can declare your method's return value as IEnumerable&lt;T&gt;. 
+<p>When you declare your method's return value as IEnumerable&lt;T&gt;, something magic happens: the C# compiler will now let you use the<b> yield</b> keyword within the body! So why does that matter? Because it allows you to take advantage of the way that foreach really works. Remember, foreach will just ask for one value at a time. When it does, it will call into your method - your method will run until it encounters a yield return statement. When it reaches a yield return statement, that value is immediately returned to the caller. In the next iteration of the caller's loop, it will ask again if there is another value, your method will start executing again, but this time<i> it will start on the line after the last yield statement that was run</i>. Yes, you read that right: execution alternates between the calling method and the method being called, all the way through the loop. This is completely different from the normal way that methods interact, where one method gives up control to another method, which doesn't return until it is completely finished executing. 
+<p>This has at least 2 very important implications for the method that returns the IEnumerable&lt;T&gt;:<br>1) It does not need to build up a big list of all of the items it plans to return, holding them all in memory at the same time. If the list of items is very large, holding them all in memory at once can be a significant burden. 
+<p>2) It does not necessarily need to do the work to produce all of the items in the list. If the caller breaks out of the foreach loop before the entire collection has been traversed - all of the work needed to produce the remaining items in the colleciton is avoided. Without using the yield keyword, you would have to build up the entire collection to return, even if the caller was only going to look at the first few items. 
+<h2>Demonstration </h2>
+<p>To illustrate the advantage of this approach, I included sample code at the bottom. You can create a new Console Application and paste this over the default Program.cs. 
+<p>A method, GetCombinations returns a collection of 2 numbers combined. The caller then loops through the collection, looking for a specific combination: "13". 
+<p>First, run it using GetCombinations. This is implemented the way most people would write a method that returns a collection, in .NET 1.1. The output willl look something like this (the indented output is from within GetCombinations): 
+<p><font size="1"><font face="Courier New"><b>BEFORE call to GetCombinations</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Beginning execution of GetCombinations<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 33<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 23<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 32<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 22<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 12<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 31<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 21<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 11<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ending execution of GetCombinations<br><b>AFTER call to GetCombinations</b><br>Checking 33<br>Checking 23<br>Checking 13<br>Found!<br>Elapsed: 00:00:<b>08.9931583</b></font></font> 
+<p>Now, comment out the line that calls GetCombinations, and uncomment the line that calls BetterGetCombinations. It is important to note that BetterGetCombinations uses the exact same algorithm as GetCombinations - given the same input, they will both return the exact same list of strings, in the same order (I've emphasized the lines that changed, in the sample code below). But since the caller is only looking for a specific combination, not all combinations need to be produced. Consider the output: 
+<p><font size="1"><font face="Courier New"><b>BEFORE call to GetCombinations</b><br><b>AFTER call to GetCombinations</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Beginning execution of BetterGetCombinations &lt;-- notice that BetterGetCombinations doesn't really start until the foreach loop - NOT when the method was first called! </font></font>
+<p><font size="1"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 33<br>Checking 33<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 23<br>Checking 23<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Producing 13<br>Checking 13<br>Found!<br>Elapsed: 00:00:<b>02.9976438</b></font></font> 
+<p><b>With the improved implementation that took advantage of the yield keyword, the program was able to finish its job in less than half the time!</b> It also used much less memory, as it never had to store all 9 strings in a collection. Now imagine the potential impact if GetCombinations returned a collection with thousands of entries!</p>
+<h2>Sample Code</h2>
+<p>Paste the code below over the default Program.cs in a new Console Application:</p>
+<div class="wlWriterSmartContent" id="scid:57F11A72-B0E5-49c7-9094-E3A15BD5B5E7:4014c03c-4e77-4dd6-a958-63b0e57df3a8" style="padding-right: 0px; display: inline; padding-left: 0px; float: none; padding-bottom: 0px; margin: 0px; padding-top: 0px"><pre style="background-color:White;;overflow: auto;"><div><!--
+
+Code highlighting produced by Actipro CodeHighlighter (freeware)
+http://www.CodeHighlighter.com/
+
+--><span style="color: #0000FF;">using</span><span style="color: #000000;"> System;
+</span><span style="color: #0000FF;">using</span><span style="color: #000000;"> System.Collections.Generic;
+</span><span style="color: #0000FF;">using</span><span style="color: #000000;"> System.Diagnostics;
+</span><span style="color: #0000FF;">using</span><span style="color: #000000;"> System.Threading;
+
+</span><span style="color: #0000FF;">namespace</span><span style="color: #000000;"> YieldDemo
+{
+    </span><span style="color: #0000FF;">class</span><span style="color: #000000;"> Program
+    {
+        </span><span style="color: #0000FF;">static</span><span style="color: #000000;"> </span><span style="color: #0000FF;">void</span><span style="color: #000000;"> Main()
+        {
+            Stopwatch timer </span><span style="color: #000000;">=</span><span style="color: #000000;"> Stopwatch.StartNew();
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">BEFORE call to GetCombinations</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">1) First try running using the GetCombinations that returns a List&lt;string&gt;</span><span style="color: #008000;">
+</span><span style="color: #000000;">            List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">string</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> combinations </span><span style="color: #000000;">=</span><span style="color: #000000;"> GetCombinations(</span><span style="color: #800080;">3</span><span style="color: #000000;">, </span><span style="color: #800080;">3</span><span style="color: #000000;">);
+
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">2) After observing the output, comment out the above line, uncomment the next line, and re-run
+
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">            IEnumerable&lt;string&gt; combinations = BetterGetCombinations(3, 3);</span><span style="color: #008000;">
+</span><span style="color: #000000;">
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">AFTER call to GetCombinations</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+
+            </span><span style="color: #0000FF;">foreach</span><span style="color: #000000;"> (</span><span style="color: #0000FF;">string</span><span style="color: #000000;"> combination </span><span style="color: #0000FF;">in</span><span style="color: #000000;"> combinations)
+            {
+                Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">Checking </span><span style="color: #800000;">&quot;</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> combination);
+                </span><span style="color: #0000FF;">if</span><span style="color: #000000;"> (combination </span><span style="color: #000000;">==</span><span style="color: #000000;"> </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">13</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">)
+                {
+                    Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">Found!</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+                    </span><span style="color: #0000FF;">break</span><span style="color: #000000;">;
+                }
+            }
+            timer.Stop();
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">Elapsed: </span><span style="color: #800000;">&quot;</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> timer.Elapsed);
+        }
+
+        </span><span style="color: #0000FF;">static</span><span style="color: #000000;"> List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">string</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> GetCombinations(</span><span style="color: #0000FF;">int</span><span style="color: #000000;"> left, </span><span style="color: #0000FF;">int</span><span style="color: #000000;"> right)
+        {
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">\tBeginning execution of GetCombinations</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+
+            List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">string</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> output </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000FF;">new</span><span style="color: #000000;"> List</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">string</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">();
+            </span><span style="color: #0000FF;">int</span><span style="color: #000000;"> currentLeft;
+            </span><span style="color: #0000FF;">int</span><span style="color: #000000;"> currentRight </span><span style="color: #000000;">=</span><span style="color: #000000;"> right;
+            </span><span style="color: #0000FF;">while</span><span style="color: #000000;"> (currentRight </span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> </span><span style="color: #800080;">0</span><span style="color: #000000;">)
+            {
+                currentLeft </span><span style="color: #000000;">=</span><span style="color: #000000;"> left;
+                </span><span style="color: #0000FF;">while</span><span style="color: #000000;"> (currentLeft </span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> </span><span style="color: #800080;">0</span><span style="color: #000000;">)
+                {
+                    </span><span style="color: #0000FF;">string</span><span style="color: #000000;"> newCombinationToProduce </span><span style="color: #000000;">=</span><span style="color: #000000;"> currentLeft.ToString() </span><span style="color: #000000;">+</span><span style="color: #000000;"> currentRight;
+                    Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">\tProducing </span><span style="color: #800000;">&quot;</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> newCombinationToProduce);
+                    Thread.Sleep(</span><span style="color: #800080;">1000</span><span style="color: #000000;">); </span><span style="color: #008000;">//</span><span style="color: #008000;"> simulate expensive process to produce a combination</span><span style="color: #008000;">
+</span><span style="color: #000000;">                    output.Add(newCombinationToProduce);
+                    </span><span style="color: #000000;">--</span><span style="color: #000000;">currentLeft;
+                }
+                </span><span style="color: #000000;">--</span><span style="color: #000000;">currentRight;
+            }
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">\tEnding execution of GetCombinations</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+
+            </span><span style="color: #0000FF;">return</span><span style="color: #000000;"> output;
+        }
+
+        </span><span style="color: #0000FF;">static</span><span style="color: #000000;"> IEnumerable</span><span style="color: #000000;">&lt;</span><span style="color: #0000FF;">string</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> BetterGetCombinations(</span><span style="color: #0000FF;">int</span><span style="color: #000000;"> left, </span><span style="color: #0000FF;">int</span><span style="color: #000000;"> right)
+        {
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">\tBeginning execution of BetterGetCombinations</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> NOTE The local List is not necessary in this implementation</span><span style="color: #008000;">
+</span><span style="color: #000000;">            </span><span style="color: #0000FF;">int</span><span style="color: #000000;"> currentLeft;
+            </span><span style="color: #0000FF;">int</span><span style="color: #000000;"> currentRight </span><span style="color: #000000;">=</span><span style="color: #000000;"> right;
+            </span><span style="color: #0000FF;">while</span><span style="color: #000000;"> (currentRight </span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> </span><span style="color: #800080;">0</span><span style="color: #000000;">)
+            {
+                currentLeft </span><span style="color: #000000;">=</span><span style="color: #000000;"> left;
+                </span><span style="color: #0000FF;">while</span><span style="color: #000000;"> (currentLeft </span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> </span><span style="color: #800080;">0</span><span style="color: #000000;">)
+                {
+                    </span><span style="color: #0000FF;">string</span><span style="color: #000000;"> newCombinationToProduce </span><span style="color: #000000;">=</span><span style="color: #000000;"> currentLeft.ToString() </span><span style="color: #000000;">+</span><span style="color: #000000;"> currentRight;
+                    Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">\tProducing </span><span style="color: #800000;">&quot;</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> newCombinationToProduce);
+                    Thread.Sleep(</span><span style="color: #800080;">1000</span><span style="color: #000000;">); </span><span style="color: #008000;">//</span><span style="color: #008000;"> simulate expensive process to produce a combination</span><span style="color: #008000;">
+</span><span style="color: #000000;">                    </span><span style="color: #0000FF;">yield</span><span style="color: #000000;"> </span><span style="color: #0000FF;">return</span><span style="color: #000000;"> newCombinationToProduce; </span><span style="color: #008000;">//</span><span style="color: #008000;"> insteading of adding to a list, just return the value</span><span style="color: #008000;">
+</span><span style="color: #000000;">                    </span><span style="color: #000000;">--</span><span style="color: #000000;">currentLeft;
+                }
+                </span><span style="color: #000000;">--</span><span style="color: #000000;">currentRight;
+            }
+            Console.WriteLine(</span><span style="color: #800000;">&quot;</span><span style="color: #800000;">\tEnding execution of BetterGetCombinations</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">);
+        }
+    }
+}</span></div></pre><!-- Code inserted with Steve Dunn's Windows Live Writer Code Formatter Plugin.  http://dunnhq.com --></div>

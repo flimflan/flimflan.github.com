@@ -1,0 +1,84 @@
+---
+title: File size FormatProvider
+permalink: FileSizeFormatProvider.html
+layout: migrated
+date: 2006-08-25
+id: 37fcbc7b-2af7-4002-96df-ef7ea34eb697
+published_at: 2006-08-25 13:29:16.253874300 -05:00
+
+---
+
+<p>Please stop me if this functionality already exists somewhere in the Framework. I did some searching and came up empty. If it exists, let me know and I'll delete this post and we can all have a little chuckle at my expense.</p> <p>I need to be able to display file sizes to a user. The files can be anywhere from bytes to gigabytes (no terabytes, yet). If I always display them in bytes - the numbers are so big, its hard to read. If I display them in megabytes, you lose a lot of granularity, etc. I want to display the file sizes in units that make sense depending on the magnitude. I need to format the numbers in a lot of different places, so I wasn't happy with repeatedly doing the necessary division everywhere. </p> <p>Instead I created a simple ICustomFormatter named FileSizeFormatProvider. I created just enough functionality to meet my needs. Potential improvements would be to allow you to specify the initial units (currently assumes bytes), and also specify the output units (always show in MB, regardless of the size). These settings could be set through properties on the provider, or through the format specification string.</p> <p>Thanks to <a href="http://codebetter.com/blogs/david.hayden/archive/2006/03/12/140732.aspx">David Hayden and his post on custom formatting</a>&nbsp;that inspired my solution. Hopefully by posting this code I can save someone else the embarrassment of having to waste time on something so silly.</p> <p>This program:</p> <div style="font-size: 10pt; background: white; color: black; font-family: consolas"> <p style="margin: 0px"><span style="color: blue">class</span> <span style="color: teal">Program</span></p> <p style="margin: 0px">{</p> <p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">static</span> <span style="color: blue">void</span> Main(<span style="color: blue">string</span>[] args)</p> <p style="margin: 0px">&nbsp; &nbsp; {</p> <p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal">Console</span>.WriteLine(<span style="color: teal">String</span>.Format(<span style="color: blue">new</span> <span style="color: teal">FileSizeFormatProvider</span>(), <span style="color: maroon">"File size: {0:fs}"</span>, 100));</p> <p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal">Console</span>.WriteLine(<span style="color: teal">String</span>.Format(<span style="color: blue">new</span> <span style="color: teal">FileSizeFormatProvider</span>(), <span style="color: maroon">"File size: {0:fs}"</span>, 2000));</p> <p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal">Console</span>.WriteLine(<span style="color: teal">String</span>.Format(<span style="color: blue">new</span> <span style="color: teal">FileSizeFormatProvider</span>(), <span style="color: maroon">"File size: {0:fs}"</span>, 30000000));</p> <p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal">Console</span>.WriteLine(<span style="color: teal">String</span>.Format(<span style="color: blue">new</span> <span style="color: teal">FileSizeFormatProvider</span>(), <span style="color: maroon">"File size: {0:fs}"</span>, 400000000000));</p> <p style="margin: 0px">&nbsp; &nbsp; }</p> <p style="margin: 0px">}</p></div> <p>displays this output:</p> <p><pre>File size: 100.00 B
+File size: 1.95kB
+File size: 28.61MB
+File size: 372.53GB</pre>
+<p></p>
+<p>using this class:</p>
+<div style="font-size: 10pt; background: white; color: black; font-family: consolas">
+<p style="margin: 0px"><span style="color: blue">public</span> <span style="color: blue">class</span> <span style="color: teal">FileSizeFormatProvider</span> : <span style="color: teal">IFormatProvider</span>, <span style="color: teal">ICustomFormatter</span></p>
+<p style="margin: 0px">{</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">public</span> <span style="color: blue">object</span> GetFormat(<span style="color: teal">Type</span> formatType)</p>
+<p style="margin: 0px">&nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">if</span> (formatType == <span style="color: blue">typeof</span>(<span style="color: teal">ICustomFormatter</span>)) <span style="color: blue">return</span> <span style="color: blue">this</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> <span style="color: blue">null</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">private</span> <span style="color: blue">const</span> <span style="color: blue">string</span> fileSizeFormat = <span style="color: maroon">"fs"</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">private</span> <span style="color: blue">const</span> <span style="color: teal">Decimal</span> OneKiloByte = 1024M;</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">private</span> <span style="color: blue">const</span> <span style="color: teal">Decimal</span> OneMegaByte = OneKiloByte * 1024M;</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">private</span> <span style="color: blue">const</span> <span style="color: teal">Decimal</span> OneGigaByte = OneMegaByte * 1024M;</p>
+<p style="margin: 0px">&nbsp;</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">public</span> <span style="color: blue">string</span> Format(<span style="color: blue">string</span> format, <span style="color: blue">object</span> arg, <span style="color: teal">IFormatProvider</span> formatProvider)</p>
+<p style="margin: 0px">&nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">if</span> (format == <span style="color: blue">null</span> || !format.StartsWith(fileSizeFormat))</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> defaultFormat(format, arg, formatProvider);</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">if</span> (arg <span style="color: blue">is</span> <span style="color: blue">string</span>)</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> defaultFormat(format, arg, formatProvider);</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal">Decimal</span> size;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">try</span></p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size = <span style="color: teal">Convert</span>.ToDecimal(arg);</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">catch</span> (<span style="color: teal">InvalidCastException</span>)</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> defaultFormat(format, arg, formatProvider);</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">string</span> suffix;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">if</span> (size &gt; OneGigaByte)</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size /= OneGigaByte;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suffix = <span style="color: maroon">"GB"</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">else</span> <span style="color: blue">if</span> (size &gt; OneMegaByte)</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size /= OneMegaByte;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suffix = <span style="color: maroon">"MB"</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">else</span> <span style="color: blue">if</span> (size &gt; OneKiloByte)</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size /= OneKiloByte;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suffix = <span style="color: maroon">"kB"</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">else</span></p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suffix = <span style="color: maroon">" B"</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">string</span> precision = format.Substring(2);</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">if</span> (<span style="color: teal">String</span>.IsNullOrEmpty(precision)) precision = <span style="color: maroon">"2"</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> <span style="color: teal">String</span>.Format(<span style="color: maroon">"{0:N"</span> + precision + <span style="color: maroon">"}{1}"</span>, size, suffix);</p>
+<p style="margin: 0px">&nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp;</p>
+<p style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">private</span> <span style="color: blue">static</span> <span style="color: blue">string</span> defaultFormat(<span style="color: blue">string</span> format, <span style="color: blue">object</span> arg, <span style="color: teal">IFormatProvider</span> formatProvider)</p>
+<p style="margin: 0px">&nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal">IFormattable</span> formattableArg = arg <span style="color: blue">as</span> <span style="color: teal">IFormattable</span>;</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">if</span> (formattableArg != <span style="color: blue">null</span>)</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> formattableArg.ToString(format, formatProvider);</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue">return</span> arg.ToString();</p>
+<p style="margin: 0px">&nbsp; &nbsp; }</p>
+<p style="margin: 0px">}</p></div>

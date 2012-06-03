@@ -1,0 +1,16 @@
+---
+title: Changes to ASP.NET 2.0 from Beta 2 to RTM may address some common complaints
+permalink: ChangesToASPNET20FromBeta2ToRTMMayAddressSomeCommonComplaints.html
+layout: migrated
+date: 2005-08-26
+id: c85f3705-9ea9-423c-aa3f-f39e918957c2
+published_at: 2005-08-26 09:15:10.077408200 -05:00
+
+---
+
+<P><A href="http://msdn.microsoft.com/asp.net/beta2/beta2rtmchanges/default.aspx">An article</A> has recently been posted on MSDN about the changes between Beta 2 and RTM for ASP.NET 2.0. There are a couple things I thought were notable, that might address some of the complaints I've heard.</P>
+<P>The new @CodeFileBaseClass directive looks to address the concern over losing access to protected properties you may have defined in your base class that inherits from Page.&nbsp; <A href="http://www.jeffreypalermo.com/">Jeffrey Palermo</A> discused this annoyance in his <A href="http://www.dotnetrocks.com/default.aspx?showID=126">.NET Rocks! appearance</A>.</P>
+<P>"Refresh assembly references command" seems to be a step towards the resolving the stale dependant binaries issue <A href="http://www.geekswithblogs.com/sbellware/archive/2005/08/07/49518.aspx">Scott Bellware ranted about</A>.&nbsp;I say "a step" because it isn't clear how this is implemented.&nbsp; If it is just an IDE menu item, then it won't do you much good when using an automated build system outside of Visual Studio.</P>
+<P>You can now exclude files from a web project build.&nbsp; Again, I'm not sure how this is implemented, so I can't say it solves the problem completely.&nbsp; This was one of my own pet peeves with the "project file-less" approach to web projects.&nbsp; I want to be able to store other files in a web folder without it necessarily being part of the project.&nbsp; This could be great if they solved it with something like... a web project file.&nbsp; It could be uninteresting if it depends on IDE magic that cannot be easily reproduced outside of the tool. The more I think of it, it probably has to be some kind of persisted configuration, since the deployed project needs know which files to exclude when it performs automatic compilation.</P>
+<P>These types of changes are a great endorsement of the beta release process. We are that much closer to having a final product that we can live with until the next release.</P>
+<P><STRONG><FONT color=#ff0000>Update:</FONT></STRONG> Apparently this is "old" news.&nbsp; Scott Guthrie explained most of this over on his blog during the last couple weeks (check out <A href="http://weblogs.asp.net/scottgu/archive/2005/08.aspx">his August 2005 posts</A>). I blame my newsreader which doesn't seem to be picking up his feed properly.</P>

@@ -1,0 +1,12 @@
+---
+title: Temporary Projects in Visual Studio 2005
+permalink: TemporaryProjectsInVisualStudio2005.html
+layout: migrated
+date: 2006-03-23
+id: 92b02451-3dab-40fc-9616-093d54131502
+published_at: 2006-03-23 22:00:28.078125000 -06:00
+tags: .NET
+
+---
+
+Jeff Key created a great little tool called <a href="http://www.sliver.com/dotnet/SnippetCompiler/">Snippet Compiler</a>, which allowed you to experiment with some throwaway .NET code. This is useful for doing a quick technical proof of concept (a &quot;spike&quot; in agile practitioner terms). Before Snippet Compiler, I used to fill my Visual Studio Projects folder with a bunch of junk projects that I intended to delete <span style="font-style: italic;">eventually</span>.<br />However, with Visual Studio 2005, I think Snippet Compiler's days are numbered (no offense Mr. Key). VS2005 supports a seemingly little known feature that I'll call &quot;temporary projects&quot;. It allows you to create and work on a new project without saving it to disk. You can work on the project as long as you want. When you close the project, you have the option to save it, but more importantly, you have the option to just discard it (this should all sound familiar to fellow VB6 converts). If you use the new <a href="http://webproject.scottgu.com/">Web Application Project</a> model, you can even use this feature to create throwaway websites.<br /><br />I use this feature all the time while trying to brush up on on the new functionality in the 2.0 framework.<br /><br />To enable temporary projects:<br /><br />1) In Visual Studio 2005, go to the Tools | Options... menu<br />2) Go to the Projects and Solutions node<br />3) Uncheck &quot;Save new projects when created&quot;

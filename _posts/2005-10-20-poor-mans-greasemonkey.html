@@ -1,0 +1,14 @@
+---
+title: Poor man's Greasemonkey
+permalink: PoorMansGreasemonkey.html
+layout: migrated
+date: 2005-10-20
+id: 7f7771d2-3592-416a-800e-a72f3a1c510a
+published_at: 2005-10-20 22:46:25.468750000 -05:00
+
+---
+
+<P>I do most of my blog reading at night, relaxing on my recliner with my <A href="http://www.tabletpcbuzz.com/features/article.asp?ID=21">Toshiba m200 Tablet PC</A> in portrait mode. The 1400x1050 resolution 12" screen is usually perfect for the up-close usage mode of a tablet, but my aggregator of choice, <A href="http://www.newsgator.com">NewsGator Online</A>, made the usability faux pas of hardcoding the blog content font to a specific point size. A very tiny point size. Since it is hardcoded in their style, they effectively disable the View|Text Size feature of Internet Explorer. If i were using Firefox, as I do on most of my other machines, I could use something like <A href="http://greasemonkey.mozdev.org/">Greasemonkey </A>to change the style that NewsGator uses. Unfortunately, <A href="http://www.mozilla.org/products/firefox/">Firefox</A>'s input controls were not coded to comply with accessibility standards on the Windows OS, so the Tablet Input Panel doesn't work (maybe they'll fix it in 1.5?).</P>
+<P>My solution is to use the previously unnoticed (by me) "Accessibility..." button on the General tab of Tools|Internet Options.... Check the box that says "Format documents using my stylesheet" and then specify a css file on your local filesystem. My custom css file contains the following entry:</P>.postdiv {<BR>&nbsp;font-size:2em;<BR>}
+<P>where "postdiv" is the name of the class that NewsGator Online applies to the contents of a post. Now the text shows up twice as big, and is much more readable.</P>
+<P>As an added convenience, I also mapped one of the hardware pen buttons at the top of my tablet to the "Home" key, so that I can quickly return to the top of the page after reading a long string of posts in a category. This lets me avoid a bunch of pen dragging scrolling to get back to the list of blogs at the top left of the page.</P>

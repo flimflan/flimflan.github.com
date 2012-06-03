@@ -1,0 +1,14 @@
+---
+title: Lucky me, my very own bug
+permalink: LuckyMeMyVeryOwnBug.html
+layout: migrated
+date: 2004-08-16
+id: 808e864e-2e5d-446d-a9a4-6aa130fda636
+published_at: 2004-08-16 18:13:00.000000000 -05:00
+
+---
+
+<P>Maybe they'll name it &#8220;the Flanagan Flaw&#8221; or the &#8220;Joshua Distortion&#8220;.&nbsp; Ok, back to reality, more likely something like &#8220;Bug #56279&#8221;.</P>
+<P>There I was, minding my own business, trying to create a WinForms client that would enable drag and drop uploads to my photo album website.&nbsp; I innocently created an owner drawn listbox to show a thumbnail of each image waiting to be uploaded, along with some relevant details (caption, date taken, etc).&nbsp; I also made the listbox auto-resize with the form (using the nifty Anchor feature) so that the full text of long captions could be read.&nbsp; All was going according to plan, that is, until I tried to run the application.&nbsp; That's when I noticed the very ugly (lack of) repainting of the listbox items.&nbsp; The currently selected item would redraw exactly as expected, but all of the other items just looked like a bunch of black freckles.</P>
+<P>Surely I was missing something.&nbsp; I must have been missing that one line of code that would fix it all, and everyone would laugh at me and question my <A href="http://www.imdb.com/title/tt0374900/quotes">computer hacker skills for not noticing it, and then I'd never get a girl</A> (other than my wife, of course).&nbsp; Despite the threat of humiliation, I posted to the newsgroups to find the solution.&nbsp; Within a day, there was a response from Microsoft support.&nbsp; It wasn't the &#8220;read the freakin manual&#8220; response I was hoping for.&nbsp; It was more along the lines of &#8220;<A href="http://groups.google.com/groups?hl=en&amp;lr=&amp;ie=UTF-8&amp;safe=off&amp;threadm=uFWnahCgEHA.384%40TK2MSFTNGP10.phx.gbl&amp;rnum=1&amp;prev=/groups%3Fq%3DOwnerDraw%2Blistbox%2Bdoes%2Bnot%2Bredraw%2Bcorrectly%2Bwhen%2Bresized%26hl%3Den%26lr%3D%26ie%3DUTF-8%26safe%3Doff%26selm%3DuFWnahCgEHA.384%2540TK2MSFTNGP10.phx.gbl%26rnum%3D1">hey, you're right, I'll notify the appropriate group</A>&#8221;.</P>
+<P>Which brings us to now.&nbsp; With that sour feeling, I've decided to make lemonade, and claim ownership to my very own bug.&nbsp; Just for good measure,&nbsp;I also submitted it to the <A href="http://lab.msdn.microsoft.com/productfeedback/default.aspx">Product Feedback center</A> as an <A href="http://lab.msdn.microsoft.com/ProductFeedback/viewfeedback.aspx?feedbackid=4436eeab-d425-460b-8ecf-83064988fca1">open bug in VS2005</A>. Here's hoping they give it a good name.</P>

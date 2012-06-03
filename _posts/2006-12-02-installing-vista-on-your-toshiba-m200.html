@@ -1,0 +1,76 @@
+---
+title: Installing Vista on your Toshiba M200
+permalink: InstallingVistaOnYourToshibaM200.html
+layout: migrated
+date: 2006-12-02
+id: c999fbb2-909a-426c-aa90-346a1175a1a6
+published_at: 2006-12-02 11:36:37.785000000 -06:00
+tags: TabletPC
+
+---
+
+<p>I wanted to install Windows Vista on my Toshiba M200 TabletPC. However, I have no optical or floppy drive, making it difficult to install a new OS the usual way (boot from CD or install boot disk). These instructions should apply to anyone that has a computer without an optical drive. You will need a&nbsp;second computer running Windows to act as your &quot;technician computer&quot;. This is the machine where you will do most of the work. Throughout this guide I will refer to the two computers you are working with as the &quot;technician computer&quot; and the &quot;target computer&quot;. The two computers must be on the same network.</p>
+<h2>The Easy Way</h2>
+<p>If you meet all of the following requirements, the process is much simpler:</p>
+<ul>
+    <li>Your target computer (in my case, the M200) is already running an older version of Windows  </li>
+    <li>You do not need to re-partition or re-format your hard drive. You are okay with letting Vista just create a new Windows folder (renaming your current Windows folder to Windows.old), and keeping the rest of your hard drive in tact.</li>
+</ul>
+<p>If that fits your situation, follow these instructions:</p>
+<ol>
+    <li>If you have a Vista DVD, and a DVD drive on your technician computer, put the DVD in the drive. If you have an .ISO image of the Vista DVD, mount the .ISO using a program like VirtualCD or Nero ImageDrive.  </li>
+    <li>Use&nbsp;Windows Explorer to share the drive with your network (right-click, Sharing and Security, Share this drive).  </li>
+    <li>Boot into the existing Windows on the target computer. Map a drive to the share on the technician computer (Windows Explorer, Tools menu, Map Network Drive). Map drive Y: to \\othercomputer\sharename  </li>
+    <li>On the target computer, run setup.exe from the network drive (Y:\setup.exe).</li>
+</ol>
+<p>The Vista installation will begin. The only limitation is that you cannot re-format the hard drive on the target computer. It&nbsp;says you need to boot from the installation media if you want to change the target&nbsp;hard drive. Since we don't have a CD\DVD drive, things get more complicated. If you are like me and wanted to start from a clean slate - and have a lot more time to spare ;) - read on. Otherwise, enjoy your new Vista computer.</p>
+<h2>The Hard Way</h2>
+<p>If you insist on reformatting your hard drive, you will need to boot the target computer using network PXE. </p>
+<h2>What you will need</h2>
+<ul>
+    <li>A computer that supports PXE booting from the network (the Toshiba M200 does). Check your BIOS boot precedence options.  </li>
+    <li>Everything in the &quot;what you will need section&quot; of <a href="http://home.allegiance.tv/~joem298/">PXE Booting your M200 to DOS using a Windows Server</a>  </li>
+    <li>The <a href="http://www.microsoft.com/downloads/details.aspx?familyid=c7d4bc6d-15f3-4284-9123-679830d629f2&amp;displaylang=en">Windows Automated Installation Kit (WAIK)</a><span style="color: rgb(0, 0, 255); font-weight: bold;"> UPDATE:</span> The WAIK download link is back - thanks for the note Miguel.<br /></li>
+    <li><a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=6D58729D-DFA8-40BF-AFAF-20BCB7F01CD1&amp;displaylang=en">Microsoft Virtual PC 2004</a> (or&nbsp;access to a&nbsp;computer already running Windows Vista)</li>
+</ul>
+<h2>Setup your PXE server</h2>
+<p>Setting up a PXE server using Windows XP (and probably other flavors of Windows - I only tried XP) is surprisingly simple. Just follow the instructions (up through step 13)&nbsp;from <a href="http://home.allegiance.tv/~joem298/">PXE Booting your M200 to DOS using a Windows Server</a>. Before proceeding with the Vista install, I highly recommend following all of the steps on that page to boot&nbsp;your computer to DOS. This will verify that you can successfully deliver a PXE boot image to your target computer. Also, I advise you to use the msnet bootdisk image as mentioned in the article&nbsp;so that you can verify connectivity to the rest of your network. You will want to make sure that you can connect to a share on your technician computer from your target computer (currently running DOS). One part I stumbled on is that DOS does not let you provide a username\password when connecting to a share with &quot;NET USE&quot;. You need to use the &quot;Logon&quot; feature when the network is first configured at boot. Use a valid username\password that exists on the&nbsp;technician computer. Now when you map a share with NET USE, it will pass those credentials and grant you access.</p>
+<p><span style="color: rgb(0, 0, 255); font-weight: bold;">UPDATE:</span> Some TFTPD32 users are reporting that they need to make sure the &quot;PXE compatibility&quot; option is selected to get the process to work. Thanks to Jonathan Payan for the suggestion. It worked successfully for me without enabling that option, but if you are having trouble, it is worth trying.<br /></p>
+<p>Unfortunately, you cannot run the Vista install from DOS. If that were the case, you would simply have to share a folder (or drive) on your technician computer containing the Vista install, map a drive to it from the target computer, and run setup.exe. Instead, invoking Vista's setup.exe will give you an error message that it cannot run from DOS.</p>
+<h2>Running Windows PE 2.0</h2>
+<p>The solution is to boot your target computer into Windows PE 2.0, which is&nbsp;the Vista equivalent of a DOS boot disk (with MUCH more capabilities). You cannot download Windows PE 2.0 (that I know of), so you need to create your own PE image using the <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=c7d4bc6d-15f3-4284-9123-679830d629f2&amp;DisplayLang=en">Windows Automated Installation Kit (WAIK)</a>. Download the image at that link, rename the .img file to .iso, and either mount it using VirtualCD, some other ISO disk mounter, or burn it to a CD. Once you can read the disk image, run the setup to install WAIK on your technician computer.</p>
+<p>Unfortunately, one of the steps to create a version of Windows PE 2.0 that can be booted from the network must be performed on a computer already running Windows Vista (or PE 2.0). If you have access to such a machine, you can skip ahead to &quot;Creating a Windows PE 2.0 PXE Installation&quot;. Otherwise, use the following steps to get a minimalist Windows PE 2.0 up and running:</p>
+<ol>
+    <li>Download and install Microsoft Virtual PC 2004. Create a new virtual machine with 512MB RAM. The hard drive size does not matter, as it will not be used.  </li>
+    <li>On your technician computer (with WAIK installed), run the &quot;Windows PE Tools Command Prompt&quot; from your start menu.  </li>
+    <li>Enter the following commands:</li>
+</ol>
+<code>copype x86 c:\winpe <br />oscdimg -n -bc:\winpe\etfsboot.com c:\winpe\ISO c:\winpe\winpe.iso</code>
+<p>You now have a bootable Windows PE 2.0 CD ISO image. Start your new virtual machine, choose &quot;Capture ISO image&quot; from the CD menu, and select the c:\winpe\winpe.iso that you just created. It will boot into Windows PE 2.0, which you can use to run BCEDIT in Step 2 of the next section.</p>
+<h2>Creating a Windows PE 2.0 PXE Installation</h2>
+<p><span style="color: rgb(0, 0, 255); font-weight: bold;">UPDATE:</span> Apparently this mix between the Microsoft documentation and my documentation has confused a number of people, and they are ending up with invalid BCD files. I<a href="http://flimflan.com/blog/DeployAWinPE20ImageUsingPXEAndTheWAIK.aspx"> have written a new post</a> that explicitly shows the commands I entered. Hopefully this will help clarify which steps people are doing incorrectly. After following the steps in <a href="http://flimflan.com/blog/DeployAWinPE20ImageUsingPXEAndTheWAIK.aspx">Deploy a WinPE 2.0 image using PXE and the WAIK</a>, you can jump back here and continue with the steps in &quot;Running the Install&quot;.<br /></p>
+<p>Open the &quot;Windows Automated Installation Kit User's Guide&quot; help file that has been added to your start menu. Find the article &quot;Walkthrough: Deploy an Image by using PXE&quot; (switch to the Index tab, type PXE, and select the first article). Follow each of the steps in that article, with the following modifications/clarifications:</p>
+<p>Step 1 - 4: You do not need to map a drive to your TFPT directory, since it is on your local system (it is the tftpboot folder created in step 2 of the M200 article mentioned above). Any time the WAIK article refers to Y:\, just substitute your tftpboot folder.</p>
+<p>Step 1 - 5: The first command (cd \temp\Windows\Boot\PXE) seems to be an extraneous typo. Ignore it. Just proceed with the command to copy the files from the boot\pxe folder.</p>
+<p>Step 2 - *: These are the steps that you need to run from your other Vista computer, or the Windows PE Virtual Machine. Not being familiar with the BCDEDIT syntax, these instructions confused me a bit. When I read the commands with braces in them (ex: {ramdiskoptions}), I thought I needed to substitute my appropriate values. Of course, not knowing what I was doing, I had no idea what values to substitute, so was a little stumped. It finally dawned on me that they weren't telling me to substitute my own values - they wanted me to literally type those characters: {ramdiskoptions}. Apparently, in BCDedit, you create nodes with names specified with braces.</p>
+<p>Step 2 - 3: I skipped this step, as it is optional, and I wont be attaching a debugger during boot.<br /></p>
+<p>Step 2 - 4: Now, I just told you that when you see braces, you should enter it literally and not substitute a different value. Except for this step ;). For these commands, wherever you see {guid1}, you should substitute the guid (with surrounding braces) that was returned from the first command in 2-4. The command prompt copy/paste feature comes in really handy here (I wouldn't recommend hand typing the guid repeatedly - if you get it wrong, who knows what will happen).</p>
+<p>Step 2 - 5: If you skipped the optional step 2-3 (as I did), you can ignore the &quot;/inherit {dbgsettings}&quot; at the end of the first line. Also, the last line has a typo - they forgot to include the name of the node you are editing. It should look like this:</p>
+<p><font face="Courier New">Bcdedit -store c:\BCD -set {bootmgr} displayorder {guid1}</font> (where {guid1} should be replaced with your own guid, as previously mentioned)</p>
+<p>Step 2 - 6: You need to copy the BCD file you just created to the tftpboot\boot folder on your technician computer. One way is to share the tftpboot\boot folder, give write permissions to a user, map a drive to that share from your Vista/PE virtual machine, and copy the BCD file to the mapped drive.</p>
+<p>Step 2 - 7: You do not need WDSNBP.COM. Instead, you can have your PXE server provide PXEBOOT.COM. Start tftpd32.exe and click on the DHCP tab. Change the &quot;Boot file&quot; from &quot;pxelinux.0&quot; (assuming you followed the instructions to boot to DOS)&nbsp;to &quot;boot\pxeboot.com&quot; (assuming you followed the instructions to copy the Vista PXE files to a boot subfolder).</p>
+<h2>Running the Install</h2>
+<p>Finally, boot your target computer using PXE. Now, instead of downloading and running the DOS boot disk, it should download and run pxeboot.com. Press F12 when prompted to boot from the network. Your target computer should now boot into Windows PE. </p>
+<p>1) If you haven't yet, you need to create a share on your technician computer that contains the Vista installation media. You can copy the files from a DVD to local folder and share the folder, or just share your DVD drive like I did.</p>
+<p>2) From the target computer (running Windows PE), map a drive to your new share:</p>
+<p><font face="Courier New">NET USE y: \\servername\sharename</font></p>
+<p>When prompted, provide a username\password that is valid on the technician computer.</p>
+<p>3) Run Y:\setup.exe to begin the Vista installation. You can safely turn off your PXE server (tftpd32.exe).</p>
+<h2>Improving the M200 Vista Experience</h2>
+<p>When my Vista installation completed on my M200, it only had a standard VGA driver. I downloaded and installed the NVIDIA Windows XP driver for the M200 from the Toshiba support site to get back to the tablet's native resolution.</p>
+<p><span style="color: rgb(0, 0, 255); font-weight: bold;">UPDATE:</span> Thanks to a comment from DrTigerlilly, I now have working screen rotation on my M200. The trick is to install some packages intended for the M400. Go to the <a href="http://www.csdsupport.toshiba.com/tais/csd/support/windows_vista/vista_beta.cgi?lsAction=list_files&amp;model_id=10">Toshiba Vista support page</a>, click on Portege M400, then download and install the following 2 packages: </p>
+<ul>
+    <li>Utility: driver_toshiba_value_added_package_v1.0.3.zip</li>
+    <li>Buttons: driver_tabletpc_extension_v1.0.0.1.zip</li>
+</ul>
+<p>&nbsp;</p>

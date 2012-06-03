@@ -1,0 +1,46 @@
+---
+title: Deploy a WinPE 2.0 image using PXE and the WAIK
+permalink: DeployAWinPE20ImageUsingPXEAndTheWAIK.html
+layout: migrated
+date: 2007-01-07
+id: 8824c98e-c8ad-497b-bae2-e45f21c805a5
+published_at: 2007-01-07 15:38:20.011000000 -06:00
+tags: TabletPC
+
+---
+
+This post is a follow-up to my previous post on <a href="http://flimflan.com/blog/InstallingVistaOnYourToshibaM200.aspx">Installing Vista on your Toshiba M200</a>. It does not stand on its own, so please go read that post first to get some background. I've received more hits and questions about that post than any other. Unfortunately, I am neither a Vista, WinPE, PXE, WAIK, nor BCDEDIT expert. I copied the commands from the Microsoft documentation, then did a bunch of trial-and-error troubleshooting because of the errors in that documentation, and was lucky enough to get it to work. I documented the corrections I made in my article so that others could overcome the problems, and skip the trial-and-error step. But apparently, my instructions weren't much better, people didn't follow them close enough, or some other environmental issue is interfering. Since I cannot possibly give one-on-one support for everyone struggling through this process, I figured a second stab at documenting my steps might be helpful. This time, instead of documenting where to alter the Microsoft instructions, I just document each step exactly as I performed them - mostly copied verbatim from the WAIK User's Guide. The most commonly reported error people are seeing is:<br />File: \boot\BCD <br />Status: 0xc0000022 <br />Info: An error occured while attempting to read the boot configuration data <br /><br />That means people had trouble with the BCDEDIT steps, which is not surprising, since that is the part of the documentation with the most mistakes.<br /><br />So here are the command-line commands as I entered them, to create a working PXE boot with a valid BCD file. My instructions involve a technician computer running WinXP, which also serves as my TFTP server using tftpd32.exe. I also use VirtualPC on the technician computer to run WinPE 2.0 (see the previous article on how to create this VirtualPC). Step 1 and Step 2 correspond the the steps in the WAIK User's Guide article mentioned in the previous post.<br /><br />Step 1 - Run these commands from the XP technician computer. My TFTP server is installed at c:\apps\tftpboot. Make sure you substitute the appropriate path for your environment.<br /><br />Click Start, point to Programs, point to Windows AIK, and then click Windows PE Tools Command Prompt<br /><br />Enter the following commands at the command prompt. Each bulleted item is a single command and should be typed on one line (even if it wraps to a new line in your web browser).<br /><br />
+<ul>
+    <li><span style="font-family: 'courier new',courier;">copype x86&nbsp; c:\winpe_x86</span></li>
+    <li><span style="font-family: 'courier new',courier;">imagex /mountrw c:\winpe_x86\winpe.wim 1 c:\winpe_x86\mount</span></li>
+</ul>
+<br />Your command prompt should now have been changed to c:\winpe_x86<br /><br />
+<ul>
+    <li><span style="font-family: 'courier new',courier;">md c:\apps\tftpboot\boot</span></li>
+    <li><span style="font-family: 'courier new',courier;">copy c:\winpe_x86\mount\Windows\Boot\PXE\*.* c:\Apps\tftpboot\boot</span></li>
+    <li><span style="font-family: 'courier new',courier;">copy &quot;c:\Program Files\Windows AIK\Tools\PETools\x86\boot\boot.sdi&quot; c:\apps\tftpboot\boot</span></li>
+    <li><span style="font-family: 'courier new',courier;">copy c:\winpe_x86\winpe.wim c:\Apps\tftpboot\boot</span></li>
+</ul>
+<br />Step 2 - Run these commands from your Vista / WinPE 2.0 VirtualPC computer. After booting WinPE 2.0, you will automatically be presented with a command prompt. If runnning on Vista, open a command prompt.<br /><br />
+<ul>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -createstore c:\BCD</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -create {ramdiskoptions} /d &quot;Ramdisk options&quot; </span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {ramdiskoptions} ramdisksdidevice&nbsp; boot</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {ramdiskoptions} ramdisksdipath&nbsp; \boot\boot.sdi</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -create /d &quot;MyWinPE Boot Image&quot; /application osloader</span></li>
+</ul>
+<br />This last command will respond with a message like:<br />&quot;The entry {02836f40-9ea0-11db-af23-0003ffc3f7f5} was successfully created.&quot;<br /><br />The GUID WILL BE DIFFERENT FOR YOU. The GUID is the long series of numbers, letters, and dashes enclosed in braces {}. Do not copy the GUID used in my commands below. You must substitute the GUID returned by the previous command.<br />The following commands use MY GUID. Make sure you change it to yours.<br /><span style="font-family: 'courier new',courier;"><br /></span>
+<ul>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {02836f40-9ea0-11db-af23-0003ffc3f7f5} systemroot \Windows</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {02836f40-9ea0-11db-af23-0003ffc3f7f5} detecthal Yes</span></li>
+</ul>
+<br />In the previous command, the setting is DETECTHAL in all lowercase. It is not DETECTHA1 - numeral one at the end.<br /><span style="font-family: 'courier new',courier;"><br /></span>
+<ul>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {02836f40-9ea0-11db-af23-0003ffc3f7f5} winpe Yes</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {02836f40-9ea0-11db-af23-0003ffc3f7f5} osdevice ramdisk=[boot]\Boot\WinPE.wim,{ramdiskoptions}</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {02836f40-9ea0-11db-af23-0003ffc3f7f5} device ramdisk=[boot]\Boot\WinPE.wim,{ramdiskoptions}</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -create {bootmgr} /d &quot;Windows VISTA BootManager&quot;</span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {bootmgr} timeout 30 </span></li>
+    <li><span style="font-family: 'courier new',courier;">bcdedit -store c:\BCD -set {bootmgr} displayorder {02836f40-9ea0-11db-af23-0003ffc3f7f5}</span></li>
+</ul>
+<br />Step 3 - Now I will copy the&nbsp; files created on my WinPE 2.0 VirtualPC to my TFTP server (my technician computer). These steps may be different, depending on your setup.<br />Run the following commands from the Vista/WinPE 2.0 computer. Substitute the values in ALL CAPS with values for your environment.<br />TFTPCOMPUTER is the name of your computer running the tftp server.<br />SHARE is the name of a shared folder on your tftp server.<br />VALIDUSER is the name of a user on the TFTPCOMPUTER that has write access to SHARE.<br /><br /><span style="font-family: 'courier new',courier;">net use y: \\TFTPCOMPUTER\SHARE<br /></span>when prompted for a username, I enter: TFTPCOMPUTER\VALIDUSER<br />When prompted for a password, I enter the password for VALIDUSER<br /><br />When the command completes, I now have the Y: drive mapped to my server (technician computer). I run the following command from the WinPE 2.0 VirtualPC:<br /><span style="font-family: 'courier new',courier;">copy c:\BCD y:\tftpboot\boot</span><br /><br />(My share maps to the parent folder - c:\apps - of my tftp server software, which is installed at c:\apps\tftpboot)<br /><br />I then started tftpd32.exe from c:\apps\tftpboot on my technician/tftp server. I went to the &quot;DHCP server&quot; tab and changed the &quot;Boot file&quot; to: boot\pxeboot.com<br /><br />I then started the tablet, hit F12, selected network boot, then pressed F12 again to confirm boot from the network. Windows PE booted on the tablet.<br /><br />Hope this helps.

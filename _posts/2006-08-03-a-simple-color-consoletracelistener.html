@@ -1,0 +1,96 @@
+---
+title: A simple color ConsoleTraceListener
+permalink: ASimpleColorConsoleTraceListener.html
+layout: migrated
+date: 2006-08-03
+id: e7597cd9-6f4c-4ca5-bf15-fd4223fe5ab0
+published_at: 2006-08-03 22:02:45.912000000 -05:00
+tags: .NET
+
+---
+
+Considering how many pre-release Whidbey demos I saw showing off the new color support in Console applications, I'm surprised this wasn't include in the box. I use a System.Diagnostics.TraceSource coupled with the ConsoleTraceListener for output in console apps. Of course, when you have verbose logging enabled, you see a LOT of gray text scroll across the screen, and nothing really stands out. Reminds me of trying to decode <span style="color: rgb(192, 192, 192);">NAnt </span>output after living with <span style="color: rgb(255, 0, 0);">M</span><span style="color: rgb(128, 128, 128);">S</span><span style="color: rgb(0, 0, 255);">Build</span> for a while. I did a quick search for &quot;color consoletracelistener&quot; and came across <a href="http://blogs.artinsoft.net/mrojas/archive/2006/05/29/1069.aspx">this offering</a> from Mauricio Rojas. I (probably unfairly) dimissed it because it looked much more complicated than I would expect (ok, and because it was in VB). <br />So I spent 10 minutes throwing this together. It works for every scenario that I need. In other words, I make no claims that it is general purpose solution for you - it may not add color to every type of trace message (depending on which methods you use to write messages). If this doesn't work for you, Mauricio's may be a better bet.<br /><br /> <!--
+{\rtf1\ansi\ansicpg\lang1024\noproof1252\uc1 \deff0{\fonttbl{\f0\fnil\fcharset0\fprq1 Consolas;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0??;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;??\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;??\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;??\red192\green192\blue192;}??\fs20 \cf2 using\cf0  System;\par ??\cf2 using\cf0  System.Diagnostics;\par ??\cf2 using\cf0  System.Collections.Generic;\par ??\par ??\cf2 namespace\cf0  FlimFlan.Diagnostics\par ??\{\par ??    \cf2 public\cf0  \cf2 class\cf0  \cf10 ColorConsoleTraceListener\cf0  : \cf10 ConsoleTraceListener\par ??\cf0     \{\par ??        \cf10 Dictionary\cf0 &lt;\cf10 TraceEventType\cf0 , \cf10 ConsoleColor\cf0 &gt; eventColor = \cf2 new\cf0  \cf10 Dictionary\cf0 &lt;\cf10 TraceEventType\cf0 , \cf10 ConsoleColor\cf0 &gt;();\par ??\par ??        \cf2 public\cf0  ColorConsoleTraceListener()\par ??        \{\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Verbose, \cf10 ConsoleColor\cf0 .DarkGray);\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Information, \cf10 ConsoleColor\cf0 .Gray);\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Warning, \cf10 ConsoleColor\cf0 .Yellow);\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Error, \cf10 ConsoleColor\cf0 .DarkRed);\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Critical, \cf10 ConsoleColor\cf0 .Red);\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Start, \cf10 ConsoleColor\cf0 .DarkCyan);\par ??            eventColor.Add(\cf10 TraceEventType\cf0 .Stop, \cf10 ConsoleColor\cf0 .DarkCyan);\par ??        \}\par ??\par ??        \cf2 public\cf0  \cf2 override\cf0  \cf2 void\cf0  TraceEvent(\cf10 TraceEventCache\cf0  eventCache, \cf2 string\cf0  source, \cf10 TraceEventType\cf0  eventType, \cf2 int\cf0  id, \cf2 string\cf0  message)\par ??        \{\par ??            TraceEvent(eventCache, source, eventType, id, \cf13 "\{0\}"\cf0 , message);\par ??        \}\par ??\par ??        \cf2 public\cf0  \cf2 override\cf0  \cf2 void\cf0  TraceEvent(\cf10 TraceEventCache\cf0  eventCache, \cf2 string\cf0  source, \cf10 TraceEventType\cf0  eventType, \cf2 int\cf0  id, \cf2 string\cf0  format, \cf2 params\cf0  \cf2 object\cf0 [] args)\par ??        \{\par ??            \cf10 ConsoleColor\cf0  originalColor = \cf10 Console\cf0 .ForegroundColor;\par ??            \cf10 Console\cf0 .ForegroundColor = getEventColor(eventType, originalColor);\par ??            \cf2 base\cf0 .TraceEvent(eventCache, source, eventType, id, format, args);\par ??            \cf10 Console\cf0 .ForegroundColor = originalColor;\par ??        \}\par ??\par ??        \cf2 private\cf0  \cf10 ConsoleColor\cf0  getEventColor(\cf10 TraceEventType\cf0  eventType, \cf10 ConsoleColor\cf0  defaultColor)\par ??        \{\par ??            \cf2 if\cf0  (eventColor.ContainsKey(eventType))\par ??            \{\par ??                \cf2 return\cf0  eventColor[eventType];\par ??            \}\par ??            \cf2 return\cf0  defaultColor;\par ??        \}\par ??    \}\par ??\}\par ??}
+-->
+<div style="background: white none repeat scroll 0% 50%; font-family: Consolas; font-size: 10pt; color: black; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<p style="margin: 0px;"><span style="color: blue;">using</span> System;</p>
+<p style="margin: 0px;"><span style="color: blue;">using</span> System.Diagnostics;</p>
+<p style="margin: 0px;"><span style="color: blue;">using</span> System.Collections.Generic;</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;"><span style="color: blue;">namespace</span> FlimFlan.Diagnostics</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">&nbsp; &nbsp; <span style="color: blue;">public</span> <span style="color: blue;">class</span> <span style="color: teal;">ColorConsoleTraceListener</span> : <span style="color: teal;">ConsoleTraceListener</span></p>
+<p style="margin: 0px;">&nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Dictionary</span>&lt;<span style="color: teal;">TraceEventType</span>, <span style="color: teal;">ConsoleColor</span>&gt; eventColor = <span style="color: blue;">new</span> <span style="color: teal;">Dictionary</span>&lt;<span style="color: teal;">TraceEventType</span>, <span style="color: teal;">ConsoleColor</span>&gt;();</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">public</span> ColorConsoleTraceListener()</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Verbose, <span style="color: teal;">ConsoleColor</span>.DarkGray);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Information, <span style="color: teal;">ConsoleColor</span>.Gray);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Warning, <span style="color: teal;">ConsoleColor</span>.Yellow);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Error, <span style="color: teal;">ConsoleColor</span>.DarkRed);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Critical, <span style="color: teal;">ConsoleColor</span>.Red);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Start, <span style="color: teal;">ConsoleColor</span>.DarkCyan);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eventColor.Add(<span style="color: teal;">TraceEventType</span>.Stop, <span style="color: teal;">ConsoleColor</span>.DarkCyan);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">public</span> <span style="color: blue;">override</span> <span style="color: blue;">void</span> TraceEvent(<span style="color: teal;">TraceEventCache</span> eventCache, <span style="color: blue;">string</span> source, <span style="color: teal;">TraceEventType</span> eventType, <span style="color: blue;">int</span> id, <span style="color: blue;">string</span> message)</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TraceEvent(eventCache, source, eventType, id, <span style="color: maroon;">&quot;{0}&quot;</span>, message);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">public</span> <span style="color: blue;">override</span> <span style="color: blue;">void</span> TraceEvent(<span style="color: teal;">TraceEventCache</span> eventCache, <span style="color: blue;">string</span> source, <span style="color: teal;">TraceEventType</span> eventType, <span style="color: blue;">int</span> id, <span style="color: blue;">string</span> format, <span style="color: blue;">params</span> <span style="color: blue;">object</span>[] args)</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">ConsoleColor</span> originalColor = <span style="color: teal;">Console</span>.ForegroundColor;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Console</span>.ForegroundColor = getEventColor(eventType, originalColor);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">base</span>.TraceEvent(eventCache, source, eventType, id, format, args);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Console</span>.ForegroundColor = originalColor;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px;">&nbsp;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">private</span> <span style="color: teal;">ConsoleColor</span> getEventColor(<span style="color: teal;">TraceEventType</span> eventType, <span style="color: teal;">ConsoleColor</span> defaultColor)</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">if</span> (!eventColor.ContainsKey(eventType))</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">return</span> defaultColor;</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">return</span> eventColor[eventType];</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px;">&nbsp; &nbsp; }</p>
+<p style="margin: 0px;">}</p>
+</div>
+<br />You can see it in action using the following app:<br /><br />
+<div style="background: white none repeat scroll 0%; font-family: Consolas; font-size: 10pt; color: black; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<p style="margin: 0px;"><span style="color: blue;">using</span> System.Diagnostics;</p>
+<p style="margin: 0px;"><span style="color: blue;">namespace</span> ConsoleApplication1</p>
+<p style="margin: 0px;">{</p>
+<p style="margin: 0px;">&nbsp; &nbsp; <span style="color: blue;">class</span> <span style="color: teal;">Program</span></p>
+<p style="margin: 0px;">&nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">static</span> <span style="color: blue;">void</span> Main(<span style="color: blue;">string</span>[] args)</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">TraceSource</span> trace = <span style="color: blue;">new</span> <span style="color: teal;">TraceSource</span>(<span style="color: maroon;">&quot;log&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Start, 0);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceInformation(<span style="color: maroon;">&quot;Hello World&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Error, 0, <span style="color: maroon;">&quot;Something failed.&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Verbose, 0, <span style="color: maroon;">&quot;I like ice cream.&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Critical, 0, <span style="color: maroon;">&quot;Something went horribly wrong!&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Verbose, 0, <span style="color: maroon;">&quot;I like cherries.&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Warning, 0, <span style="color: maroon;">&quot;This program will end soon...&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Information, 0, <span style="color: maroon;">&quot;Ending program.&quot;</span>);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.TraceEvent(<span style="color: teal;">TraceEventType</span>.Stop, 0);</p>
+<p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p style="margin: 0px;">&nbsp; &nbsp; }</p>
+<p style="margin: 0px;">}</p>
+</div>
+<br />Add these settings to the configuration section of your app.config:<br /><br />
+<div style="background: white none repeat scroll 0%; font-family: Consolas; font-size: 10pt; color: black; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;</span><span style="color: maroon;">system.diagnostics</span><span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">sources</span><span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">source</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&quot;<span style="color: blue;">log</span>&quot;<span style="color: blue;"> </span><span style="color: red;">switchValue</span><span style="color: blue;">=</span>&quot;<span style="color: blue;">All</span>&quot;<span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">listeners</span><span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&quot;<span style="color: blue;">Console</span>&quot;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&quot;<span style="color: blue;">FlimFlan.Diagnostics.ColorConsoleTraceListener, ConsoleApplication1</span>&quot;<span style="color: blue;"> /&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/</span><span style="color: maroon;">listeners</span><span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;/</span><span style="color: maroon;">source</span><span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;/</span><span style="color: maroon;">sources</span><span style="color: blue;">&gt;</span></p>
+<p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">system.diagnostics</span><span style="color: blue;">&gt;</span></p>
+</div>
+<br />And you should see something like this:<br /><br /><img src="file:///C:/DOCUME~1/Josh/LOCALS~1/Temp/moz-screenshot.jpg" alt="" /><img border="0" src="http://flimflan.com/blog/content/binary/ColorConsoleTraceListenerOutput.png" alt="" />

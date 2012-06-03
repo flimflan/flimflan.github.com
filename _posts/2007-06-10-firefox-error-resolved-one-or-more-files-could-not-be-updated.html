@@ -1,0 +1,35 @@
+---
+title: ! 'Firefox error resolved: One or more files could not be updated'
+permalink: FirefoxErrorResolvedOneOrMoreFilesCouldNotBeUpdated.html
+layout: migrated
+date: 2007-06-10
+id: 737e1cac-710f-4f53-804a-75c4963cf256
+published_at: 2007-06-10 19:38:07.474000000 -05:00
+
+---
+
+<p>I have&nbsp;automatic updates enabled in Firefox.&nbsp;For my day-to-day work, I run as a non-administrator user in Windows XP. I need to log in as an administrator whenever I want to install new software - including updates for Firefox.</p>
+<p>The problem is that Firefox is not content to just update all necessary files when you are logged in as the administrator. When you return to your non-admin account and launch Firefox, you may be greeted with the following message:</p>
+<p>&quot;One or more files could not be updated. Please make sure all other applications are closed and that you have permission to modify files, and then restart Firefox to try again.&quot;</p>
+<p>You can click through the message, and Firefox will launch anyway. Okay, I guess the updates weren't that important and I can ignore the message. However, the <em>next</em> time I launch Firefox, and am again prompted and again click through it. It seems I am doomed to launching Firefox with two clicks for all eternity.</p>
+<p>Of course I searched the internet for the error message, but nothing very fruitful came of it. Apparently the error has a number of different causes. I did find some others reporting the problem when run as a non-administrator, but the solution was always &quot;just run as administrator&quot; or &quot;elevate your rights&quot;.</p>
+<p>I finally solved the problem without changing any rights for my user account, and am now posting it here in hopes that others will find it useful.</p>
+<p><span style="color: rgb(0, 0, 255);"><span style="font-weight: bold;">UPDATE</span>: </span>Based on suggestions in the comments, I've started using a much simpler method. If you have an administrator password, you can run the following command in a Command Prompt:</p>
+<p style="font-family: Courier New;"><font size="2">runas /user:Administrator /noprofile /env "C:\Program Files\Mozilla Firefox\firefox.exe" </font></p>
+<p><strong>The rest of this article is unnecessary if you want to follow this &quot;delete the updates folder&quot; approach.<br /></strong></p>
+<p><strong>Note</strong>: you must be able to log in as an administrator on the computer, but your primary user account does not have to be an administrator.</p>
+<p>Pre-requisite: As an administrator, download and install <a href="http://www.microsoft.com/technet/sysinternals/ProcessesAndThreads/processmonitor.mspx" target="_blank">Process Monitor</a> from Sysinternals/Microsoft.</p>
+<ol>
+    <li>Close all running instances of Firefox.  </li>
+    <li>Open an Administrator command prompt by right-clicking on a Command Prompt icon, choose Run As... and enter the credentials of a user with administrator rights.  </li>
+    <li>Launch Process Monitor from the administrator command prompt by typing the full path to the executable (wherever you installed it).&nbsp;For example: c:\apps\procmon.exe (<a href="http://support.microsoft.com/kb/310530" target="_blank">tab completion</a> can be very helpful for this step).  </li>
+    <li>Within Process Monitor, turn off &quot;Show Registry Activity&quot; and &quot;Show File System Activity&quot; from the toolbar. Only &quot;Show Process and Thread Activity should be enabled&quot;. This step is not absolutely necessary, but it will eliminate a lot of extra noise.  </li>
+    <li>Start Firefox, and click through the &quot;Software Update Failed&quot; dialog until the browser opens.  </li>
+    <li>Switch back to Process Monitor and press CTRL-E or the click the toolbar button&nbsp;to stop capturing events. Close any Firefox windows that might be open.  </li>
+    <li>Scroll through the list of processes and double-click on the first instance of &quot;updater.exe&quot; (it should have&nbsp;the value &quot;Process Start&quot; in the Operation column). Switch to the Process tab of the Event Properties window that opens.  </li>
+    <li>Select the entire contents of the &quot;Command Line:&quot; textbox and&nbsp;copy it (CTRL-C or right-click, Copy). It should look something like this (all one line): <font size="2" face="Courier New">&quot;C:\Documents and Settings\Josh\Local Settings\Application Data\Mozilla\Firefox\Mozilla Firefox\updates\0\updater.exe&quot; &quot;C:\Documents and Settings\Josh\Local Settings\Application Data\Mozilla\Firefox\Mozilla Firefox\updates\0&quot; &quot;3824&quot; &quot;C:\Program Files\Mozilla Firefox&quot; &quot;C:\Program Files\Mozilla Firefox\firefox.exe&quot;</font>  </li>
+    <li>Switch back to the administrator command prompt and right-click, Paste to paste the command-line. Press Enter.  </li>
+    <li>You should see a dialog indicating that Firefox is updating. Close the browser that opens since it is still running as the administrator.  </li>
+    <li>Now open Firefox normally. It should start up without the annoying error message.</li>
+</ol>
+<p>I'm not sure if the command-line from step 8 is always the same (the &quot;3824&quot; is the only part I can imagine would vary). If it is always the same, you can save a lot of steps on subsequent updates by just creating a batch file with that command and running it as administrator. If anyone has any insight to the parameters of this command, let me know.</p>

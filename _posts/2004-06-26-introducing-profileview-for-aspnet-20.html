@@ -1,0 +1,22 @@
+---
+title: ! 'Introducing: ProfileView for ASP.NET 2.0'
+permalink: IntroducingProfileViewForASPNET20.html
+layout: migrated
+date: 2004-06-26
+id: 707fb88d-0316-4d03-93eb-8aa5fa6f957e
+published_at: 2004-06-26 07:59:00.000000000 -05:00
+
+---
+
+<P><FONT face=Tahoma><FONT color=#0000ff><FONT size=2><B>UPDATED:</B> The download links now refer to the ProfileView homepage, where you can find the latest info and grab the latest files</FONT></FONT></FONT></P>
+<P>ASP.NET really goes a long way toward reducing the amount of code we have to write. During Scott Guthrie's TechEd talk about ASP.NET "Whidbey", he demonstrated how to build a personalized data entry application. When it came time to add the authentication system, he added 2 textboxes and a button to create the typical login page. He went on to show how easy it was to add a little code to integrate the page with Membership Services, to perform the actual user verification. He then deleted the code and the controls saying "you COULD do all of that, OR you can just drag this new Login control to a form, and you're done.". Wow, neat. </P>
+<P>But now you need a way to add new users. So he again went through the exercise of building up a form with textboxes to collect user data, and wrote the code to add the user to the Membership Services provider. "You COULD do all of that, OR you can just drag this new CreateUserWizard control to a form, and you're done." Woah.</P>
+<P>So finally, he demonstrates the new Personalization Service, which allows you to associate profile properties with each visitor to your website. He uses the new WebAdmin configuration tool to create a profile definition containing Nickname and Favorite Color. He builds a simple form with textboxes for Nickname and Favorite Color and shows how you can programmatically view and edit the user's profile using the strongly-typed User.Profile property. "You COULD do all of that, OR you can just drag this.... ah, just kidding. You do have to create your form..." Laughter from the crowd.</P>
+<P>My first thought was "why"? I bet it would be pretty easy to create a new control that encapsultes viewing and editing a user's profile. I had never created an ASP.NET server control before, mostly because I never had the itch to scratch. Scott's little joke now had me looking for the calomine.</P>
+<P>Introducing <A href="/blog/ProfileView.aspx">ProfileView</A>, the first ASP.NET server control from FlimFlan.com. All you have to do is drag it onto a form, and without writing any code, you have a page that allows users to view and edit their profile information.</P>Please <A href="/blog/ProfileView.aspx">download it</A>, give it a try, and tell me what you think. 
+<P></P>
+<P>NOTES: 
+<UL>
+<LI>This control was developed with Visual Studio 2005 May CTP distributed at TechEd. I do not know if it is compatible with any other preview release. 
+<LI>Source code is not included in the download, but I don't have any problem giving it out if anyone is interested. 
+<LI>There are many features I have yet to implement (ReadOnly mode, support for profile property groups, etc). This should definitely be considered a "preview" release. I hope to have a more feature complete version by the time VS2005 Beta 1 is released. </LI></UL>

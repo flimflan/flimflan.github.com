@@ -1,0 +1,41 @@
+---
+title: Migrate from FlexWiki to OneNote
+permalink: MigrateFromFlexWikiToOneNote.html
+layout: migrated
+date: 2007-02-18
+id: 19032ba2-8851-4f3b-b2e3-37e22ab0abc8
+published_at: 2007-02-18 22:17:06.977000000 -06:00
+tags: OneNote
+
+---
+
+<p>A wiki website is a great solution when you need to maintain a lot of information that is likely to change, and requires input from multiple people. They are a natural fit for maintaining product documentation for software projects. My team used to maintain support information for our applications in Word documents in a version control tool. The documents were structured using an &quot;enterprise standard&quot; CMM-inspired template. There were specific, numbered sections for each type of information, and a whole lot of standard template text explaining the purpose of each section. There was too much friction involved in finding&nbsp;and updating information in the documents, so neither happened very often. It wasn't long before the documents were completely irrelevant and unused.</p>
+<p>I decided to install <a href="http://www.flexwiki.com/">FlexWiki</a>, and created a site for my team to use. We each did a brain dump and soon had all of the needed support information available. The information was easy to access, and equally important, easy to update. There were some quirks to using the wiki (YourProseStartsToLookALittleUnnatural), but there is no doubt it was a vast improvement over the templated Word documents.</p>
+<p>Then Microsoft OneNote 2007 was released, sporting a <a href="http://office.microsoft.com/en-us/onenote/HA100325701033.aspx">new &quot;shared notebook&quot; feature</a>. With OneNote, you get the same ease of access and ease of editing that a wiki provides, but with a much smoother experience. To mirror the history log functionality of a wiki, you can store your shared notebook in a versioned SharePoint&nbsp;document library.&nbsp;The only disadvantage of OneNote compared to a wiki is the requirement for all of your users to have OneNote. If that requirement is already met, I believe OneNote is a far superior experience. OneNote advantages at a glance:</p>
+<ul>
+    <li><strong>Easier editing</strong>. Toolbar buttons and shortcut keys instead of funky markup syntax to learn. No need to switch to &quot;edit mode&quot;.  </li>
+    <li><strong>Richer formatting.</strong> Text can be many styles, sizes, colors. Screenshots and other images can be easily pasted inline. Documents and audio clips can be attached to a page.  </li>
+    <li><strong>Easier searching.</strong> Searches find words in any page text, <em>image</em>, or <em>audio clip</em>!  </li>
+    <li><strong>Offline access.</strong> All data is synchronized to your local machine when you are connected to the network, so you can access it when you are disconnected. Any edits you (or others) make are automatically synchronized to and from the shared location when you reconnect.</li>
+</ul>
+<p>My team was sold on the benefits, but we had a sizable investment in our existing FlexWiki installation. Thankfully, OneNote has a nice API that makes it easy to get data in and out. I was able to put together an application that migrated our entire wiki to a OneNote notebook, with all formatting and hyperlinks intact.</p>
+<p>I originally had visions of making a robust migration tool. My plan was to create a class derived from <a href="http://flexwiki.svn.sourceforge.net/viewvc/flexwiki/flexwikicore/trunk/EngineSource/WikiOutput.cs?view=markup">FlexWiki.Formatting.WikiOutput</a> that would render <a href="http://msdn2.microsoft.com/en-us/library/ms406044.aspx">OneNote XML</a>. I would then be able to take advantage of <a href="http://flexwiki.svn.sourceforge.net/viewvc/flexwiki/flexwikicore/trunk/EngineSource/Formatter.cs?view=markup">FlexWiki's own parser</a> instead of figuring out all the syntax myself. Unfortunately, it is not as easy as I hoped to get an instance of the parser running (it has a LOT of external dependencies). There were some promising mock classes in the UnitTest project that would have helped, but they were marked internal (grrr), and so out of my reach. I had already spent way too much time on a tangent creating <a href="http://flimflan.com/blog/OneNoteDevPal.aspx">OneNote DevPal</a> to help me with this effort, so I settled for a brute force approach that could&nbsp;just enough markup&nbsp;for my specific site.</p>
+<p>I am making the source code available in the hopes that someone can take it and run with it. Be warned, it is not pretty.&nbsp;It currently only supports the following subset of FlexWiki formatting:</p>
+<ul>
+    <li>Intra-site wiki page links and external hyperlinks. Federated wiki links are not supported.  </li>
+    <li>Bold and italic text  </li>
+    <li>All headings are simply translated as bold text  </li>
+    <li>Bulleted lists (but not nested bulleted lists)  </li>
+    <li>Tables</li>
+</ul>
+<p>Command-line syntax:</p>
+<p><font face="Courier New">wiki2one &lt;wikiRoot&gt; [Notebook] [SectionName]</font> </p>
+<blockquote>
+<p><font face="Courier New">wikiRoot</font> is the full path to the directory containing your *.wiki files. This is the only required parameter.<br /></p>
+<p><font face="Courier New">Notebook</font> can be either just a name or a full path to a Notebook folder. If the notebook does not exist, it will be created. If a path is not provided, it will be created in the same location as your first existing notebook. If a value is not specified, the default is Wiki2One.</p>
+<p><font face="Courier New">SectionName</font> is the name of the OneNote section that will contain the migrated pages. If it does not exist, it will be created. If not specified, a default is generated based on the current time.</p>
+</blockquote>
+<p>Note that all pages are imported into a&nbsp;single OneNote section. It is very easy (and highly recommended) to then organize the pages into logical sections once the migration is complete.</p>
+<p>If you make improvements to the code, let me know, and I'd be happy to host it, or link to it from this post.</p>
+<p>Download the <a href="http://flimflan.com/files/Wiki2One_source.zip">source code</a></p>
+<p>Download the <a href="http://flimflan.com/files/Wiki2One.zip">executable</a> (requires the .NET Framework 2.0 runtime)</p>

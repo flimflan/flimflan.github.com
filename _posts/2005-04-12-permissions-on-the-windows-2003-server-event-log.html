@@ -1,0 +1,24 @@
+---
+title: Permissions on the Windows 2003 Server Event Log
+permalink: PermissionsOnTheWindows2003ServerEventLog.html
+layout: migrated
+date: 2005-04-12
+id: a405f9de-0303-4b74-85fb-1a7ac0655068
+published_at: 2005-04-12 20:12:00.000000000 -05:00
+
+---
+
+<P>One of the big &#8220;features&#8220; of Windows 2003 Server is that the default install is much more secure than Windows servers of the past.&nbsp; The offshoot is that some tasks that used to be easy are now a little more difficult.&nbsp; I'm not complaining; I believe it is a price worth paying.&nbsp; We just need to help each other out in documenting the workarounds.</P>
+<P>Which brings me to the topic of this post: reading the event log.&nbsp; In Windows 2003 Server, you can no longer read the event log of a server unless you are an administrator of that server.&nbsp; This is a problem when you are trying to support an application (which logs its error messages to the Event Log), but cannot be an administrator of the server.</P>
+<P>Fortunately, it is possible to change the permissions on an Event Log.&nbsp; Unfortunately, it is not as straightforward as you might think.&nbsp; I would have guessed it would involve changing the permissions on the Event Log registry keys - the children of HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog.&nbsp; So, if you guessed like me, you're wrong... but close.</P>
+<P>The solution is in the registry, but does not involve permissions on the keys.&nbsp; Windows 2003 introduced the CustomSD key - or Custom Security Descriptor.&nbsp; It is a string written using the <A href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/secauthz/security/security_descriptor_string_format.asp">Security Descriptor Definition Language</A>.&nbsp; The solution is to add an additional <A href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/secauthz/security/ace_strings.asp">ACE</A> (Access Control Expression?) string to the default CustomSD value.&nbsp; An ACE string grants a set of permissions to a specific user or users, identified by a <A href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/secauthz/security/sid_strings.asp">SID</A> (security ID?).&nbsp; A much better explanation can be found by reading <A href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncode/html/secure06122003.asp">this article about the impact of security changes in Windows 2003</A>&nbsp;(scroll to the section Tighter ACLs on Event Logs).</P>
+<P>When I first started digging into all of this stuff, I thought it would be great to write a little UI utility to build SDDL and&nbsp;ACE strings, with built-in support for the common SIDs.&nbsp; Then reality hit and I realized that was a complete tangent from the task at hand - getting non-administrator access to the Event Log.</P>
+<P>I decided I would grant Read access to the Application Event Log to all Authenticated Users, which can be expressed with the following ACE: (A;;0x1;;;AU)</P>
+<P>I just needed to add that ACE to the existing CustomSD value on the Application Event Log.&nbsp; The CustomSD&nbsp;value can be found on each event log key.&nbsp; The location of the Application event log key is shown here:</P>
+<P>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application</P>
+<P>The original value of CustomSD was:</P>
+<P><!--StartFragment -->&nbsp;O:BAG:SYD:(D;;0xf0007;;;AN)(D;;0xf0007;;;BG)(A;;0xf0007;;;SY)(A;;0x7;;;BA)(A;;0x7;;;SO)(A;;0x3;;;IU)(A;;0x3;;;SU)(A;;0x3;;;S-1-5-3)</P>
+<P>My new value was:</P>
+<P><!--StartFragment -->&nbsp;O:BAG:SYD:(D;;0xf0007;;;AN)(D;;0xf0007;;;BG)(A;;0xf0007;;;SY)(A;;0x7;;;BA)(A;;0x7;;;SO)(A;;0x3;;;IU)(A;;0x3;;;SU)(A;;0x3;;;S-1-5-3)<STRONG>(A;;0x1;;;AU)</STRONG></P>
+<P>After editing the registry value, I was able to successfully read the event log on the server without being an administrator. If you want to grant different rights to different users, reading the links provided above should help you build the correct SDDL / ACE strings.</P>
+<P>FYI: If you are using .NET and you use the EventLogInstaller to create a custom event log at deployment time, it would be a good idea to add additional code to your Installer class to append this ACE to the CustomSD of the newly created log.</P>

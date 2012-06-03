@@ -1,0 +1,53 @@
+---
+title: ProfileView
+permalink: ProfileView.html
+layout: migrated
+date: 2005-10-30
+id: 679db00a-aabe-4e78-a167-5c508685805e
+published_at: 2005-10-30 20:27:07.000000000 -06:00
+tags: .NET;ProfileView
+
+---
+
+<div>
+<h1>ProfileView</h1>
+<p>This is the official home of my new <strong>ProfileView</strong> control. ProfileView is an ASP.NET 2.0 server control that enables your users to view and/or edit their Personalization Profile. Read my <a href="http://flimflan.com/blog/IntroducingProfileViewForASPNET20.aspx">original post</a> about it for more background.</p>
+<h2>Download</h2>
+<p>The source code is now freely available! Download it and do with it as you wish. If you add any features, I would appreciate it if let me know about it using the contact information on <a href="http://flimflan.com/blog">my blog</a>.</p>
+<p><a href="http://flimflan.com/Files/FlimFlan_WebControls.zip">Download the binary</a></p>
+<p><a href="http://flimflan.com/Files/FlimFlan_WebControls_Source.zip">Download the source code</a></p>
+<h2>How to use</h2>
+<p>Register the assembly at the top of the aspx page that will host the control: <br /> </p>
+<div style="background: white none repeat scroll 0% 50%; font-family: Consolas; font-size: 10pt; color: darkblue; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<p style="margin: 0px;">&lt;%@ Register Assembly=<span style="color: maroon;">&quot;FlimFlan.WebControls&quot;</span> Namespace=<span style="color: maroon;">&quot;FlimFlan.WebControls&quot;</span> TagPrefix=<span style="color: maroon;">&quot;flim&quot;</span> %&gt;</p>
+</div>
+<p>Place the control markup where you want the ProfileView to appear: <br /> </p>
+<div style="background: white none repeat scroll 0% 50%; font-family: Consolas; font-size: 10pt; color: darkblue; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<p style="margin: 0px;">&lt;flim:<span style="color: teal;">ProfileView</span> ID=<span style="color: maroon;">&quot;UserProfile&quot;</span> runat=<span style="color: maroon;">&quot;server&quot;</span> /&gt;</p>
+</div>
+<h2>History</h2>
+<p>June 24, 2006: Release 1.2.524.2006</p>
+<ul>
+    <li>Added the UserName property to allow you to edit the profile of any user in the system - not just the current user.<br /></li>
+</ul>
+<p>January 8, 2006: Release 1.1.108.2006</p>
+<ul>
+    <li>Properties now display in the order they are listed in web.config<br /></li>
+    <li>Design-time view now uses same rendering method as runtime</li>
+    <li>Fixed design-time bug that caused it to fail when a profile property type was not specified</li>
+    <li>Design-time view now has a Smart Tag to allow you to preview an anonymous user's profile<br /></li>
+</ul>
+<p>October 30, 2005: Updated for the final release (RTM) version of Visual Studio 2005 / .NET Framework 2.0</p>
+<p>July 7, 2004: A significantly updated version is now available.</p>
+<ul>
+    <li>The design-time view now shows your actual profile properties, instead of sample properties  </li>
+    <li>New ReadOnly mode allows you to use ProfileView to display a user's profile, without allowing them to edit it.  </li>
+    <li>Now supports profile groups</li>
+</ul>
+<p>TODO:</p>
+<ul>
+    <li>Add the ability to disable display of profile properties by their &ldquo;group&ldquo;  </li>
+    <li>Create a templated UI (or at least more style/formatting properties)</li>
+    <li>Allow better support for display of custom types/collections<br /></li>
+</ul>
+</div>

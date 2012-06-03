@@ -1,0 +1,16 @@
+---
+title: Visual Studio Command Prompt Toolbar Button
+permalink: VisualStudioCommandPromptToolbarButton.html
+layout: migrated
+date: 2006-01-04
+id: eee213a5-56c2-4561-a242-ed813519717d
+published_at: 2006-01-04 20:56:36.906250000 -06:00
+tags: .NET
+
+---
+
+<P>Of the billion toolbar buttons that Visual Studio 2005 includes, I couldn't find one to open a command prompt to the project directory. This is a must-have for us command-line SubVersion users. Luckily, a quick Google search turned up <A href="http://objectsharp.com/blogs/dave/archive/2003/12/10/227.aspx">this post</A> (its actually the comment from <A href="http://www.objectsharp.com/Barry/">Barry Gervin</A> that I credit). Updated for VS 2005:</P>
+<P>From the Tools -&gt; External Tools... menu, click Add, and fill in:</P>
+<P><STRONG>Title:</STRONG> Command Prompt &amp;Here<BR><STRONG>Command:</STRONG> C:\WINDOWS\system32\cmd.exe<BR><STRONG>Arguments:</STRONG> /k ""C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat"" x86<BR><STRONG>Initial Directory:</STRONG> $(ProjectDir)</P>
+<P>Note the Title is important only because I wanted to use the letter 'H' as my shortcut key since it is close to the 'T', and unused on the default Tools menu. This enables the very easy one-handed keystroke ALT+T,H.</P>
+<P>I then went to Tools-&gt;Customize..., selected Tools from the Categories, then found "External Command 3" (there were 2 other tools already registered in VS) in the Commands section, and dragged it up to my toolbar. Right-click on the new button on the toolbar, select Default Style, then Change Button Image, and choose the square (its a good starting point). Using Edit Button Image... I drew a crude "C:".</P>
