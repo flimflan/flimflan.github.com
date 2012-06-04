@@ -1,0 +1,8 @@
+dasblog_dir: "/../original/blog/"
+toto_dir: "/../joshuaflanagan.github.com/_posts/"
+author: Joshua Flanagan
+replacements:
+  !ruby/regexp /http:\/\/flimflan\.com\/blog\/content\/binary\// : /assets/post_images/
+  !ruby/regexp /http:\/\/flimflan\.com\/[Ff]iles\// : /assets/downloads/
+  !ruby/regexp /http:\/\/flimflan\.com\/blog\/(\S*)\.aspx/ : "/\\1.html"
+  !ruby/regexp /http:\/\/flimflan\.com\/blog[^\/]/ : /

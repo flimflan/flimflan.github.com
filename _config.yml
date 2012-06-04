@@ -2,3 +2,4 @@ safe: true
 lsi: false
 pygments: false
 permalink: none
+exclude: migration_info, readme.md
