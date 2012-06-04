@@ -1,0 +1,14 @@
+rewrites:
+  https://github.com/jtrupiano/rack-rewrite
+  change config.ru to load the redirects from another file
+  modify migrator to output redirects.rb in correct format
+
+comments:
+  http://chrisrisner.com/Importing-Comments-into-Disqus
+  http://docs.disqus.com/developers/export/import_format/
+
+logging:
+  heroku app logs unforwarded urls
+
+add cname for github site
+move flimflan.com to point to heroku
