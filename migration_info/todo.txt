@@ -1,7 +1,5 @@
 rewrites:
-  https://github.com/jtrupiano/rack-rewrite
-  change config.ru to load the redirects from another file
-  modify migrator to output redirects.rb in correct format
+  BONUS: change config.ru to load the redirects from another file
 
 comments:
   http://chrisrisner.com/Importing-Comments-into-Disqus
