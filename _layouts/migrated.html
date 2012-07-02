@@ -1,9 +1,12 @@
 ---
 layout: post
 ---
+<h2>{{ page.title }}</h2>
 {{content}}
 
+{% unless page.comments == empty %}
 <div class="comment-section">
+  <h3>Comments</h3>
   {% for comment in page.comments %}
     {% if comment["email"] == "josh@flimflan.com" %}
       {% assign author_css="owner-comment" %}
@@ -23,3 +26,4 @@ layout: post
     </div>
   {% endfor %}
 </div>
+{% endunless %}
