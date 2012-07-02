@@ -1,0 +1,49 @@
+body {
+  font-family: Verdana, sans-serif;
+  font-size: 12pt;
+}
+a {
+  text-decoration: none;
+  color: blue;
+}
+a:hover { text-decoration: underline; }
+
+.home {
+  font-size: 18pt;
+}
+.home li {
+  list-style: none;
+  padding: 8px;
+}
+
+pre {
+  font-size: 10pt;
+  width: 95%;
+  padding: 3px;
+  border: solid 1px #d0d0d0;
+}
+.comment-section {
+  width: 600px;
+}
+
+.post-body {
+  display: block;
+  width: 90%;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.comment {
+  border: solid thin #ccc;
+  margin: 10px;
+  padding: 5px;
+}
+
+.owner-comment {
+  background-color: lightblue;
+}
+
+.comment_author {
+  font-size: smaller;
+}
