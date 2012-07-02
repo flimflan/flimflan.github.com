@@ -5,6 +5,364 @@ layout: migrated
 date: 2006-10-07
 dasblog_id: 9f0c7a35-1c15-4f3b-af99-ee324083e6c8
 published_at: 2006-10-07 13:15:27.917703500 -05:00
+comments:
+- created: 2006-10-07 15:06:26.578154100 -05:00
+  author: Steven
+  url: http://www.cuttingedge.it/blogs/steven/
+  content: Great work. I'm definitely going to try this out!
+- created: 2006-10-13 14:47:15.351875000 -05:00
+  author: Keith Rull
+  email: keith.rull@gmail.com
+  url: http://www.keithrull.com
+  content: Great Job! How about calling the project as ReadEx for READable regular
+    EXpression. I like shorther names :D
+- created: 2006-10-17 21:30:52.100373600 -05:00
+  author: David Mohundro
+  url: http://www.mohundro.com/blog
+  content: ! 'Whoa... I never would have thought of trying that. But I''ll certainly
+    be trying your library out.
+
+
+    I think you''re on to something!'
+- created: 2006-10-23 09:28:37.378248600 -05:00
+  author: Scott Bellware
+  url: http://www.bellware.net
+  content: ! 'Dammit, I was working on this exact same blog post! :)
+
+
+    Someone needs to hire you away from Hell.com and put the rest of your creativity
+    to effective work on a day-to-day basis.'
+- created: 2006-10-23 10:05:18.425123600 -05:00
+  author: Judah
+  url: http://www.codeproject.com/lounge.asp?msg=1723165#xx1723165xx
+  content: I found this announcement[^] of a readable regular expressions library...
+- created: 2006-10-23 11:45:10.659498600 -05:00
+  author: ahz
+  email: ahz99@hotmail.com
+  content: ! 'I like it, even if I prefer the more terse regex &quot;language.&quot;
+
+
+    One suggestion:
+
+
+    Instead of
+
+
+    {Digit|WhiteSpace}.Repeat.ZeroOrMore ==&gt; {Digit|Whitespace}.Optional
+
+    {Digit|WhiteSpace}.Repeat.OneOrMore ==&gt; {Digit|WhiteSpace}.Required
+
+
+    Or at least, instead of ZeroOrMore or OneOrMore use Optional or Required respectively.'
+- created: 2006-10-23 12:42:12.581373600 -05:00
+  author: Omer Mor
+  email: omer.mor.junk@the-google-mail-server.com
+  content: ! 'Great idea...
+
+    But how about those really hard to craft/understand expressions?
+
+    For example, in my project we use the following expressions:
+
+
+    ^((?!my string).)*$
+
+    \A((?!my string).)*$\Z
+
+
+    Any idea what they do?
+
+
+    *SPOILER*
+
+    They''re actually a NOT operators, matching text that does not contain the &quot;my
+    string&quot; phrase. The first one is for single line search, and the second is
+    for multiline.
+
+    *END SPOILER*
+
+
+    I''d sure love to see a fluent expression that describes those expressions.'
+- created: 2006-10-25 05:04:54.971998600 -05:00
+  author: John Hunt
+  url: http://www.john-hunt.com
+  content: ! 'I think you''re wrong personally. Before I read anything about your
+    article, I tried to read your easy to read expression, it was easier to read,
+    but not easier to understand.
+
+
+    I think people just have to find a nice guide to learning regular expressions.
+    They''re very powerful and useful and if you put the effort in, it pays off. You
+    *could* learn to do it this way, but I think in the end it would be just as hard
+    trying to remember what does what as it is to remember what a character does.
+
+
+    Nice idea though!'
+- created: 2006-10-25 05:47:41.409498600 -05:00
+  author: Chris Hollis
+  url: http://ff3451.blogspot.com/
+  content: ! 'A nice idea in principle, but from the example in this post it strikes
+    me that a user of this library needs to learn a fairly complex syntax which is
+    almost as far from &quot;plain english&quot; as regex, when they could simply
+    learn how to do regex.
+
+
+    ''Literal(&quot;-&quot;).Repeat.Optional'' does not automatically imply the same
+    in my mind as ''-?'', but instead something more like ''-*'' or ''-+''.
+
+
+    In my opinion a better system would be a regex compiler whereby you can communicate
+    what you want in a far more English way, something along the lines of &lt;a href=&quot;http://blogs.msdn.com/ericgu/archive/2003/07/07/52362.aspx&quot;&gt;Regular
+    Expression Workbench&lt;/a&gt; but perhaps even simpler.'
+- created: 2006-10-25 05:49:32.940748600 -05:00
+  author: Chris Hollis
+  url: http://ff3451.blogspot.com/
+  content: May I suggest &quot;Some html is allowed&quot; be elaborated on? :( Never
+    mind, I expect those reading the comment can extract the URL anyhow... maybe they
+    can construct a regex to do it for them ;)
+- created: 2006-10-25 23:18:31.378248600 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Thanks for the feedback, everyone.
+
+
+    Omer: Yes, there are some edge cases that my proof-of-concept code does not cover.
+    That doesn''t mean they can''t be done, it just means I didn''t want to spend
+    the time to cover every case before asking for feedback. Thanks for providing
+    a real-world case that I can use for testing when I get to that. Any suggestions
+    on how you think it should look?
+
+
+    John &amp; Chris: I know there are other ways that would help make &quot;creating&quot;
+    regular expressions easier (learning the syntax, or using a workbench tool). My
+    attempt was to make &quot;reading&quot; regular expressions easier. Of course
+    I understand that is completely subjective. If you think the one character symbols
+    and punctuation are easier to understand, who am I to disagree?
+
+    I completely expected disagreements about the method names that I chose - that''s
+    why I said none of the names are set in stone and was asking for feedback. It
+    sounds like the choice of &quot;Repeat.Optional&quot; for ''0 or 1'' was not a
+    good choice, as a couple people have mentioned it. Any alternative suggestions?
+    Would you prefer a &quot;wrapping&quot; appearance for optional, like this:
+
+    Pattern.With.Digit.Optional(Pattern.With.Literal(&quot;-&quot;)); // renders as:
+    \d-?
+
+
+    I originally did all the repetition using that wrapping syntax, but felt it didn''t
+    read as smoothly.
+
+
+    Thanks for the reminder Chris - I need to fix DasBlog so it doesn''t show &quot;Some
+    html is allowed&quot; when I have all HTML disabled. It normally lists the symbols
+    you allow, but since I don''t allow anything, it doesn''t list anything...'
+- created: 2006-10-30 00:38:36.035862000 -06:00
+  author: John Rusk
+  url: http://dotnet.agilekiwi.com
+  content: ! 'Hi Joshua,
+
+
+    Very cool!  You might also be interested in this approach, which is a way to get
+    a similar result with a more concise syntax: http://dotnet.agilekiwi.com/blog/2006/10/shorthand-interfaces.html'
+- created: 2006-10-30 14:41:22.879612000 -06:00
+  author: Jon Galloway
+  email: jon_galloway@yahoo.com
+  url: http://weblogs.asp.net/jgalloway
+  content: ! "Very cool! \n\nI wrote about the need for a better RegEx syntax last
+    year, but didn't have any ideas on how to implement it. This is a really cool
+    solution to the &quot;write only&quot; RegEx syntax.\n\nhttp://weblogs.asp.net/jgalloway/archive/2005/11/02/429218.aspx"
+- created: 2007-02-18 00:00:34.805375000 -06:00
+  author: Schneider
+  email: eschneider@schneidersoft.com
+  url: http://www.schneidersoft.com/
+  content: ! 'Sweet.
+
+
+    Maybe we could put a collection of common expression together using the lib?
+
+
+    Schneider'
+- created: 2007-10-31 13:46:26.970250000 -05:00
+  author: Steve
+  email: none@none.com
+  content: Absolutely ridiculous. If you can't read/write regex, stop coding. You
+    turned 1 line of code into 10. Maintainability is also related to the number of
+    lines of code. Working with .NET must have clouded your thinking. Objects are
+    not the be all end all of the programming world. Just sit down and learn Perl,
+    then this stuff won't be so hard for you.
+- created: 2007-10-31 18:16:43.110875000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Steve - if you can't read/write your code using 1s and 0s, please stop
+    coding. Working with higher level languages like perl must have clouded your thinking.
+- created: 2007-11-02 08:42:09.074896600 -05:00
+  author: Jimmy Bogard
+  email: jimmy.bogard@gmail.com
+  url: http://grabbagoft.blogspot.com
+  content: ! 'The only thing that absolutely stinks about fluent interfaces is their
+    debuggability.  The compiler treats this as one line of code, so it''s impossible
+    to step into individual calls.
+
+
+    The only way I could help this was to create a debug visualizer, you might look
+    into that.  You could hover over the variable, and the visualizer could show you
+    the resultant regex.  Just a thought...'
+- created: 2007-11-04 14:59:00.922000000 -06:00
+  author: Andreas Krey
+  email: a.krey@gmx.de
+  url: http://andreas-krey.blogspot.com
+  content: ! 'Josh: I *can* read and write in hex. Well, a workable Z80 subset. However,
+    you ignored the main point: ones and zeroes are in no way shorter than higher-level
+    code.
+
+
+    I think there is a misconception of readability here: The problem is not that
+    you need to know what the syntactical elements of the regexp mean. Rather you
+    need to understand what the whole expression actually does, and the verbose form
+    doesn''t help here at all.
+
+
+    Also I thing the fluency suffers from being forced into the chained methods. There
+    is no syntactical indication that ''Repeats'' modifies the meaning of the previous
+    entity while ''Digits'' doesn''t.
+
+
+    Jimmy: There is nothing to debug here anyway: The object incantation just produces
+    a regular regexp.'
+- created: 2007-11-04 20:36:49.734500000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Andreas: good point on the 1s and 0s - they definitely would involve
+    more typing. My attempt at humor failed miserably.
+
+    And I completely agree about the quantifiers and grouping being ambiguous in this
+    version of the API. It was something I wanted to improve (and you can see in the
+    comments above that I was playing with different ideas), but never followed up
+    on.'
+- created: 2007-11-16 11:45:29.610251400 -06:00
+  author: Judah
+  email: judahgabriel@gmail.com
+  url: http://judahgabriel.blogspot.com
+  content: ! 'Josh, what does an email address validator look like using Readable
+    Regex?
+
+
+    p.s. thanks for this library, I''ve used it as a tool many times to generate regular
+    expressions, especially in helping out in the CodeProject forums.'
+- created: 2008-05-10 10:17:26.412875000 -05:00
+  author: Nat
+  content: For Java programmers, something similar has been in Hamcrest for a while.
+- created: 2008-05-10 11:03:26.475375000 -05:00
+  author: Saif Khan
+  email: test@testtt.com
+  content: To the users who think this is crap - Well, that's why you'll remain in
+    the worker class, or should I say, last layer. Can't you see the creativity? Regex
+    is too good to be less frequently used, which I see in many projects. In today's
+    RAD world, time is money, and if I can get my developers rolling fast, well.....figure
+    it out if you are good at Regex. If Mr. Flanagan was on my team, he would be considered
+    management material. Great work!
+- created: 2008-05-10 12:06:11.725375000 -05:00
+  author: Bryan Reynolds
+  email: knowspamns@gmail.com
+  url: http://Bryan.ReynoldsLive.com
+  content: Great work! and great idea!
+- created: 2008-05-17 06:40:54.303750000 -05:00
+  author: Keith J. Farmer
+  email: kfarmer@thuban.org
+  url: http://www.thuban.org
+  content: ! 'I think the idea is sound, but the syntax seems lacking; in particular
+    I agree with the comment regarding ambiguity about whether any given operation
+    modifies the preceding one or not.
+
+
+    Perhaps there should be more focus on building sub-expressions in the Regex (as
+    with regular Expression&lt;Func&lt;T&gt;&gt;), rather than continuous chains which
+    are little more than longhand for the existing syntax?  Perhaps also more extensions
+    which encapsulate common patterns, eg .Digit(3); .Digit(3.OrMore).  Something
+    highly composable.
+
+
+    Dunno.. difficult one to solve.'
+- created: 2008-05-17 09:22:47.881875000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Thanks for the feedback Keith. C# 3.0 wasn't released when I first wrote
+    this - it may be worth revisiting to try and take advantage of the new syntactical
+    conveniences.
+- created: 2008-06-09 12:07:09.353873800 -05:00
+  author: Simon Gibbs
+  email: simon.gibbs@feelitlive.com
+  url: http://feelitlive.com/
+  content: ! 'I think its important that things which look like Properties don''t
+    actually modify the thing to the left of &quot;.&quot; and that methods *do* modify
+    the thing to the left, not the one to left of that. Basically, it looks like what
+    you''ve created isn''t entirely OO, or at l;east makes the OO view difficult to
+    obtain - more so than regex syntax does... I say take a look at Hibernate Criteria
+    objects, and riff off that instead.
+
+
+    I''m imagining something like a List&lt;Expression&gt;, where Expression can be
+    Digit, Letter, Group etc and each can have child expressions and a Multiplicity
+    - which would be a class with properties like Min, Max, Greedy, Lazy etc... Then
+    all you need is a static method to convert a List&lt;Expression&gt; structure
+    to a string. You could even subclass List&lt;Expression&gt; and avoid the ugly
+    static if you felt inclined.
+
+
+    I so use regexes a lot at feelitlive.com as you might guess, but just my 2c'
+- created: 2008-08-09 17:49:00.215000000 -05:00
+  author: OmegaMan
+  email: Omegaman@pcisys.net
+  url: http://www.omegacoder.com
+  content: ! "Doesn't the regex option IgnorePatternWhiteSpace make your code irrelevant?
+    The premise you propose is the *after* maintenance. If the developer were to comment
+    the pattern using the option it would go from\n\n\nstring patttern = &quot;^\\d{3}-?\\d{2}-?\\d{4}$&quot;;\n\nto
+    (YOUR BLOG REMOVES SPACES....TACKY)\n\nstring pattern = @&quot;\n^            #
+    Start at beginning of Line\n    \\d{3}    # First three digits of SSN\n    -?
+    \      # optional dash\n    \\d{2}    # Middle two digits of SSN\n    -?       #
+    Optional Dash\n    \\d{4}    # Last Four digits\n $           # End of Line&quot;;\n\nIf
+    your blog didn't remove spaces you would see the # were aligned on the *FAR* right.
+    Maintenance assured."
+- created: 2008-09-02 17:41:51.656125000 -05:00
+  author: Jason Cook
+  email: jason.cook@identitymine.com
+  url: http://uihero.wordpress.com
+  content: ! "Beautiful, Joshua. You scored a home run from both sides of the plate.\n\n1)
+    Using Fluent Interfaces, you also conceived a practical, elegant way to simplify
+    regular expression construction.\n\n2) Using a regular expression simplification
+    utility, you conceived a practical, elegant way to demonstrate Fluent Interfaces.\n\nI
+    applaud you heartily.\n\n - Jason Cook (uihero.wordpress.com)"
+- created: 2008-10-12 16:16:10.075625000 -05:00
+  author: Judah Himango
+  email: judahgabriel@gmail.com
+  url: http://judahgabriel.blogspot.com
+  content: ! 'Hey Joshua,
+
+
+    Thought you might like to know that Anders Heljsberg, the designer of C#, used
+    your ReadableRegex library during his talk at JAOO 2008. You can watch the video
+    here:
+
+
+    http://blog.jaoo.dk/2008/10/07/the-future-of-programming-languages/
+
+
+    ReadableRegex makes an appearance at about 15 minutes in.'
+- created: 2009-01-08 10:18:53.464694400 -06:00
+  author: Jim
+  email: prefernottogiveitout@nowhere.com
+  content: Great post!  Reading through the comments above, I guess we shouldn't be
+    surprised at people like Steve who hide behind the ubiquitous &quot;web anonymity&quot;
+    and produce nonsense like &quot;If you can't read/write regex, stop coding&quot;.  Indeed,
+    maintainability is related to the number of lines of code, but it is also intrinsically
+    tied to the readability of the code.  Even the best Regex Gurus I've worked with
+    have trouble debugging their own expressions 3 or 4 months later.  I think this
+    is a fascinating example of how fluent interfaces can be used to abstract the
+    complexity of things like Regex to make it possible for us &quot;non-Perl-ites&quot;
+    to incorporate readble AND maintainabe code into our applications....
 
 ---
 

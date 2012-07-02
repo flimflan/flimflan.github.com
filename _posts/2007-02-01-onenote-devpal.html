@@ -6,6 +6,101 @@ date: 2007-02-01
 dasblog_id: 680b93d0-6c5c-40d1-9ea1-703d1553870a
 published_at: 2007-02-01 19:33:23.906000000 -06:00
 tags: OneNote
+comments:
+- created: 2007-02-11 14:27:55.079998200 -06:00
+  author: Blair
+  email: blair0011@hotmail.com
+  url: http://blair0011.spaces.live.com
+  content: ! "A nice enhancement to your code is the ability to break into a debugger,
+    you can do it this way:\n\n        private static void DebugMe()\n        {\n#if
+    DEBUG\n            System.Diagnostics.Debugger.Launch();\n#endif\n        }\n\nand
+    just call the DebugMe method instead of or while also calling your Output method."
+- created: 2007-02-14 10:45:22.454998200 -06:00
+  author: superbovine
+  content: Great example!  It help me figure a lot of the problems I was having with
+    Dan's example.
+- created: 2007-05-05 10:33:48.209833000 -05:00
+  author: Victor CG Erofeev
+  email: cg@cg.net.ru
+  url: http://cgvictor.livejournal.com/
+  content: ! 'Great tool.
+
+
+    Joshua, do you know if there is a way to get/convert to similar XML the content
+    from OneNote07 &quot;.one&quot; file(s)?
+
+    (I need to integrate plenty of .one content (on a shares) into our DMS systems,
+    but have only packaged files. Have anyone done this before?...)
+
+
+    Thanks,
+
+    Victor'
+- created: 2007-05-06 21:18:35.959833000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Victor - I'm not sure I understand your question. Are you trying to extract
+    the information from .one files? That is exactly what this tools enables (or at
+    least, helps you build a tool to do the job). You do not interact directly with
+    the .one files, you interact with the content via the OneNote API. The tool that
+    you write (using OneNote DevPal), would run the OneNote application, and query
+    for the content/pages that you want to extract, and then publish the XML in whatever
+    format you need.
+- created: 2007-05-11 03:30:12.223000000 -05:00
+  author: Victor CG Erofeev
+  email: cg@cg.net.ru
+  url: http://cgvictor.livejournal.com/
+  content: ! 'Okay, thanks... I wonder if there is a way to extract data _without_
+    OneNote API, directly from files. Just in the same way as Office XML formats.
+
+    So..nevermind. (('
+- created: 2007-07-27 16:20:53.864125000 -05:00
+  author: Jason Heithoff
+  email: jheithof@fau.edu
+  content: ! "I have been searching for the OneNote API or SDK download. I have tried
+    http://msdn2.microsoft.com/en-us/office/aa905452.aspx and no luck. \n\nI guess
+    I should ask a few people who are already developing application with the api.
+    Where do you obtain it and how can I get it?"
+- created: 2007-07-27 19:29:53.817250000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Jason - There is no documentation download that I know of - the MSDN
+    site you reference (and Dan Escapa''s site) have all you need. There is no separate
+    tool/code download required for development - you just need OneNote 2007 installed,
+    and then you can add a reference to the library as described in this article:
+
+    http://msdn2.microsoft.com/en-us/office/ms406042.aspx'
+- created: 2007-07-30 00:01:58.989125000 -05:00
+  author: Jason Heithoff
+  email: jheithof@fau.edu
+  content: Thank you very much. I found the extra stuff in the install. I had to reboot
+    the computer but its all working now. This is a great article thank you again.
+- created: 2007-08-14 01:05:36.714000000 -05:00
+  author: Hector C.
+  email: forgotoldaddress@hotmail.com
+  content: ! '&quot;After installing the add-in, you will have a &quot;DevPal&quot;
+    button on your OneNote toolbar.&quot;
+
+
+    I installed the add-in but I don''t see any button. There is no add-in listed
+    in Tools/Options/Add-Ins/Installed OneNote add-ins.
+
+
+    Any ideas?'
+- created: 2007-09-18 07:21:40.524375000 -05:00
+  author: Commonman
+  email: sacchit@vsnl.net
+  content: Thanks the tool was really helpful
+- created: 2008-05-21 17:05:57.194375000 -05:00
+  author: Roger G.
+  email: mikasarg@hotmail.com
+  content: We've installed DevPal on a Tablet, Notebook and Desktop PC. All are running
+    OneNote 2007. The PC is the only machine where DevPal works. The buttons are present
+    on the Notebook and Tablet and the add-in shows as enabled but the DevPal button
+    remains greyed out no matter what we do with OneNote's notebooks, sections and
+    pages. Any ideas please?
 
 ---
 

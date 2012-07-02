@@ -5,6 +5,232 @@ layout: migrated
 date: 2008-02-03
 dasblog_id: 6bf33a2f-209e-4f1f-8e73-51e0e4ee2f77
 published_at: 2008-02-03 12:02:09.358625000 -06:00
+comments:
+- created: 2008-02-03 14:46:30.264875000 -06:00
+  author: Chad Myers
+  email: chad@chadmyers.com
+  url: http://chadmyers.lostechies.com
+  content: ! 'Side note (C# trivia): the foreach() keyword actually doesn''t require
+    IEnumerable, it only requires an object that has a method called ''GetEnumerator()''
+    that returns an IEnumerator instance.'
+- created: 2008-02-04 12:03:59.108625000 -06:00
+  author: Steve Campbell
+  email: dukeytoo@gmail.com
+  url: http://blog.perfectapi.com
+  content: ! 'Thanks Joshua, that''s great to know.  FYI: For me, the Demonstration
+    section was unnecessary (too hard to follow) - I got what I needed to know from
+    the code sample.'
+- created: 2008-02-04 20:34:48.796125000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! '@Chad - I know, isn''t that funky? ;) I always struggle with how many
+    of these side thoughts I should include in a post, but I was trying really hard
+    to keep this focused, so that it would be approachable to beginners. But I''m
+    glad you brought it up, so the full story gets told!
+
+
+    @Steve - Thanks, that''s exactly the kind of feedback I look for.'
+- created: 2008-02-05 16:05:13.139875000 -06:00
+  author: Bart Czernicki
+  email: rev4bart@aol.com
+  content: ! 'There is also a great demo of the keyword in the book &quot;LINQ in
+    Action&quot;..showing how you can parse a big file without reading it all into
+    memory.  Pretty cool.
+
+
+    Since we are on fun facts...using foreach actually leaves behind an object that
+    needs to be gc''ed.  So, that is why foreach is not used in game programming (for
+    loops are &quot;usually&quot; better and leave nothing to be cleaned up).  Something
+    I learned when I was dabbling with the XNA framework for the XBOX 360.'
+- created: 2008-02-06 03:55:33.280500000 -06:00
+  author: mike
+  email: mike@mike.com
+  content: So why is it better to return IList&lt;T&gt; than List&lt;T&gt;?
+- created: 2008-02-06 04:55:42.546125000 -06:00
+  author: Shane
+  email: shane@freshclickmedia.com
+  url: http://www.freshclickmedia.com
+  content: ! 'Interesting article.  I guess it''s inevitable that people miss out
+    some language features and focus on some of the more ''sexy'' aspects of 3.5.
+
+
+    The performance gain using yield is a compelling reason for me to explore it.  I''m
+    going to copy that source code and run it through myself now.
+
+
+    Thanks.'
+- created: 2008-02-06 06:23:30.811750000 -06:00
+  author: Rob
+  email: robert_s_eRemoveThis4Wordsllis@yahoo.com
+  content: ! '@ Shane
+
+
+    It''s not better to return an (IList&lt;t&gt;), it''s better to accept IList&lt;T&gt;
+    as a return parameter.  That way you can return any object that supports the IList&lt;T&gt;
+    interface rather than ONLY List&lt;T&gt;.  The benefit is in code maintenance
+    so that if you want to refactor something, you may not have to alter all of its
+    dependencies.
+
+
+    Rob'
+- created: 2008-02-06 06:36:31.014875000 -06:00
+  author: Eric
+  email: eric@ericjohansson.se
+  url: http://blog.ericjohansson.se
+  content: I noticed that you never printed Ending execution of BetterGetCombinations,
+    since it never returned to BetterGetCombinations after the break statement. How
+    would you suggest dealing with, for example, open database connections? Overall
+    though, a very interesting article
+- created: 2008-02-06 07:23:36.983625000 -06:00
+  author: Mike
+  content: ! '@Eric
+
+
+    If you put cleanup code in a finally block it should work (at least it made &quot;Ending
+    execution of BetterGetCombinations&quot; print), though you will encounter extra
+    overhead.'
+- created: 2008-02-06 12:25:10.889875000 -06:00
+  author: Marc Ziss
+  email: marc@zconsulting.com
+  content: ! "Excellent explanation of the counter intuitive split execution of yield
+    vs the standard linear method. \nPs Yield also works with the non-generic version
+    of IEnumerable in case you're returning a collection that doesn't necessarily
+    need to be locked down, because it may return multiple shapes to be consumed by
+    a templated control like a gridview"
+- created: 2008-02-07 02:16:25.093000000 -06:00
+  author: Peter G
+  email: nameless@blah.com
+  content: ! 'Good intro. I am an occasional Dot Net developer and just want to add
+    a gratuitous plug here for the idea that one should as a matter of principle immerse
+    oneself in the details of more than one programming paradigm.
+
+
+    The yield thingy  is nothing new to Python and Ruby programmers. Similarly, a
+    familiarity with list comprehensions (Haskell, Python) would stand anyone starting
+    out with LINQ in good stead.
+
+
+    Obviously anybody with an ear to the ground would also be well-advised to poke
+    their noses into Don Syme''s F# book this year.
+
+
+    For some good examples of yield goodness, I suggest googling for Python or Ruby
+    combinatoric generators - e.g. k-subsets. For a C# version, see here:  http://www.interact-sw.co.uk/iangblog/2004/09/16/permuterate'
+- created: 2008-02-07 04:18:33.171125000 -06:00
+  author: Leaf
+  email: leaf@xna-uk.net
+  url: http://xna-uk.net
+  content: ! 'A small comment on Bart''s comment mentioning object creation and garbage
+    collection when using foreach.
+
+
+    The object that is, sometimes, created is nothing to do with using foreach. It
+    is simply the enumerator returned by GetEnumerator(). Many implementations return
+    a new enumerator everytime GetEnumerator() is called, and often the enumerator
+    is a class/reference type. Some implementations, including parts of the XNA Framework,
+    use struct/value types for their enumerators as this avoids creating a new object
+    on the heap.'
+- created: 2008-02-08 05:17:21.159122900 -06:00
+  author: Tom
+  email: nospam@nospam.com
+  content: ! 'Nice article.
+
+
+    What advantages does this have over standard for loops? With for loops you can
+    specify more conditions to stop the loop for this reason we tend not to use the
+    foreach statment. How would a standard for loop compare to use of the yield keyword?'
+- created: 2008-02-11 15:30:03.812625000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! "@Tom - I'm not sure what you mean by using a for loop. Do you mean putting
+    all of the producing and consuming logic within a single for loop? The advantage
+    is the separation between the logic that generates a sequence of value and the
+    logic that works with those values. In my sample code, BetterGetCombinations contains
+    the logic to produce a series of strings. The foreach loop in the Main method
+    contains the logic of deciding when it found what it is looking for. As soon as
+    the Main method decides it doesn't need any more data, it stops asking for it.
+    If the Main method doesn't ask for more data, then the data will never be produced
+    by BetterGetCombinations. Compare that to the original GetCombinations method
+    which will ALWAYS produce all of the combinations, regardless of whether the caller
+    needs them all.\nOf course, you could still use the yield magic and still use
+    a for loop in Main instead of foreach, if you wanted to. It would look something
+    like (replacing the foreach line in Main):\nfor (IEnumerator&lt;string&gt; enumerator
+    = combinations.GetEnumerator(); enumerator.MoveNext();) {\n    string combination
+    = (string) enumerator.Current;\n//... continue the rest of the loop"
+- created: 2008-02-14 16:19:45.971010800 -06:00
+  author: Winston Pang
+  email: winstonpang@gmail.com
+  url: http://www.winstonpang.net
+  content: ! 'Hey Josh,
+
+
+    Good post. Perhaps you should of also, went into Reflector and pasted what the
+    magic underlying code that''s generated, which from what I recall is a state machine
+    with lots of labels and goto''s involved to achieve the yield behavior.
+
+
+    Just my 2 cents.
+
+
+    Once again, good post!
+
+
+    Winston'
+- created: 2008-02-17 23:50:32.548375000 -06:00
+  author: Luke Schafer
+  email: luke.schafer@gmail.com
+  url: http://www.lukeschafer.com
+  content: ! "@Eric, regarding the open database connection\n\nBest way to do this
+    is to create a DBConnection class (or something like that) that handles your database
+    connections, and make it implement IDisposable. In the dispose method of your
+    DBConnection class you can put in any cleanup you need. Now you just use:\n\nusing(
+    DBConnection conn = new DBConnection())\n{\n    // Code that uses conn.\n\n}\n\nat
+    the end of the using block, or exit of the scope (errors etc), the dispose method
+    is called which is where you destroy the database connection. fun :)"
+- created: 2008-02-20 20:45:56.595250000 -06:00
+  author: Abhijeet P
+  email: abhidotnet@gmail.com
+  content: ! 'If you guys haven''t already then you SHOULD check out this excellent
+    post Wes Dyer has on Iterators and what really goes on behind the scenes
+
+    http://blogs.msdn.com/wesdyer/archive/2007/03/23/all-about-iterators.aspx'
+- created: 2008-06-27 08:31:08.742548800 -05:00
+  author: Anthony Bouch
+  email: anthony@abouch.com
+  url: http://www.58bits.com
+  content: Saw a reference to you on a post over at CodeBetter - and then found this
+    post - nice one. Yield was on my list of things to do. :-)
+- created: 2010-03-06 05:55:41.421125000 -06:00
+  author: trickdev
+  content: Well explained.  Thanks.
+- created: 2010-03-31 11:53:57.966000000 -05:00
+  author: https://me.yahoo.com/a/WsEX4ScPmOlQp0iOhDE6tdd9eWKswXmI
+  email: none@none.com
+  url: https://me.yahoo.com/a/WsEX4ScPmOlQp0iOhDE6tdd9eWKswXmI
+  content: Great explanation Joshua, very clear and helpful. The example was also
+    simple and straight, even the careful names made understanding easier (the demonstration
+    section wasn&#180;t really necessary, comments on code would have been enough).
+    Keep the style, you're a born teacher!
+- created: 2010-05-04 01:26:33.721679500 -05:00
+  author: Jaishree
+  email: jaishree.t@tcs.com
+  content: Great Article Joshua.Its very helpful to understand the concepts very clearly.
+    You've explained in a very elaborate way. Thanks.
+- created: 2010-05-25 17:43:42.263952000 -05:00
+  author: Chintan
+  email: chin1910+flimflan@gmail.com
+  content: Typos and silly mistakes aside, a VERY good read. More importantly, the
+    SIMPLICITY of the example used is wonderful. Thanks for taking out time &amp;
+    putting an effort to write this piece. For any such &quot;nice&quot; /&quot;hidden&quot;/&quot;not-so-popular&quot;
+    but GOOD feature, such an article is what gets you started, sort of like an appetizer,
+    it's up to the hungry developer to take it ahead from there on! Once again, thanks!
+- created: 2010-07-02 14:08:41.466125000 -05:00
+  author: Tomamais
+  email: webmaster@tomasvasquez.com.br
+  url: http://www.tomasvasquez.com.br/blog
+  content: Amazing explanation and sample! Congratulations
 
 ---
 

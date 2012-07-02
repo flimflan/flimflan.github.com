@@ -6,6 +6,46 @@ date: 2005-11-03
 dasblog_id: 942c07d1-6b47-4006-8c6b-8c895ce48eee
 published_at: 2005-11-03 23:17:56.937000000 -06:00
 tags: .NET
+comments:
+- created: 2008-03-06 10:01:06.166750000 -06:00
+  author: Nirmala
+  email: mnirmala@hotmail.com
+  content: ! 'Hi,
+
+
+    We are using several data adapters and we are not explicitly opening and closing
+    the connections.  Now we are getting an error like this.
+
+
+    connections were in use and max pool size was reached
+
+
+    Will there be any remote possibility of getting the above error because we are
+    not opening and closing the connection explicitly.
+
+
+    Thanking you
+
+
+    Nirmala'
+- created: 2008-03-06 20:52:11.981668500 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Unless you disable it in your connection string, connection pooling
+    will always be used by default, regardless of whether you explicitly open and
+    close the connection. If hit with sufficient load, your application could max
+    out the available connections in the pool. Explicitly opening and closing the
+    connection in your code will not fix the problem.
+
+    The first thing I would look for is if any other code in your application is creating
+    connection objects and not closing/disposing them as soon as possible.'
+- created: 2008-03-10 08:22:12.838125000 -05:00
+  author: Chandan
+  email: chandan.telker@Nuware.com
+  content: Even I have the same kind of problem, &quot;Connecton were used and Max
+    pool size was reached&quot; I am not pretty sure this is happening because of
+    implicity opening of connection by DataAdapter. I am yet to find the real culprit...
 
 ---
 

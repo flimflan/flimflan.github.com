@@ -6,6 +6,109 @@ date: 2006-08-05
 dasblog_id: ba11f114-6da4-4e79-9a0d-57402643baaf
 published_at: 2006-08-05 12:02:52.412000000 -05:00
 tags: .NET
+comments:
+- created: 2007-12-05 11:15:00.768750000 -06:00
+  author: CW
+  content: Server.Transfer(&quot;~/Errors/401.htm&quot;,true) also works.
+- created: 2007-12-05 21:17:28.143750000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: CW - I'm not sure what you are referring to. Are you proposing an alternate
+    solution to the problem I described? I don't see how that line of code fits this
+    scenario.
+- created: 2008-01-31 10:01:51.291125000 -06:00
+  author: anoop
+  email: anoopbitsmart@gmail.com
+  content: ! "Hi,\n\nI want my .Net app to be accessible to a group only.For this
+    I entered the following in web.config\n\n&lt;authorization&gt;\n       &lt;allow
+    roles=&quot;Group name&quot; /&gt;\n        \n       &lt;deny users=&quot;*&quot;
+    /&gt;\n&lt;/authorization&gt;\n\n and want all users who are not member of this
+    group redirected to  customised page NoAccess.htm\n\n&lt;customErrors mode=&quot;On&quot;
+    defaultRedirect=&quot;Error.aspx&quot;   &gt;\n    \t&lt;error statusCode=&quot;401&quot;
+    redirect=&quot;NoAccess.htm&quot; /&gt;\n&lt;/customErrors&gt;\n   \n\nI am using
+    Windows authetication,have added the group in the local users and groups.\n\nWhen
+    I run the set up it prompts for login credentials which when entered gives error
+    message 401.2 Access is denied\n\nPlease help."
+- created: 2008-02-08 07:58:38.087752700 -06:00
+  author: Stephen Mackenzie
+  email: stephen.j.mackenzie@astrazeneca.com
+  content: ! "Hi,\n\nThis is great thanks.  The only problem I have now is that my
+    error page is in the root, and I have an image in it which is in the images folder.
+    \ I cannot get the image to display.\n\nI have a folder of the root called Dashboards,
+    which is secured. \n\nRoot\nCustomError.aspx\n--Images\n--Dashboards\n\nWhen I
+    look at the path for the image, it has the path Dashboards/images/error.jpg\n\nand
+    so doesnt display?\n\nThis is the markup which works fine when you view the page
+    on its own as the page is in the root.\n\n&lt;img src=&quot;images/error.jpg&quot;&gt;\n\nWhen
+    your HTTP handler returns my custom error page, the image has the path:\n\nDshboards/images/error.jpg
+    (the error was raised by a page in the Dashboards folder)\n\nAny thoughts?"
+- created: 2008-06-10 08:38:12.072623800 -05:00
+  author: martin
+  email: martin.symon@gmail.com
+  content: ! 'to Stephen Mackenzie - you should try path starting from root of app...use
+    &quot;~/images/error.jpg&quot; insted of &quot;images/error.jpg&quot;
+
+
+    to Joshua Flanagan - thank verry much for this solution...works fine for me'
+- created: 2008-07-15 15:50:21.757125000 -05:00
+  author: mac
+  email: mac@urbandesigns.ca
+  url: http://internal site
+  content: ! "hi. I can run your sample fine. however when I try to run your sample
+    via my own web.config / site it won't run. \nweb.config\n&lt;httpModules&gt;\n
+    \     &lt;add name=&quot;CustomAccessDenied&quot; type=&quot;FlimFlan.CustomAccessDenied,
+    FlimFlan.CustomAccessDenied&quot;/&gt;\n      &lt;add name=&quot;ScriptModule&quot;
+    type=&quot;System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=1.0.61025.0,
+    Culture=neutral, PublicKeyToken=31bf3856ad364e35&quot;/&gt;   \n    &lt;/httpModules&gt;\n
+    \n    &lt;authentication mode=&quot;Windows&quot;/&gt;\n    &lt;customErrors mode=&quot;RemoteOnly&quot;
+    defaultRedirect=&quot;Error.htm&quot;&gt;\n      &lt;error statusCode=&quot;401&quot;
+    redirect=&quot;~/errorpages/denied.aspx&quot;/&gt;\n    &lt;/customErrors&gt;\n\n&lt;location
+    path=&quot;Reporting/default.aspx&quot;&gt;\n    &lt;system.web&gt;\n      &lt;authorization&gt;\n
+    \       &lt;!--&lt;allow roles=&quot;BUILTIN\\Administrators,DomainName\\Manager&quot;
+    /&gt;--&gt;\n        &lt;allow roles=&quot;Human_resources&quot; /&gt;\n        &lt;deny
+    users=&quot;*&quot; /&gt;\n      &lt;/authorization&gt;\n    &lt;/system.web&gt;\n
+    \ &lt;/location&gt;\nwhen visiting hrapps/reporting/default.aspx then page will
+    only redirect to error.htm\n\ndll file was imported from demoweb vis VS2005 \nany
+    thoughts on this? from what I can see, the setup is fairly similar.I am running
+    ajax if that matters.\nmac"
+- created: 2008-07-15 17:15:25.069625000 -05:00
+  author: mac
+  content: ! "i think I have discovered the issue.. however unable to determine the
+    fix. when tested localy on the server (win2003) the dll is not getting loaded.
+    \n\nError\nCould not load file or assembly 'FlimFlan.CustomAccessDenied' or one
+    of its dependencies.\n\nI have the following\n &lt;httpModules&gt;\n   &lt;add
+    name=&quot;CustomAccessDenied&quot; type=&quot;FlimFlan.CustomAccessDenied, FlimFlan.CustomAccessDenied&quot;/&gt;\n...other
+    modules\n&lt;/httpModules&gt;\n\ni registered through and it appears to be loaded
+    in correctly."
+- created: 2008-07-15 17:17:22.335250000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Mac - I don't think I did any testing with the new AJAX mappings. Try removing
+    (or commenting out) the ScriptModule and see if that resolves the issue. If it
+    does, then we know there is a compatibility issue between my solution and Microsoft's
+    AJAX stuff. If you do discover an issue and figure out how to change my sample
+    to make it work, I'll post the code.
+- created: 2008-10-14 14:36:50.513125000 -05:00
+  author: Will
+  email: will.smith@xcis-software.com
+  content: ! 'Joshua,
+
+
+    I don''t think this solution will work as presented when using Forms authentication.  The
+    reason, is because the FormsAuthenticationModule already intercepts the 401 and
+    performs a redirect to the &quot;login page&quot;.
+
+
+    Many posts out there are looking for a solution to redirect to an unauthorized
+    page instead of the login page.  I think this is the best approach, but would
+    require clearing all of the http modules and redeclaring them.
+
+
+    Let me know what you think.
+
+
+    Will'
 
 ---
 

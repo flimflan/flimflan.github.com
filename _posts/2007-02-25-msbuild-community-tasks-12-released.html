@@ -5,6 +5,39 @@ layout: migrated
 date: 2007-02-25
 dasblog_id: 5e6b3817-a5c6-44ce-9a1e-2a9b0fb2762f
 published_at: 2007-02-25 17:41:44.804750000 -06:00
+comments:
+- created: 2007-03-26 17:59:40.287498800 -05:00
+  author: JeffG
+  content: Could you take a look at my problem at http://msbuildtasks.com/forums/95/ShowThread.aspx#95
+    ?
+- created: 2007-03-26 19:26:45.381248800 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'The situation you described is a bug which I intend tofix.
+
+    I''ve posted a possible workaround on the forum.'
+- created: 2007-04-08 22:35:59.703125000 -05:00
+  author: Gregory Phillips
+  email: gphillips@devtwenty.com
+  content: The post refers to &quot;support for creating and configuring IIS websites&quot;.
+    In release 1.2, I see plenty of support for creating and configuring application
+    pools and virtual directories, but I don't see the ability to create websites.
+    Is this functionality present?
+- created: 2007-04-10 00:52:11.562500000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: I was referring to the ability to define web application directories. Sorry
+    if the terminology I used got your hopes up. Do you have a need to create a new
+    IIS Web Site during a build script?
+- created: 2007-04-10 16:34:20.828125000 -05:00
+  author: Gregory Phillips
+  email: gphillips@devtwenty.com
+  content: Yes. We're trying to integrate all our deployment into MSBuild, and when
+    we do a &quot;clean&quot; deployment we want to re-create the web server instance
+    from scratch. We can execute the IIS admin scripts for this, but encapsulating
+    that functionality into an MSBuild task is a cleaner approach.
 
 ---
 

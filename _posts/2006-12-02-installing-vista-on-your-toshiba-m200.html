@@ -6,6 +6,622 @@ date: 2006-12-02
 dasblog_id: c999fbb2-909a-426c-aa90-346a1175a1a6
 published_at: 2006-12-02 11:36:37.785000000 -06:00
 tags: TabletPC
+comments:
+- created: 2006-12-11 09:48:58.009625000 -06:00
+  author: Drew
+  email: PXE.6.apbaker@neverbox.com
+  content: ! 'Hi,
+
+
+    The only option I had for reinstalling Windows on an R100 this past weekend was
+    a network boot -- I would have been sunk without your instructions.  Thank you
+    very much.
+
+
+    --Drew'
+- created: 2006-12-14 07:34:02.728375000 -06:00
+  author: DRTigerlilly
+  email: tigerlele@hotmail.com
+  content: ! 'Rotation drivers, don''t exist specifically for the m200, but you can
+    use the m400 utilities and get functionality on the m200
+
+
+    http://www.csdsupport.toshiba.com/tais/csd/support/windows_vista/vista_beta.cgi?lsAction=list_files&amp;model_id=10'
+- created: 2006-12-21 00:34:36.541998900 -06:00
+  author: kyle
+  email: jooksing1688@yahoo.com
+  content: I get an error on step 1-4.  I get &quot;the system cannot find the file
+    specified&quot;.  Do I need this step?  I typed in &quot;net use c:\tftpboot \\&lt;PXEServer&gt;\TFTPRoot&quot;
+- created: 2006-12-21 09:56:33.041998900 -06:00
+  author: Drew
+  email: PXE.6.apbaker@neverbox.com
+  content: ! 'Kyle -- I think the problem is that you''re trying to map to a directory,
+    rather than to a drive.  See if it works mapping just to a drive (ie, typing &quot;net
+    use x: \\&lt;PXEServer&gt;\TFTPRoot&quot;).  I''m afraid I''m of no help if you
+    really need to map to a directory, though.
+
+
+    --Drew'
+- created: 2006-12-21 21:42:18.541998900 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Drew is correct. If the tftpboot folder is not on your technician computer,
+    you will want to map a drive to it (do not try to map a folder to the remote folder).
+    If the tftpboot folder is on your technician computer (your are running the tftp
+    server on the technician computer), there is no need to map a drive to it. If
+    it is at c:\tftpboot on your technician computer, then use that path instead of
+    Y:'
+- created: 2006-12-26 14:58:04.164625000 -06:00
+  author: CAAP
+  email: ariasc@hotmail.com
+  content: I have Vista RTM but the Aero mode doesn&#180;t work on my Toshiba M200
+    (2GB RAM, NVidia GForce FX), is there any special video driver?
+- created: 2006-12-26 21:28:09.445875000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: CAAP - Did you install the packages from the Toshiba website mentioned
+    at the end of my article? The WinXP SP2 display driver for the M200, and then
+    the other 2 Vista packages for the M400.
+- created: 2006-12-30 14:15:39.452494500 -06:00
+  author: Andrey
+  email: stanovnov@yahoo.com
+  content: ! "I did as you describe, but when I start Toshiba and hit F12 to start
+    from the network \nI see flashing cursor in the top right corner for 30 seconds\nand
+    then the error shows up \nFile: \\boot\\BCD\nStatus: 0xc0000022\nInfo: An error
+    occured while attempting to read the boot configuration data\n\nI created BCD
+    file following your instructions and copied it, what could be the problem ?"
+- created: 2006-12-30 22:36:15.046244500 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Andrey - I really can't tell you for sure. It has something to do with
+    your BCD file created in Step 2 of the WAIK guide. All I can say is make sure
+    you re-read the instructions and especially the steps that I call out above. Do
+    NOT follow the Microsoft instructions exactly - they are wrong and must be modified
+    using my notes. The most common problem people have is failure to read my notes
+    for step 2-5 above. Copy the command-line from my example, not Microsoft's.
+- created: 2006-12-30 22:52:12.483744500 -06:00
+  author: Andrey
+  email: stanovnov@yahoo.com
+  content: ! "I am not sure if it's important, but when I started New Virtal PC I
+    had only drive X:\n(x:\\WindowsPE&gt;) available so I used X:\\BCD instead of
+    C:\\BCD\nand therefore copied BCD file from virtual X: drive \nis it OK ?"
+- created: 2006-12-30 23:17:31.530619500 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: The drive letter should not matter, as long as you were consistent throughout
+    the instructions.
+- created: 2007-01-01 11:18:53.811869500 -06:00
+  author: Rimsky
+  content: If you don't have a server, you can also download the emBoot Network tools
+    trial.  It comes with PXE Server and TFTP Server which you can use from a Windows
+    XP or Vista PC.  It worked for me.
+- created: 2007-01-01 12:47:27.843119500 -06:00
+  author: Andrey
+  email: stanovnov@yahoo.com
+  content: ! "Joshua \nas far as I understand BCD will be the same for everybody.\nCan
+    you email me your BCD file?"
+- created: 2007-01-07 13:36:54.496250000 -06:00
+  author: Davide
+  email: davefraud@hotmail.com
+  content: ! "File: \\boot\\BCD \nStatus: 0xc0000022 \nInfo: An error occured while
+    attempting to read the boot configuration data\n\nwhy?\nI did as you say (3 times),
+    but always this error...\nsorry for my english... :-)"
+- created: 2007-01-07 15:50:14.418125000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Anyone having trouble with their BCD file (&quot;An error occured while
+    attempting to read the boot configuration data&quot;), please see my follow-up
+    article at:
+
+    http://flimflan.com/blog/DeployAWinPE20ImageUsingPXEAndTheWAIK.aspx
+
+
+    Hopefully that will help clarify which steps people are doing wrong. If you do
+    realize what you did wrong and get it working, please post a comment on one of
+    these articles so that others can learn from it.'
+- created: 2007-01-07 15:50:14.840000000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Anyone having trouble with their BCD file (&quot;An error occured while
+    attempting to read the boot configuration data&quot;), please see my follow-up
+    article at:
+
+    http://flimflan.com/blog/DeployAWinPE20ImageUsingPXEAndTheWAIK.aspx
+
+
+    Hopefully that will help clarify which steps people are doing wrong. If you do
+    realize what you did wrong and get it working, please post a comment on one of
+    these articles so that others can learn from it.'
+- created: 2007-01-13 16:14:06.551244500 -06:00
+  author: samuel
+  email: samiul_zakaria@hotmail.com
+  content: ! "PLEASE is someone able to help me as my mate the admin has forgotten
+    the password for our laptop (we share it, its Toshiba protege M200) and i too
+    want to install a windows vista but neither have an optical drive or a floppy
+    drive. \n\nDOES ANYONE HAVE A SOLUTION IN EITHER: just rebooting and installing
+    Windows Vista without a password or some way of getting round this password. Anyone?????
+    \  \n\nPS: i have a pc that i can use and any solution please email me it to samiul_zakaria@hotmail.com"
+- created: 2007-02-01 22:15:36.140625000 -06:00
+  author: Alan
+  email: ahhlun@hotmail.com
+  content: ! 'Why do we have to boot to Window PE and then run the setup.exe?
+
+
+
+    isn''t the vista DVD bootable it self?
+
+
+    cant we just boot the vista DVD??
+
+
+    Moreover,
+
+
+    do you think the above step will work and help me boot my Norton Ghost over the
+    network?'
+- created: 2007-02-01 22:34:15.453125000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Alan - You absolutely can boot the Vista DVD itself - if you have a
+    DVD drive. As I state in the beginning, my Toshiba M200 (like most everyone else''s)
+    does not have any optical drive. The instructions in this page are our only option.
+
+
+    I''m pretty sure Norton Ghost has its own PXE server and client built in, so you
+    really don''t have to mess with anything mentioned in this article. If it doesn''t,
+    I''m sure you could use the TFTPD32 software as your server. The relevant information
+    is in the article I linked to: http://home.allegiance.tv/~joem298/'
+- created: 2007-02-02 20:06:15.738879700 -06:00
+  author: jonathan
+  content: waik link doesn't work anylonger! Is there another way?
+- created: 2007-02-02 22:13:46.692004700 -06:00
+  author: Jonathan
+  content: ! "Ok, you need to go to the new location of windows pe 2.0; a google search
+    of this pulls it up and i've listed it below. It's no longer bundled with WAIK.
+    \n\nWhen you install this program open up bdd 2007\\deployment workbench in the
+    star menu. Once open, expand the information center branch, click on components,
+    and choose to download windows automated installation kit. This kit is large and
+    took about 30 minutes on 8mbits cable.\n\nMine hung on me just after 100% at &quot;copying&quot;.
+    A restart of the program brough up an option to install. After installing, there
+    will be a link in your start menu to the windows pe command prompt! \n\nThe only
+    thing that threw me off with this entire article is on the second page, there's
+    no spage between the drive and the shared computer.\n\nEg: net use y:\\\\computer
+    vs. net use y: \\\\computer.\n\nAlso make sure when you enter your username and
+    password, you enter it in the format \ncomputer\\user\npassword\n\ngood luck!\n\nDownload
+    windows pe 2.0 form here\nhttp://technet.microsoft.com/en-us/windowsvista/aa905120.aspx\n\nor
+    here\nhttp://www.microsoft.com/technet/desktopdeployment/bdd/2007/default.mspx\n\nor
+    here\nhttp://www.microsoft.com/downloads/details.aspx?familyid=13F05BE2-FD0E-4620-8CA6-1AAD6FC54741&amp;displaylang=en&amp;Hash=XDC3RyruFGjOGvzEzFHsn8QzzeNOCdzwu7360cPF%2bBJNIcxc%2fFA1fuaFg9Su9CMQmEM95shU5H8FxtDWS9RfBg%3d%3d"
+- created: 2007-02-03 11:13:51.801375000 -06:00
+  author: jonathan
+  content: ! "Something else that may help: when changing the location of the pxe
+    boot file, i had to add a &quot;\\&quot; eg. \\boot\\pxeboot.com instead of boot\\pxeboot.com
+    \n(version difference?)"
+- created: 2007-02-05 11:06:18.973250000 -06:00
+  author: ryan
+  email: ryan_wicken@hotmail.co.uk
+  content: will partitioning the hard drive in the m200 then installing vista to that
+    enable a dual boot? or will the os not be able to modifi the boot.ini? or something
+- created: 2007-02-05 14:12:52.020125000 -06:00
+  author: ryan
+  content: in answer to my own question its yes. this enables you to dual boot the
+    os with your original.
+- created: 2007-02-10 17:21:16.673748200 -06:00
+  author: Bob Evans
+  content: I have had success with everything so far except I don't seem to be able
+    to get sound. Any ideas out there. I tried loading the sound drivers for the M400
+    (from toshiba site). The install indicated not supported by hardware. I tried
+    loading the sound drivers for the M200 and was told the operating system didn't
+    support it.
+- created: 2007-02-10 21:03:10.689373200 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Strange, I don't remember having to do anything special for sound. I don't
+    think I installed any drivers - just accepted what Windows detected by default.
+    Have you gone into the Sound control panel applet to make sure sound is enabled,
+    and the volume is up? And of course, double check that your hardware volume dial
+    is up. If Windows acts as if sound is enabled (the volume speaker is in the try),
+    you might also want to try headphones.
+- created: 2007-02-11 09:02:51.423748200 -06:00
+  author: Daniel
+  email: hed74010@hotmail.com
+  content: ! "Does anyone have any suggestions for my problem? I have followed all
+    the steps correctly and prepared to boot my destination computer. I pressed F12
+    as required and soon i received a message from the Windows Boot Manager, giving
+    me an error code of 0xc000000d and the message was &quot;The boot selection failed
+    because a required driver is inaccessible&quot;. Looking back at my log files,
+    I saw some errors:\n\n&lt;boot\\pxeboot.com&gt;: sent 49 blks, 25068 bytes in
+    1 s. 0 blk resent [11/02 14:54:28.171]\nConnection received from 192.168.2.3 on
+    port 2071 [11/02 14:54:28.659]\nRead request for file &lt;boot\\bootmgr.exe&gt;.
+    Mode octet [11/02 14:54:28.661]\nUsing local port 49379 [11/02 14:54:28.663]\n&lt;boot\\bootmgr.exe&gt;:
+    sent 817 blks, 417896 bytes in 1 s. 0 blk resent [11/02 14:54:29.840]\nConnection
+    received from 192.168.2.3 on port 10069 [11/02 14:54:30.143]\nRead request for
+    file &lt;\\Boot\\Fonts\\wgl4_boot.ttf&gt;. Mode octet [11/02 14:54:30.145]\nOACK:
+    &lt;tsize=47452,&gt; [11/02 14:54:30.164]\nUsing local port 49380 [11/02 14:54:30.166]\nPeer
+    returns ERROR &lt;TFTP Aborted&gt; -&gt; aborting transfer [11/02 14:54:30.198]\nRead
+    request for file &lt;\\Boot\\Fonts\\wgl4_boot.ttf&gt;. Mode octet [11/02 14:54:31.202]\nOACK:
+    &lt;tsize=47452,&gt; [11/02 14:54:31.287]\nUsing local port 49381 [11/02 14:54:31.294]\n&lt;Boot\\Fonts\\wgl4_boot.ttf&gt;:
+    sent 93 blks, 47452 bytes in 1 s. 0 blk resent [11/02 14:54:32.459]\nRead request
+    for file &lt;\\boot\\boot.ini&gt;. Mode octet [11/02 14:54:32.468]\nFile &lt;boot\\boot.ini&gt;
+    : error 2 in system call CreateFile The system cannot find the file specified.
+    [11/02 14:54:32.482]\nConnection received from 192.168.2.3 on port 10072 [11/02
+    14:54:48.390]\nRead request for file &lt;\\Boot\\BCD&gt;. Mode octet [11/02 14:54:48.393]\nOACK:
+    &lt;tsize=12288,&gt; [11/02 14:54:48.417]\nUsing local port 49383 [11/02 14:54:48.420]\nPeer
+    returns ERROR &lt;TFTP Aborted&gt; -&gt; aborting transfer [11/02 14:54:48.440]\nRead
+    request for file &lt;\\Boot\\BCD&gt;. Mode octet [11/02 14:54:49.458]\nOACK: &lt;tsize=12288,&gt;
+    [11/02 14:54:49.507]\nUsing local port 49384 [11/02 14:54:49.512]\n&lt;Boot\\BCD&gt;:
+    sent 25 blks, 12288 bytes in 1 s. 0 blk resent [11/02 14:54:50.606]\nRead request
+    for file &lt;\\Boot\\Fonts\\wgl4_boot.ttf&gt;. Mode octet [11/02 14:54:50.642]\nOACK:
+    &lt;tsize=47452,&gt; [11/02 14:54:50.671]\nUsing local port 49385 [11/02 14:54:50.677]\nPeer
+    returns ERROR &lt;TFTP Aborted&gt; -&gt; aborting transfer [11/02 14:54:50.704]\nRead
+    request for file &lt;\\Boot\\Fonts\\wgl4_boot.ttf&gt;. Mode octet [11/02 14:54:51.712]\nOACK:
+    &lt;tsize=47452,&gt; [11/02 14:54:51.744]\nUsing local port 49386 [11/02 14:54:51.751]\n&lt;Boot\\Fonts\\wgl4_boot.ttf&gt;:
+    sent 93 blks, 47452 bytes in 1 s. 0 blk resent [11/02 14:54:51.918]\nConnection
+    received from 192.168.2.3 on port 10076 [11/02 14:54:51.927]\nRead request for
+    file &lt;\\hiberfil.sys&gt;. Mode octet [11/02 14:54:51.936]\nFile &lt;hiberfil.sys&gt;
+    : error 2 in system call CreateFile The system cannot find the file specified.
+    [11/02 14:54:51.943]\n(I cut the top part off to make the post shorter)\n\nFor
+    some reason, it is trying to look for boot.ini, which I dont think Windows Vista
+    uses anymore) and it also wants hiberfil.sys. Is there something I may have missed
+    out? \n\nAny help will be greatly appreciated, thanks :)"
+- created: 2007-02-11 17:20:15.658123200 -06:00
+  author: Bob Evans
+  url: http://Sound Not Working
+  content: ! 'Would you mind confirming what sound driver you working machine has
+    loaded. Mine says:
+
+
+    Inter(r) 82801DB/DBM AC ''97 Audio Controller.'
+- created: 2007-02-11 18:53:32.579998200 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Bob - That's the one I have. On the driver properties page, it has driver
+    data 6/21/06 - it is the built-in Microsoft driver for the Intel hardware.
+- created: 2007-02-12 09:45:29.579998200 -06:00
+  author: Daniel
+  email: hed74010@hotmail.com
+  content: ! 'No worries everyone, I''ve got it to work. The reason why it didnt was
+    because I made one small but crucial mistake. It just goes to show what a big
+    difference just one typo makes :(
+
+
+    Thanks for all your help guys, Ive finally got Vista up and running on my ASUS
+    R2H!'
+- created: 2007-02-12 17:22:26.939373200 -06:00
+  author: Bob Evans
+  url: http://Sound Still Not Working...
+  content: I guess the best alternative for me is to uninstall the driver and see
+    if Vista tries to load again and maybe the install will resolve it. Everything
+    looks right including the volume bars giving the indication that the sound is
+    going up and down as music plays in the sound device menus. but no speaker or
+    headphone sound.
+- created: 2007-02-14 05:48:22.517498200 -06:00
+  author: Bob Evans
+  url: ! 'http://Re: Sound Not Working'
+  content: ! 'Reinstalling driver didn''t work. I was going to upgrade the bios, but
+    that is proving to be onerous as well. I have version: 1.10 10/31/2003. I don''t
+    have a floppy or CD drive. The bios launcher was not able to install from Vista.
+    It said unsupported OS. So, my only option is a MS-DOS prompt and the instructions
+    indicated that a DOS window in Windows will not work. So, I am presuming that
+    it might work from a PXE launched MS-DOS prompt like PXE Booting your M200 to
+    DOS using a Windows Server. I could put 2 files there and run the COM file.
+
+
+    Not sure it would really help. I have a USB audio interface device, so is not
+    critical, but is a pain.'
+- created: 2007-02-15 14:27:01.908123200 -06:00
+  author: Bob Evans
+  url: http://Sound IS Working
+  content: ! 'First, I found this gem via google:
+
+
+    http://www.networkblog.net/tag/toshiba
+
+
+    Then, I got brave and got this from Toshiba:
+
+
+    http://www.csd.toshiba.com/cgi-bin/tais/su/su_sc_dtlViewDL.jsp?soid=1671893&amp;moid=893054&amp;BV_SessionID=@@@@0770296019.1171570754@@@@&amp;BV_EngineID=cccgaddkefiljhdcgfkceghdgngdgnj.0&amp;ct=DL
+
+
+    Which will give you an executable:  util_mute_off_25847B.exe
+
+
+    I ran it and it worked! The M200 was not listed as supported for this utility.
+    But, I got brave.'
+- created: 2007-02-22 18:14:49.321000000 -06:00
+  author: Karthik
+  content: ! '&quot;You do not need WDSNBP.COM. Instead, you can have your PXE server
+    provide PXEBOOT.COM. &quot;
+
+
+    Doing this throws an error code 0xc000000f. Reason for this is -
+
+    http://forums.microsoft.com/TechNet/ShowPost.aspx?PostID=772243&amp;SiteID=17
+
+
+    &quot;This issue is caused by the fact that you are doing a PXE referral (that
+    is what occurs when using DHCP Options 66 &amp; 67) but are using the incorrect
+    boot program. You should instead be pointing clients to download wdsnbp.com, a
+    boot program specifically designed to fix-up the DHCP info in the BIOS as if the
+    client directly contacted the PXE Server (as should be the case, per the PXE spec).
+    &quot;
+
+
+    Having seen that, I changed my boot program to wdsnbp. But again, I faced the
+    &quot;TFTP failed&quot; issue mentioned in the above link. This looks like the
+    original link that explains this tftp failed problem -
+
+    http://support.microsoft.com/kb/926172
+
+
+    I still don''t know how to fix this. Let me know if someone has an idea.'
+- created: 2007-03-12 21:40:59.241375000 -05:00
+  author: Miguel
+  content: ! "WAIK is available from MSFT, just at another URL. You don't need to
+    download the Business Deployment Desktop. \n\nGoogle for 'aik site:microsoft.com'\n\n\nMiguel"
+- created: 2007-04-12 12:31:34.765625000 -05:00
+  author: Scott Allen
+  email: scott@OdeToCode.com
+  url: http://www.OdeToCode.com/blogs/scott/
+  content: Thanks, Joshua. This worked perfectly. I now have a fresh install of Vista
+    on my m200!
+- created: 2007-04-16 14:15:18.437500000 -05:00
+  author: JK
+  email: jckamata@yahoo.com
+  content: ! 'I am having trouble getting the sound to work on my M200 after installing
+    Vista.
+
+
+    I tried installing the util_mute_off_25847B.exe patch but still no luck.
+
+
+    Any help is highly appreciated!'
+- created: 2007-04-19 12:18:22.531250000 -05:00
+  author: JK
+  email: jckamata@yahoo.com
+  content: ! 'Got the sound to work finally.
+
+
+    Found an executable to turn mute off on an internal site.'
+- created: 2007-11-13 17:20:00.906375000 -06:00
+  author: Stephan
+  email: stephans@visi.com
+  url: http://none
+  content: ! "I am working on getting pxelinux to boot PE 2.0. TFTP, and DHCP are
+    set up OK, since all other operating systems boot great (Suse, Red Hat, BSD, DOS
+    &quot;memdisk&quot; etc). With PE I get the 0xc000000f error above. So i switched
+    to using WDSNBP.COM but I get a blank screen foreve then. At least with pxeboot.0
+    I got a PE boot error. \n\nConfiguretion: \nDHCP (linux) set to instruct the client
+    to download pxelinux.0\n\npexelinux.cfg/default:\n# Boot PE to install Vista etc...\nlabel
+    pe\n  kernel Boot\\wdsnbp.com\n\nany thoughts? It almost works... \n\nI have filename
+    remapping working too... \n\nrg \\\\ / # Convert backslashes to slashes\n\nHELP!!!"
+- created: 2007-11-23 23:50:07.143250000 -06:00
+  author: Tony
+  email: tdargent@oceanbroadband.net
+  content: ! "Hey Guys,i don't know if neone can help me but I can't seem to find
+    any available manufacturers support who are available on weekends. Bought my daughter
+    a M200 for her bday but the initial Vista installation was interupted and now
+    when I try to start it again I get a message saying Windows Install was interupted
+    and to restart computer to initialise installation, but just goes round and round
+    in circles.\n                   Please Help"
+- created: 2007-11-26 18:31:44.203125000 -06:00
+  author: Oscillum
+  email: oscillum@hotpop.com
+  content: ! 'First of all, thanks for an excellent guide Joshua!
+
+
+    I wanted to add my two cents in regards to Stephan''s questions about chain-loading
+    from pxelinux (two posts up).
+
+
+    I also had a perfectly working pxelinux setup before attempting this, so I too
+    wanted to integrate it.
+
+
+    The first thing I did was to simply rename ''pxeboot.n12'' to ''pxeboot.n12.0''.  The
+    0 extention tells pxelinux to execute the file as &quot;pxe&quot; format. (In
+    your ''pxelinux.cfg/default'' file, you can also use &quot;pxe Boot/pxeboot.n12&quot;
+    instead of &quot;kernel Boot/pxeboot.n12&quot; to do the same thing without renaming
+    the file).
+
+
+    Finally, the ''bootmgr.exe'' file has to be put in the root directory (the tftpboot
+    directory on most setups) since this is the working directory on bootup.
+
+
+    That was all I had to do.  As soon as pxelinux was executing the ''pxeboot.n12''
+    file properly and ''bootmgr.exe'' was in place, it loaded perfectly.  Just as
+    in the guide, I never used ''wdsnbp.com''.'
+- created: 2008-01-07 19:32:25.208875000 -06:00
+  author: Stavros Dimopoulos
+  email: stavros_dimopoulos@hotmail.com
+  content: ! "Hi! I have an M 200, but I have lost my recovery discks \nIf someone
+    have them, is it possible to upload an image to a server (ftp or rapidshare for
+    example) and give me the links?\nI guess it is ok,since I already have the original
+    windows sticker on the M200 and the recovery discks work only on the specific
+    machine\n\n Many thanks,\n Stavros"
+- created: 2008-02-02 13:05:49.936750000 -06:00
+  author: Ryan Adams
+  email: ryan@ryantadams.com
+  url: http://personal.ryantadams.com/
+  content: ! 'Thanks for the guide. I followed all the steps and it worked out great.
+    In the hopes of saving others time, I have created a zip file that includes everything
+    needed for the Windows PE TFTP boot (no need to use Virtual PC, download WAIK,
+    etc., all of that has been done for you). You can read my simplified instructions
+    and download the zip file here: http://personal.ryantadams.com/2008/02/01/how-to-boot-from-the-network-pxe-boot-with-tftp-and-windows-pe/'
+- created: 2008-02-11 03:01:47.187625000 -06:00
+  author: Jamie Lenz
+  email: jamie.lenz@yahoo.com
+  content: The problems that i'm having is that I cannot get the MSNET ima converted
+    to an IMZ to get it to boot.  I had vista on my m200 and wasn't happy so i'm wanting
+    to go back to XP.  Could somebody send me the MSNET .imz file to use?  I have
+    the recovery CD, but am having problems getting it to load over WinPE since it
+    is in a Ghost file...  Thanks!
+- created: 2008-05-13 20:29:54.381625000 -05:00
+  author: Carlos Fuentes
+  email: fuecarlos@fuecarlos.net
+  content: ! 'I was following these instructions to install Windows XP Tablet Edition
+    (I bought my M200 off of Ebay with no OS).  The istructions are wonderful, and
+    wokred perfectly, but...
+
+
+    The &quot;Install Windows XP&quot; button is grayed out when I run setup.exe.  Does
+    anyone know a way around this?
+
+
+    I''ve seen references saying that the install is only enabled if you boot directly,
+    which of course I can''t do.  Is there a way to turn the XP CD into a PXE-bootable
+    image (like we did for WinPE)?'
+- created: 2008-05-24 07:19:32.858875000 -05:00
+  author: Borut
+  email: reeal@volja.net
+  content: ! "Hi \nDid you solve this problem? I have the same problem(The &quot;Install
+    Windows XP&quot; button is grayed out when I run setup.exe), anybody knows how
+    to fix that?\nThanks"
+- created: 2008-06-06 03:56:23.960201100 -05:00
+  author: Alex
+  email: ajvand@wm.edu
+  content: ! 'I have been trying to boot to winPE, but the tftp server keeps denying
+    the client computer. First I get this until the pool fills up:
+
+
+
+    Client requested address 0.68.101.98 [06/06 04:53:16.643]
+
+    Suppress pingable address 0.68.101.98 [06/06 04:53:16.644]
+
+    Suppress pingable address 0.68.101.99 [06/06 04:53:16.647]
+
+    Suppress pingable address 0.68.101.100 [06/06 04:53:16.651]
+
+    Suppress pingable address 0.68.101.101 [06/06 04:53:16.655]
+
+    Suppress pingable address 0.68.101.102 [06/06 04:53:16.659]
+
+    Suppress pingable address 0.68.101.103 [06/06 04:53:16.666]
+
+    Suppress pingable address 0.68.101.104 [06/06 04:53:16.671]
+
+    Suppress pingable address 0.68.101.105 [06/06 04:53:16.676]
+
+    Suppress pingable address 0.68.101.106 [06/06 04:53:16.681]
+
+    Suppress pingable address 0.68.101.107 [06/06 04:53:16.691]
+
+    Suppress pingable address 0.68.101.109 [06/06 04:53:16.697]
+
+
+    then this repeatedly:
+
+
+
+    Client requested address 0.68.101.98 [06/06 04:37:27.658]
+
+    no more address or address previously allocated by another server [06/06 04:37:27.658]
+
+    Rcvd DHCP Discover Msg for IP 0.0.0.0, Mac 00:0E:7B:23:FA:11 [06/06 04:37:29.670]
+
+    Client requested address 0.68.101.98 [06/06 04:37:29.670]
+
+    no more address or address previously allocated by another server [06/06 04:37:29.670]
+
+    Rcvd DHCP Discover Msg for IP 0.0.0.0, Mac 00:0E:7B:23:FA:11 [06/06 04:37:33.679]
+
+    Client requested address 0.68.101.98 [06/06 04:37:33.679]
+
+    no more address or address previously allocated by another server [06/06 04:37:33.679]
+
+    Rcvd DHCP Discover Msg for IP 0.0.0.0, Mac 00:0E:7B:23:FA:11 [06/06 04:37:41.699]
+
+
+
+    ...any ideas on how to get around this? I tried changing different settings in
+    tftp32 but couldnt seem to let my m200 to access winpe.'
+- created: 2008-06-09 19:37:28.103873800 -05:00
+  author: Alex
+  email: ajvand@wm.edu
+  content: well now I got winPE working, and am having that same &quot;install windows
+    XP&quot; is greyed-out problem as the above people.
+- created: 2008-07-15 10:47:37.491500000 -05:00
+  author: VP
+  content: You'll have to run i386\winnt32 to begin XP installation from WinPE.
+- created: 2008-09-25 09:15:03.559500000 -05:00
+  author: Beedee
+  email: beedee@mailinator.com
+  content: ! "Hello,\n\nif there is anyone out there :).\n\nFrom this homepage:\nhttp://home.allegiance.tv/~joem298/#restore\n\nAt
+    step 5 which has the following content:\n\n&quot;The last file that you will need
+    for your PXE server is a boot disk image.  If you have a bootable floppy disk
+    that you want to use for booting your M200, you can skip this step.  Otherwise,
+    find a blank floppy disk and insert it into your PXE server.  Unzip the contents
+    of 'BFD full package v1.0.7.zip' into a temporary directory.  Open a command prompt
+    and browse to that temporary folder.  Run the command 'bfd msnet' in order to
+    create the bootable floppy.&quot;  \n\nI dont have a floppy, I wont create a floppy.\n\nHow
+    can I run the command bfd msnet?\n\nDo I have to start cmd.exe? And then what
+    do I have to type in? How can I browse to that temporary folder?\n\nQuestions
+    over question....\n\nHopefully anyone can help me out there :|.\n\nGreetings BeeDee"
+- created: 2008-09-26 12:15:44.823671900 -05:00
+  author: Beedee
+  email: beedee@mailinator.com
+  content: ! 'Not to confuse
+
+
+    I solved my problem with the floppy. But I now have a problem on Step 3 on the
+    other page of Deloy M200...
+
+
+    I will soon ask if i dont get any answer in the forum i asked for it.'
+- created: 2008-10-30 17:35:33.093750000 -05:00
+  author: denn
+  email: helic71@yandex.ru
+  url: http://www.ice-drink.ru
+  content: Yes, You'll have to run i386\winnt32 to begin XP installation from WinPE
+- created: 2009-01-25 11:21:30.223496000 -06:00
+  author: https://www.google.com/accounts/o8/id?id=AItOawnDKwNWm25FTRp_MqE9VDHCKWwJwtZGHSc
+  email: none@none.com
+  url: https://www.google.com/accounts/o8/id?id=AItOawnDKwNWm25FTRp_MqE9VDHCKWwJwtZGHSc
+  content: ! "I have been trying to boot to winPE, but the tftp server keeps denying
+    the client computer. First I get this until the pool fills up:\n\n\nClient requested
+    address 0.68.101.98 [06/06 04:53:16.643]\nSuppress pingable address 0.68.101.98
+    [06/06 04:53:16.644]\nSuppress pingable address 0.68.101.99 [06/06 04:53:16.647]\nSuppress
+    pingable address 0.68.101.100 [06/06 04:53:16.651]\nSuppress pingable address
+    0.68.101.101 [06/06 04:53:16.655]\nSuppress pingable address 0.68.101.102 [06/06
+    04:53:16.659]\nSuppress pingable address 0.68.101.103 [06/06 04:53:16.666]\nSuppress
+    pingable address 0.68.101.104 [06/06 04:53:16.671]\nSuppress pingable address
+    0.68.101.105 [06/06 04:53:16.676]\nSuppress pingable address 0.68.101.106 [06/06
+    04:53:16.681]\nSuppress pingable address 0.68.101.107 [06/06 04:53:16.691]\nSuppress
+    pingable address 0.68.101.109 [06/06 04:53:16.697]\n\nthen this repeatedly:\n\n\nClient
+    requested address 0.68.101.98 [06/06 04:37:27.658]\nno more address or address
+    previously allocated by another server [06/06 04:37:27.658]\nRcvd DHCP Discover
+    Msg for IP 0.0.0.0, Mac 00:0E:7B:23:FA:11 [06/06 04:37:29.670]\nClient requested
+    address 0.68.101.98 [06/06 04:37:29.670]\nno more address or address previously
+    allocated by another server [06/06 04:37:29.670]\nRcvd DHCP Discover Msg for IP
+    0.0.0.0, Mac 00:0E:7B:23:FA:11 [06/06 04:37:33.679]\nClient requested address
+    0.68.101.98 [06/06 04:37:33.679]\nno more address or address previously allocated
+    by another server [06/06 04:37:33.679]\nRcvd DHCP Discover Msg for IP 0.0.0.0,
+    Mac 00:0E:7B:23:FA:11 [06/06 04:37:41.699]\n\n\n...any ideas on how to get around
+    this? \nAlex please let me know how you solved the problem?"
+- created: 2009-04-21 19:00:23.892875000 -05:00
+  author: Steven
+  email: swreese1@yahoo.com
+  content: I found it to be much simpler to just copy the Vista files to a shared
+    folder and copy it to a slave drive or partition on my other computer, but thanks
+    for the info.
+- created: 2009-05-07 07:47:14.701625000 -05:00
+  author: Matt
+  email: mattvicks81@hotmail.com
+  content: ! 'Have same problem as Alex and comment couple above this.  Alex - can
+    you please say how you resolved this!
+
+    driving me nuts!'
 
 ---
 

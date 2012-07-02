@@ -6,6 +6,126 @@ date: 2006-01-08
 dasblog_id: 7a21f40a-7b66-4fd7-8188-21271749e5c7
 published_at: 2006-01-08 20:46:49.812000000 -06:00
 tags: .NET;ProfileView
+comments:
+- created: 2006-01-09 04:15:32.156250000 -06:00
+  author: Luc
+  email: luc.duchosal@arcantel.ch
+  content: ! 'Hi,
+
+
+    I tried to use your ProfileView webcontrol, but I don''t know how (no tut, no
+    sample...)
+
+    Here is what I did :
+
+
+    &amp;gt;%@ Register TagPrefix=&quot;FlimFlan&quot; Namespace=&quot;FlimFlan.WebControls&quot;
+    Assembly=&quot;ProfileView&quot; %&amp;lt;
+
+
+    &amp;gt;form id=&quot;profile01&quot; runat=&quot;server&quot;%lt;
+
+    &amp;gt;FlimFlan:ProfileView id=&quot;ProfileView01&quot; runat=&quot;server&quot;
+    /%lt;
+
+    &amp;gt;/form%lt;
+
+
+
+    but it doesn''t work... can you give some hint please.'
+- created: 2006-01-09 21:02:29.468750000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Close. In your Register directive, you need to set the &quot;Assembly&quot;
+    attribute to the name of the assembly (the DLL, without extension) - not the name
+    of the control. You specify the name of the control when you actually place the
+    control.  Example:
+
+
+    [%@ Register Assembly=&quot;FlimFlan.WebControls&quot; Namespace=&quot;FlimFlan.WebControls&quot;
+    TagPrefix=&quot;flim&quot; %]
+
+
+    [flim:profileview id=&quot;ProfileView1&quot; runat=&quot;server&quot;/]
+
+
+    (using square brackets instead of angle brackets)'
+- created: 2007-04-02 18:08:36.296875000 -05:00
+  author: Nikhil
+  email: nikhilar@usc.edu
+  content: ! 'Hi Joshua
+
+
+    I''m trying to use your control and have one question regarding it. I''ve three
+    atrributes defined for my profile in the web.config, namely FirstName, LastName
+    and PhoneNumber. The control is showing textboxes for First Name and Last Name,
+    but nothing for Phone Number. Is there any way I can have it show additional controls
+    for modifying additional profile information???
+
+
+    Regards
+
+    Nik'
+- created: 2007-04-02 18:34:13.890625000 -05:00
+  author: Nikhil
+  content: ! 'Regarding my earlier question, I had phone number as type int in the
+    web.config, as soon as I changed it to string, it appeared in the ProfileView
+    control.
+
+
+    so my next question is how can I''ve a Validator validate one of the textboxes,
+    if it''s possible to do so. Also, I would like to format the styling of the ProfileView
+    control. Can it be done??
+
+
+    Regards
+
+    nik
+
+
+    P.S - I just tried to peep inside ur source code. It''s all VOODOO magic to me'
+- created: 2007-04-02 19:59:09.109375000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Try setting the type of phone-number to &quot;Int32&quot; or &quot;System.Int32&quot;
+    instead of &quot;int&quot;. The control does not recognize &quot;int&quot; as
+    a valid type, since it is not defined by the .NET Framework (it is defined as
+    an alias inside the C# compiler).
+
+    The styling options are not as good as I would like. The control should render
+    IDs and CSS class names on each of the tags. You should be able to add styles
+    to each control by referencing those names and IDs in a stylesheet.'
+- created: 2007-04-14 09:14:53.640625000 -05:00
+  author: Emilio
+  email: degt@hotmail.com
+  url: http://www.focusonpanama.com/
+  content: ! 'Some issues here:
+
+
+    1. When UserName property is set it does not re-render the control to update the
+    profile values of that user. In fact it gets confused and makes a mess of it.
+
+
+    2. How would it go about re-rendering the whole control when the profile properties
+    of the user (not just the values but the profile set) differs from the previous
+    one?
+
+
+    I placed it in a page where I first select the application which then loads the
+    users which is then used to set the username on the ProfileView. It just does
+    not work. You can set the Username property but that is about it.'
+- created: 2007-04-15 10:46:34.750000000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: The UserName property was added as an afterthought, and it is now obvious
+    it was not implemented correctly. The code needs to be changed so that the controls
+    are re-built in the PreRender event, so that the updated state of internal values
+    are reflected. I have not had any time to dedicated to this fix. The source code
+    is available, so you are welcome to make the change, and I will repost it and
+    give you credit.
 
 ---
 

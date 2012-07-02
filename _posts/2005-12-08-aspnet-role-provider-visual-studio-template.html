@@ -6,6 +6,63 @@ date: 2005-12-08
 dasblog_id: 80cdb32f-ea80-423a-9113-a07433af8140
 published_at: 2005-12-08 18:00:56.000000000 -06:00
 tags: .NET
+comments:
+- created: 2006-01-10 06:46:17.187500000 -06:00
+  author: James Johnson
+  email: zincdx-junk@yahoo.com
+  content: ! 'Excellent! I found the comments extremely helpful. A VB.NET version
+    is easy to create from the template, but it would nice if it were included.
+
+
+    I like the trace helper too. A useful addition would be to write out parameter
+    names and values.'
+- created: 2006-01-10 20:31:26.281250000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! "I did consider creating a VB.NET version as well, but figured I'd wait
+    to get more feedback on the C# version.\n\nMaking a generic trace function that
+    outputs the parameter values is a little trickier than the current implementation.
+    The values are not available via reflection (that I know of - let me know if you
+    find differently), so you would have to pass the parameter values into the trace
+    method.\nThe signature would look something like this:\n\nprivate void traceMethodCall(params
+    object[] args)\n\nand the method calls would look like:\n\npublic override bool
+    IsUserInRole(string username, string roleName) {\n  traceMethodCall(username,
+    rolename);\n\npublic override bool RoleExists(string roleName) {\n traceMethodCall(roleName);\n\nSo,
+    not as easy to just copy &amp; paste the funciton call into every method.\nIf
+    you're interested in the full implementation, I could throw the code together
+    for a post."
+- created: 2007-03-01 17:18:34.101625000 -06:00
+  author: Monty
+  content: ! 'Looks great, but for some reason after installing &quot;successfully&quot;
+    it doesn''t appear in my templates. I''d like to see a VB version too... what
+    is the easy way &quot;to create [a VB version from the template&quot;?
+
+
+    Thanks!'
+- created: 2007-04-05 13:58:02.921875000 -05:00
+  author: Shadowin
+  email: shadowin@yahoo.com
+  url: http://www.shadowin.com
+  content: ! 'I linked you in my article so that others could grab your template for
+    ease of development. Since I''ve never made a template, I don''t know if it''s
+    possible to have it automatically modify the config file; so I installed your
+    provider template into a test project to check it out. I knew something was wrong
+    with my configuration, but I wasn''t sure how to fix it.
+
+
+    I''m not criticizing your article on excluding information about provider configuration.
+    I had a problem, and I wanted to write about my experience in case someone else
+    has the same problem.
+
+
+    Great job on the template, btw.'
+- created: 2008-09-09 18:11:29.072375000 -05:00
+  author: Celik
+  email: vay_anasini@msn.com
+  url: http://www.celikict.com
+  content: I need to implement my own user table instead of the standard asp.net user
+    and roles table layout. Do you know how i can do this?
 
 ---
 

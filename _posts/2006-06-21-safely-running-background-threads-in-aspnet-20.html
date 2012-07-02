@@ -6,6 +6,49 @@ date: 2006-06-21
 dasblog_id: b50b7d3a-d81d-462e-aece-72298bce00e2
 published_at: 2006-06-21 21:50:02.857000000 -05:00
 tags: .NET
+comments:
+- created: 2006-06-23 01:16:02.026652200 -05:00
+  author: Marc Brooks
+  email: IDisposable@gmail.com
+  url: http://http:musingmarc.blogspot.com
+  content: Awesome!  I like the idea a lot (and have blogged on it).  A couple thoughts
+    occur to me. First, do we capture enough details in the serialized exception?  Maybe
+    we should wrap another specific exception type around the actual caught exception
+    with details about the thread where it really occured... I'm going to play some
+    tomorrow.  Second, maybe you should be doing a POST instead of a GET to insure
+    we've got enough message-size available.
+- created: 2006-06-23 20:18:38.726373200 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Thanks for the feedback Marc (and nice words on your blog http://musingmarc.blogspot.com/2006/06/more-about-exception-handling-and-new_23.html).
+
+
+    I am doing a POST, and not a GET. In fact, the handler is specifically registered
+    only for the POST method - a GET attempt will give you a 404. I want to make it
+    hard for people to call the handler directly. Along those lines, I''d like to
+    add some code so that the handler only proceeds if the request is coming from
+    the localhost. You don''t want outsiders posting junk to your logs.
+
+
+    I originally planned to make a custom wrapper exception type (BackgroundThreadException?)
+    in order to gather more details, but when it came down to it, I couldn''t find
+    a use for it. I was going to capture the thread name, but then realized that since
+    I''m using a ThreadPool thread, the thread identity really doesn''t mean anything
+    (as the thread can be reused for multiple tasks). Of course, you could expand
+    on the library to add wrappers for ThreadStart and ParameterizedThreadStart delegates,
+    in which case knowing the thread identity could become more useful.
+
+
+    Let me know if there are additional details you can think of that would be useful
+    to capture. I appreciate the feedback in fleshing this thing out into a useful
+    tool.'
+- created: 2008-01-25 03:22:56.573017200 -06:00
+  author: Jens Alenius
+  email: jens.alenius@megasol.se
+  content: Hi. I liked the idea. Iim trying it out but I get 401 Authorize error when
+    I call the uploaddata method on the webclient. Is there any config on IIS that
+    has to be done?
 
 ---
 

@@ -5,6 +5,311 @@ layout: migrated
 date: 2007-06-10
 dasblog_id: 737e1cac-710f-4f53-804a-75c4963cf256
 published_at: 2007-06-10 19:38:07.474000000 -05:00
+comments:
+- created: 2007-06-19 10:01:02.107858200 -05:00
+  author: Io
+  content: ! '1) launch Firefox as administrator and update it;
+
+    2) (logged in as standard user, not administrator) delete this folder:
+
+    C:\Documents and Settings\%username%\Local Settings\Application Data\Mozilla\Firefox\Mozilla
+    Firefox'
+- created: 2007-06-19 13:22:21.527049000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: I'll have to give that a try next time. The update will still be applied
+    to the non-admin user? What is it that we are deleting in that folder?
+- created: 2007-06-19 18:20:40.490882400 -05:00
+  author: Michael
+  url: http://www.michaelkeating.com/
+  content: ! 'You wrote:
+
+    &gt; I''m not sure if the command-line from step 8 is always the same (the &quot;3824&quot;
+
+    &gt; is the only part I can imagine would vary).
+
+
+    Thanks for the solution; it worked perfectly. On the system I just had to fix,
+    the number happened to be &quot;3324&quot;. If it happens again on the same computer
+    (and under the same user name) I wonder if the number will change.'
+- created: 2007-06-28 23:34:05.344492000 -05:00
+  author: Joseph
+  content: ! 'Thanks for this page... that warning was getting quite old.
+
+
+    The &quot;3824&quot; was the Parent process ID I think, so it will change each
+    time, but doesn''t seem to be important as that process is gone when you launch
+    this from command line per your instructions... I''d imagine you could just put
+    &quot;9999&quot; or whatever into a script and I might work (haven''t tried it).
+
+
+    The only problem I had with your fix came at step 9.  When I tried to run from
+    admin prompt I kept getting ''access denied'' messages.  Eventually I just tried
+    it from the regular, non-admin prompt and it worked fine.  I did tweak a few things
+    in between though and can''t say if they had any effect (changed some permissions,
+    etc.).
+
+
+    Anyway, thanks again for this post.'
+- created: 2007-06-28 23:40:48.344492000 -05:00
+  author: Joseph
+  content: Oops, I lied... it didn't get fixed.  But I tried Io's fix noted above
+    and that worked perfectly.  I am pretty sure about that process ID thing though...
+- created: 2007-06-29 22:09:05.891367000 -05:00
+  author: Brett
+  content: ! 'Didn''t try your fix but Io was right on the money for me. The folder
+    contained the file update-auto.xml or something like that. Pretty sure it was
+    the culprit.
+
+
+    Brett'
+- created: 2007-06-30 08:46:41.360117000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: So does following Io's suggestion make the error go away because the update
+    can complete successfully OR does the error go away because once that file is
+    gone, Firefox stops trying to update your software? In other words, when you delete
+    those files, do you still get the upgrade?
+- created: 2007-07-05 11:39:06.641367000 -05:00
+  author: william
+  email: williamodouglas@aol.com
+  content: Thanks both to Joshua and Io.  Given the open source origins of Firefox,
+    it is indeed perplexing that the program does not envision run/as installations.  I
+    tried Io's deletion tweak and that seems to work.
+- created: 2007-07-10 18:02:08.903375000 -05:00
+  author: David Dawson
+  email: ddawson100@gmail.com
+  content: ! 'Io''s solution worked for me.  We''re running Firefox 2.0.0.4 on a Windows
+    Terminal Server and several folks were getting this error.  What happened is that
+    the users were getting the above folder filled with the updates and then even
+    if the Administrator logged on to apply the updates, the user''s Updates folder
+    still contained items.
+
+
+    I tried removing FF and reinstalling (but the users'' local settings folder wasn''t
+    cleaned out so kept trying to launch updates unsuccessfully).  I tried giving
+    all users Full Control NTFS permission on the Firefox folder but again, they didn''t
+    have the permission to even run the updates in the first place.  This worked but
+    the pain in the butt is having to have all users rename their folder manually.  Well,
+    it''s that or doing it for them which would have taken an hour which we didn''t
+    have.
+
+
+    I''ve been looking all over for this solution but it finally works.  Finally!'
+- created: 2007-07-13 03:24:32.294000000 -05:00
+  author: Bart
+  email: ihave@nomail.com
+  content: ! 'Thanks for this.
+
+    It annoyed me for a long time, but now it works perfectly. :)'
+- created: 2007-07-17 17:58:13.227250000 -05:00
+  author: tiks
+  content: ! '&quot;One or more files could not be updated. Please make sure all other
+    applications are closed and that you have permission to modify files, and then
+    restart Firefox to try again.&quot;
+
+
+    I solved this one, as a limited user clear the contents of \0 folder. also if
+    you have the \profile folder remove this folder, that''s it. I didn''t have the
+    above error message pop up again since. It worked mine.'
+- created: 2007-07-19 10:22:16.742875000 -05:00
+  author: OnFire
+  content: ! 'Io said:
+
+
+    1) launch Firefox as administrator and update it;
+
+    2) (logged in as standard user, not administrator) delete this folder:
+
+    C:\Documents and Settings\%username%\Local Settings\Application Data\Mozilla\Firefox\Mozilla
+    Firefox
+
+
+    *************************
+
+
+    It works perfectly. Thank you!.'
+- created: 2007-07-19 18:56:09.274125000 -05:00
+  author: Tamori
+  content: The problem is if you delete your entire local settings for Firefox as
+    Io suggests, you also nuke whatever extensions you had installed, which is not
+    quite desirable.
+- created: 2007-07-19 19:29:11.071000000 -05:00
+  author: M
+  email: mg42inoz@yahoo.com.au
+  content: ! 'I just deleted the Updates Folder in Local Settings &gt; Application
+    Data &gt; Mozilla.
+
+
+    That worked perfectly.'
+- created: 2007-07-23 07:38:41.661000000 -05:00
+  author: RiggsFolly
+  email: Not@a-chance.com
+  content: ! "Your solution may well work, however it is rather convoluted for you
+    average mum &amp; dad level user.\n\nI actually solved the problem by logging
+    on as Admin user and checking the access permissions on the &quot;C:\\Program
+    Files\\Mozilla Firefox&quot; folder. The &quot;Users&quot; group was only allowed
+    \n1. Read &amp; Execute\n2. List Folder Contents\n3. Read\naccess permissions.
+    I added &quot;Modify&quot; which automatically included &quot;Write&quot; permission.\n\nLogged
+    back on as a normal User level user.\nSpan Firefox up again and the update went
+    through without a problem, also including all the addin checking that is part
+    of a proper update.\n\nCan I suggest that you try this first before going through
+    all the above hoops.\n\nOn a cautionary note, I am fairly sure I did this as part
+    of the last update so there may be something that is part of the update process
+    which when run on your Admin account re-sets the permissions on Mozilla Firefox
+    folder back to the state that causes this problem to normal User level users when
+    they come to run the update. So you may need to make this a regular part of your
+    Firefox update process. So if this works for you &quot;MAKE NOTES FOR THE NEXT
+    TIME&quot;."
+- created: 2007-07-23 09:58:17.426625000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'RiggsFolly - I was specifically trying to solve the problem WITHOUT
+    changing permissions for my limited user account. Well behaved applications should
+    not require regular users elevating their permissions.
+
+    I agree my solution is not really viable for non-technical users. Your solution
+    is definitely the most straight forward if you are not concerned about the security
+    implications. It was good to point out, so that readers know they have other options.
+    Thanks!'
+- created: 2007-07-24 09:22:41.692250000 -05:00
+  author: Catemaco
+  email: ccarroll4@hotmail.com
+  content: ! "This is clearly a bug in the Mozilla update procedure.  I agree with
+    Josh and William Douglas - you shouldn't have to change permissions on the application
+    folder, and you should be able to use &quot;Run as&quot; to update Firefox.   \n\nEven
+    as an administrator, however, Josh's first solution is too complicated for me.
+    \ I don't understand what all that accomplishes.  I opted for the simpler &quot;delete
+    these user files&quot; approach."
+- created: 2007-07-24 10:29:52.801625000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'I also prefer the &quot;delete these user files&quot; approach.  I''d
+    like to better understand what the files are - why is it safe to delete them?
+    Am I losing something by deleting them?
+
+
+    My solution is way too complicated, but it was the only thing I could come up
+    with to make that annoying dialog go away. My post also provides a place for everyone
+    else having the problem to find potential solutions.'
+- created: 2007-08-01 11:15:43.786000000 -05:00
+  author: Beth
+  content: ! "We all want to be certain users without administrator permissions are
+    running up-to-date browsers. If deleting the folder means deleting the update,
+    that could be a security risk. \n\nCan anyone explain what's in that folder? I'd
+    really appreciate it, especially if deleting it means reinstalling all the extensions
+    every time Firefox needs updating."
+- created: 2007-08-01 11:36:12.270375000 -05:00
+  author: Beth
+  content: ! 'Tiks wrote:
+
+    &quot;I solved this one, as a limited user clear the contents of \0 folder. also
+    if you have the \profile folder remove this folder, that''s it. I didn''t have
+    the above error message pop up again since. It worked mine.&quot;
+
+
+    As an experiment, I just renamed the \Documents and Settings\%username%\Local
+    Settings\Application Data\Mozilla\Firefox\Mozilla Firefox\updates\0 folder. (I
+    think that''s the one you''re refering to, right Tiks?) I didn''t have to use
+    administrative login for anything, and I didn''t bother with the \Application
+    Data\Mozilla\Firefox\profile folder. As soon as I restarted firefox, the installation
+    ran, and a new \0 folder was added, so I guess that sort of answers my previous
+    question. As for extensions, I didn''t have any, so I don''t know if they would
+    have been nuked or not.'
+- created: 2007-08-07 11:05:32.645375000 -05:00
+  author: Tiks
+  content: That's right Beth.
+- created: 2007-08-09 09:26:10.854625000 -05:00
+  author: Gabriel
+  content: ! "I create a script and run it each time I install the new firefox\ncopy-past
+    the script below in a file named like &quot;delete_firefox_folder.vbs&quot;\n\n'Check
+    on all the user profiles where the folder of the profile are less then 5 caracters
+    and then,\n'Delete the folder Mozilla if existe in the path &quot;C:\\Documents
+    and Settings\\&lt;initials&gt;\\Local Settings\\Application Data\\&quot;\nSet
+    FSO = CreateObject(&quot;Scripting.FileSystemObject&quot;)\nShowSubfolders FSO.GetFolder(&quot;C:\\Documents
+    and Settings&quot;)\n'Enumerating all the folder include the subfolders\nSub ShowSubfolders(Folder)\n\tFor
+    Each Subfolder In folder.subfolders\t\t\n\t\tfolder_name = right(Subfolder.path,len(Subfolder.path)-InStrRev(Subfolder.path,&quot;\\&quot;))\t\t\n\t\tIf
+    len(folder_name) &lt; 5 Then\t\t\t\n\t\t\tIf (FSO.FolderExists(Subfolder.path+&quot;\\Local
+    Settings\\Application Data\\Mozilla&quot;)) Then \n\t\t\t\tFSO.DeleteFolder(Subfolder.path+&quot;\\Local
+    Settings\\Application Data\\Mozilla&quot;), True\n\t\t\tEnd If \n\t\tEnd If  \n\tNext
+    \nEnd Sub"
+- created: 2007-08-19 07:41:30.464000000 -05:00
+  author: Dominique
+  content: ! 'I tried the solution proposed by Beth (her message from Aug 1st) and
+    it worked perfectly. Thanks!
+
+    Dom'
+- created: 2007-09-20 22:40:57.336875000 -05:00
+  author: Justin
+  content: ! 'A more simple solution...
+
+    In the command line of the limited user, paste and execute the following line:
+
+
+    runas /user:Administrator /noprofile /env &quot;C:\Program Files\Mozilla Firefox\firefox.exe&quot;
+
+
+    The &quot;/noprofile&quot; and &quot;/env&quot; flags will launch Firefox with
+    administrator permissions but without loading the Administrator''s profile and
+    will continue to use the current environment.  Firefox will then update as necessary
+    and open a browser window.  Firefox can then be restarted with the limited user''s
+    permissions and will cease to complain.'
+- created: 2007-09-26 12:32:46.531250000 -05:00
+  author: Fabian
+  email: fabian@nredband.net
+  content: ! 'Great info, thanx all.
+
+    Justins last trick seems the most reasonable to me, and it works wonders. Just
+    remember you have to have the Administrator password at hand (of course). Thanks.'
+- created: 2007-12-12 23:04:06.406250000 -06:00
+  author: Dave C.
+  url: http://21stcenturymisfit.blogspot.com/
+  content: Geez, I continue to have this problem with new updates!  When is the dev
+    team gonna fix it?
+- created: 2008-01-24 16:52:15.415889500 -06:00
+  author: Koti
+  content: Eliminated years worth of pain
+- created: 2008-04-18 14:31:04.325664500 -05:00
+  author: Dave S.
+  email: dave.my.mind.is.going@gmail.com
+  content: ! "If UserIsAdmin()\n{\nUpdate();\n}\nElse \n{\nWarnUpdateAvailable;\n}\n\nCmon
+    Mozilla team, how hard can this be?"
+- created: 2008-04-21 15:28:28.284750000 -05:00
+  author: Jay Schlackman
+  content: THANK YOU. I was getting very frustrated not only with this message but
+    also with the complete lack of useful information on the Mozilla forums.
+- created: 2008-06-17 03:28:52.264373800 -05:00
+  author: Giuseppe M.
+  url: http://www.fabiodesimone.com/
+  content: ! 'Try also this solution:
+
+
+    http://woodruffrc.com/allow-non-admin-users-to-update-firefox.html'
+- created: 2008-12-20 17:11:45.992419200 -06:00
+  author: Dave C.
+  email: dave.cohoe@gmail.com
+  url: http://www.cohoe.net
+  content: Amazing that this is still a problem.  Get with it Mozilla!
+- created: 2009-01-11 16:17:33.059648000 -06:00
+  author: Melissa Battersby
+  email: batmissy@gmail.com
+  content: ! 'Thanks for saving my sanity.  That error message was getting on my last
+    nerve, especially since I have been looking for a fix for months to no avail.  I
+    found many people with the same problem but not able to find a fix as well.  Here''s
+    hoping they find your post too.  I am glad I did not give up my search, and I
+    can not thank you enough for your post that fixed the problem.  Keep up the good
+    work.
+
+
+    Melissa'
+- created: 2009-10-09 09:09:05.140500000 -05:00
+  author: Greg
+  email: nospam@comcast.net
+  content: Thanks so much. Perfect
 
 ---
 

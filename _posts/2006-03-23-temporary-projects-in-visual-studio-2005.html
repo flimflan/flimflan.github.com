@@ -6,6 +6,47 @@ date: 2006-03-23
 dasblog_id: 92b02451-3dab-40fc-9616-093d54131502
 published_at: 2006-03-23 22:00:28.078125000 -06:00
 tags: .NET
+comments:
+- created: 2006-03-28 15:30:39.958703400 -06:00
+  author: Zoltan
+  content: ! '//off, sry (the ProfileView topic was closed)
+
+    history:
+
+    ---------------------------------------------
+
+    &quot;Zoltan -
+
+    You''ve stumbled upon something strange. When I download the release using Firefox,
+    I *also* get the old version. I have checked and re-checked, uploading the new
+    version many times, and I still get the old version. I then tried using IE, and
+    it downloaded the correct new version. I have no idea why at this point, but its
+    something to try.
+
+
+    Sorry, you cannot use it in an admin page to manage other user''s profiles. My
+    control is built on Microsoft''s Profile Provider framework, and that framework
+    wasn''t designed for the use case of manipulating other people''s profiles.&quot;
+
+    -----------------------------------------------
+
+
+    I tried to download the new version with IE, and it worked as you said.
+
+    really strange. maybe it''s someting to do with the caching.
+
+
+    If I want to manage other user''s profiles (from admin), I use to use this:
+
+    ProfileCommon prof = Profile.GetProfile(UserName);
+
+    prof.SetPropertyValue(&quot;propertyName&quot;, TextBox1.Text);
+
+    prof.Save();
+
+
+    Why can''t ProfileView do the same? Am I misunderstanding something? I''m still
+    new with asp.'
 
 ---
 

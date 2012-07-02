@@ -6,6 +6,806 @@ date: 2007-01-07
 dasblog_id: 8824c98e-c8ad-497b-bae2-e45f21c805a5
 published_at: 2007-01-07 15:38:20.011000000 -06:00
 tags: TabletPC
+comments:
+- created: 2007-01-08 07:46:06.090000000 -06:00
+  author: davide
+  email: davefraud@hotmail.com
+  content: ! "finally I've mapped the network...\nbut... \nFile: \\boot\\BCD \nStatus:
+    0xc0000022 \nInfo: An error occured while attempting to read the boot configuration
+    data \n\np.s. sorry for my bad English"
+- created: 2007-01-09 13:51:24.496250000 -06:00
+  author: Wouter Leeuwerck
+  email: wouwie@pandora.be
+  content: ! 'Nope, still the same error.
+
+
+    When I look in the log of the tftpd32 server, there seems to be a problem with
+    a sort of
+
+    EACCESS on file \Boot\Fonts\wgl4_boot.ttf The folder name is invalid.
+
+    Same problem for the file \boot\boot.ini and \Boot\BCD
+
+
+    Placing the fonts there does not solve the problem.
+
+    A file like boot.ini I don''t find on the PE CD.
+
+
+    Anyone that can solve the problem?'
+- created: 2007-01-09 15:25:51.418125000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'This is the complete directory listing of my working tftpboot\boot folder
+    (there are no subfolders):
+
+    abortpxe.com
+
+    BCD
+
+    boot.sdi
+
+    bootmgr.exe
+
+    hdlscom1.com
+
+    hdlscom1.n12
+
+    hdlscom2.com
+
+    hdlscom2.n12
+
+    pxeboot.com
+
+    pxeboot.n12
+
+    WdsConfig.inf
+
+    wdsnbp.com
+
+    winpe.wim'
+- created: 2007-01-09 18:41:23.293125000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Wouter - I believe some of those error messages are &quot;normal&quot;.
+    I''ve pasted the entire contents of my tfptd32.exe log window during a successful
+    load. The errors in the log DID NOT prevent me from booting WinPE 2.0 on my tablet.
+
+
+    Rcvd DHCP Discover Msg for IP 0.0.0.0, Mac XX:XX:XX:XX:XX:XX [09/01 18:32:18.006]
+
+    DHCP: proposed address 192.168.1.200 [09/01 18:32:18.006]
+
+    Rcvd DHCP Rqst Msg for IP 0.0.0.0, Mac XX:XX:XX:XX:XX:XX [09/01 18:32:20.006]
+
+    Previously allocated address acked [09/01 18:32:20.006]
+
+    Connection received from 192.168.1.200 on port 2070 [09/01 18:32:20.006]
+
+    Read request for file &lt;boot\pxeboot.com&gt;. Mode octet [09/01 18:32:20.022]
+
+    OACK: &lt;blksize=1456,&gt; [09/01 18:32:20.022]
+
+    &lt;boot\pxeboot.com&gt;: sent 18 blks, 25068 bytes in 0 s. 0 blk resent [09/01
+    18:32:20.069]
+
+    Connection received from 192.168.1.200 on port 2071 [09/01 18:32:22.975]
+
+    Read request for file &lt;boot\bootmgr.exe&gt;. Mode octet [09/01 18:32:23.006]
+
+    OACK: &lt;blksize=1456,&gt; [09/01 18:32:23.006]
+
+    &lt;boot\bootmgr.exe&gt;: sent 288 blks, 417896 bytes in 1 s. 0 blk resent [09/01
+    18:32:23.162]
+
+    Connection received from 192.168.1.200 on port 5329 [09/01 18:32:23.725]
+
+    Read request for file &lt;\Boot\Fonts\wgl4_boot.ttf&gt;. Mode octet [09/01 18:32:23.725]
+
+    File &lt;Boot\Fonts\wgl4_boot.ttf&gt; : error 3 in system call CreateFile The
+    system cannot find the path specified. [09/01 18:32:23.725]
+
+    Connection received from 192.168.1.200 on port 5330 [09/01 18:32:24.037]
+
+    Read request for file &lt;\boot\boot.ini&gt;. Mode octet [09/01 18:32:24.037]
+
+    File &lt;boot\boot.ini&gt; : error 2 in system call CreateFile The system cannot
+    find the file specified. [09/01 18:32:24.037]
+
+    Connection received from 192.168.1.200 on port 5331 [09/01 18:32:39.241]
+
+    Read request for file &lt;\Boot\BCD&gt;. Mode octet [09/01 18:32:39.241]
+
+    OACK: &lt;tsize=12288,&gt; [09/01 18:32:39.241]
+
+    Peer returns ERROR &lt;TFTP Aborted&gt; -&gt; aborting transfer [09/01 18:32:40.241]
+
+    Read request for file &lt;\Boot\BCD&gt;. Mode octet [09/01 18:32:40.241]
+
+    OACK: &lt;tsize=12288,blksize=1420,&gt; [09/01 18:32:40.257]
+
+    &lt;Boot\BCD&gt;: sent 9 blks, 12288 bytes in 1 s. 0 blk resent [09/01 18:32:40.272]
+
+    Read request for file &lt;\Boot\Fonts\wgl4_boot.ttf&gt;. Mode octet [09/01 18:32:41.288]
+
+    File &lt;Boot\Fonts\wgl4_boot.ttf&gt; : error 3 in system call CreateFile The
+    system cannot find the path specified. [09/01 18:32:41.288]
+
+    Connection received from 192.168.1.200 on port 5334 [09/01 18:32:41.303]
+
+    Read request for file &lt;\hiberfil.sys&gt;. Mode octet [09/01 18:32:41.303]
+
+    File &lt;hiberfil.sys&gt; : error 2 in system call CreateFile The system cannot
+    find the file specified. [09/01 18:32:41.303]
+
+    Connection received from 192.168.1.200 on port 5335 [09/01 18:32:41.303]
+
+    Read request for file &lt;\Boot\WinPE.wim&gt;. Mode octet [09/01 18:32:41.303]
+
+    OACK: &lt;tsize=164002999,&gt; [09/01 18:32:41.335]
+
+    Peer returns ERROR &lt;TFTP Aborted&gt; -&gt; aborting transfer [09/01 18:32:42.335]
+
+    Read request for file &lt;\boot\boot.sdi&gt;. Mode octet [09/01 18:32:42.335]
+
+    OACK: &lt;tsize=3170304,&gt; [09/01 18:32:42.350]
+
+    Peer returns ERROR &lt;TFTP Aborted&gt; -&gt; aborting transfer [09/01 18:32:43.350]
+
+    Read request for file &lt;\boot\boot.sdi&gt;. Mode octet [09/01 18:32:43.350]
+
+    OACK: &lt;tsize=3170304,blksize=1420,&gt; [09/01 18:32:43.350]
+
+    &lt;boot\boot.sdi&gt;: sent 2233 blks, 3170304 bytes in 2 s. 0 blk resent [09/01
+    18:32:44.272]
+
+    Connection received from 192.168.1.200 on port 5338 [09/01 18:32:44.272]
+
+    Read request for file &lt;\Boot\WinPE.wim&gt;. Mode octet [09/01 18:32:44.272]
+
+    OACK: &lt;tsize=164002999,blksize=1420,&gt; [09/01 18:32:44.288]
+
+    &lt;Boot\WinPE.wim&gt;: sent 115496 blks, 164002999 bytes in 46 s. 0 blk resent
+    [09/01 18:33:30.679]
+
+    Connection received from 192.168.1.200 on port 5396 [09/01 18:33:32.648]
+
+    Read request for file &lt;\Boot\Fonts\wgl4_boot.ttf&gt;. Mode octet [09/01 18:33:32.648]
+
+    File &lt;Boot\Fonts\wgl4_boot.ttf&gt; : error 3 in system call CreateFile The
+    system cannot find the path specified. [09/01 18:33:32.648]
+
+    Rcvd DHCP Discover Msg for IP 0.0.0.0, Mac XX:XX:XX:XX:XX:XX [09/01 18:34:13.711]
+
+    DHCP: proposed address 192.168.1.200 [09/01 18:34:13.711]
+
+    Rcvd DHCP Rqst Msg for IP 0.0.0.0, Mac XX:XX:XX:XX:XX:XX [09/01 18:34:13.727]
+
+    Previously allocated address acked [09/01 18:34:13.727]
+
+    Rcvd DHCP Rqst Msg for IP 192.168.1.200, Mac XX:XX:XX:XX:XX:XX [09/01 18:34:16.883]
+
+    Previously allocated address acked [09/01 18:34:16.883]'
+- created: 2007-01-11 01:24:09.386875000 -06:00
+  author: Jonathan Payan
+  email: johnnyakira@gmail.com
+  content: ! 'Hi:
+
+
+    Well i solve my problem, ir you change some settings in your tftpd32 you will
+    boot in the windows installer, you only need to click in the settings button and
+    then check the option  PXE Compatibility, and save your settings and its done!!!!
+
+
+
+    Jejeje, sorry for my english!!!!'
+- created: 2007-01-11 11:04:59.386875000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Thanks for the suggestion Jonathan - hopefully that will help others.
+
+    I did NOT need to check PXE Compatibility, but it may depend on the system you
+    are trying to boot.
+
+    My TFTPD settings were the same as those suggested by the original article I linked
+    to: http://home.allegiance.tv/~joem298/'
+- created: 2007-01-11 13:57:15.199375000 -06:00
+  author: Wouter Leeuwerck
+  email: wouwie@pandora.be
+  content: ! "Thanks Jonathan, I changed the same option, and now my virtual machine
+    also boots from windows pe.  VM Workstation runs stuck after a while, but I think
+    that is because VM ware is not yet compatible with vista.  I try tomorrow in the
+    computer shop and let you know if it works in the real world.  \n\nThank you very
+    much."
+- created: 2007-01-15 04:51:49.488744500 -06:00
+  author: wouter leeuwerck
+  email: wouwie@telenet.be
+  content: ! 'Ok, I''ve tested the option for pxe compatibility and now it works really
+    great!
+
+    tested on 5 different kind of mainboards and 3 portabeles.  Thanks a lot!'
+- created: 2007-01-16 10:16:24.723119500 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Thanks for the confirmation Wouter. I have updated the original article
+    to suggest using that option if you have trouble.
+- created: 2007-01-18 05:33:42.285619500 -06:00
+  author: Jori Huisman
+  email: jorimeine@planet.nl
+  content: ! 'Joshua,
+
+
+    I just want to say you can look in the mirror and be proud of yourself.
+
+    Thank you so much on helping me out installing Vista this way.
+
+    It is a one of a kind procedure compared to other on the net, trust me.
+
+
+    Thnx,
+
+    Jori'
+- created: 2007-02-06 04:44:00.801375000 -06:00
+  author: Paul
+  email: svenki24@yahoo.com
+  content: ! "The page was really helpful to created PXE image. Many Thanks....\n\nBut
+    when boot my workstation with F12...it gives me an following error. I appreciate
+    your assistance. \n\nFYI:  i can boot that workstation with CD winpe 2 boot image
+    (I've created image using the command: oscdimg -n -bc:\\winpe_x86\\etfsboot.com
+    c:\\winpe_x86\\ISO c:\\winpe_x86\\winpe_x86.iso)\n\nNo Doubt: I've exactly the
+    same steps you've give( Tried 3 times creting the BCD files, all have the same
+    error)\n\nERROR\nStatus: 0xc000000f \nInfo: Boot selection failed because a required
+    device is inaccessible"
+- created: 2007-03-01 06:01:00.679750000 -06:00
+  author: Robin
+  content: ! 'After a week for struggling to get this to work (and succeeded) he''s
+    my suggests:
+
+
+    1. TFTPD
+
+    Don''t use Netware''s (obvious I know - but it''s use here is out of my control)
+
+    Microsofts works (but lacks logging). TFTPD32 works if you check the allow ''\''
+    for virtual root option (which is why Netware''s doesn''t work).
+
+
+    2. bootmgr.exe
+
+    Despite the docs, this file has to be in the TFTP root.
+
+
+    3. BCD file
+
+    Double check this. One typo in here (easily done with all these steps) can waste
+    hours of your time.
+
+    Use [b]bcdedit -store x:\BCD -enum all[/b]
+
+    it should produce something like (GUIDs different):
+
+    [code]
+
+    Windows Boot Manager
+
+    --------------------
+
+    identifier              {bootmgr}
+
+    description             Windows VISTA BootManager
+
+    displayorder            {bef323ac-c6c0-11db-beab-0007e95c8f63}
+
+    timeout                 30
+
+
+    Windows Boot Loader
+
+    -------------------
+
+    identifier              {bef323ac-c6c0-11db-beab-0007e95c8f63}
+
+    device                  ramdisk=[boot]\Boot\WinPE.wim,{ramdiskoptions}
+
+    description             WinPE Boot Image
+
+    osdevice                ramdisk=[boot]\Boot\WinPE.wim,{ramdiskoptions}
+
+    systemroot              \Windows
+
+    detecthal               Yes
+
+    winpe                   Yes
+
+
+    Setup Ramdisk Options
+
+    ---------------------
+
+    identifier              {ramdiskoptions}
+
+    description             Ramdisk options
+
+    ramdisksdidevice        boot
+
+    ramdisksdipath          \boot\boot.sdi
+
+    [/code]
+
+
+    4. Boot Image File
+
+    Use pxeboot.com or pxeboot.n12 (to remove F12 message)
+
+    If redirecting from PXELINUX then rename pxeboot.n12 to pxeboot.0
+
+
+    Hope this helps
+
+    Robin'
+- created: 2007-03-01 09:09:55.273500000 -06:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! "Thanks for the feedback, hopefully it will help others. \nI'm not sure
+    what you mean by #2 - when you say &quot;TFTP root&quot;, do you mean the application
+    folder (c:\\apps\\tftpboot in my example), or the boot folder that is created
+    (c:\\apps\\tftpboot\\boot) and contains all of the WinPE files?\nIn my experience,
+    I had no problems with bootmgr.exe only existing in the boot subfolder.\nAnd you
+    are absolutely right that the BCD creation is the most sensitive step. This follow-up
+    post was an attempt to make it very explicit which exact commands to type, but
+    there is always room for error.\nGlad to hear you finally got it to work."
+- created: 2007-03-05 05:35:17.921875000 -06:00
+  author: Robin
+  content: ! 'Yep, I was getting &quot;TFTP Download failed&quot; from pxeboot.0 if
+    I didn''t put bootmgr.exe in the TFTP root directory (c:\apps\tftpboot in your
+    example).
+
+
+    This may be because I''m going from PXELINUX to &quot;boot/pxeboot.0&quot;. pxeboot.0
+    only has the text &quot;bootmgr.exe&quot; in it (not &quot;boot/pxeboot.0&quot;)
+    so must be relying on some sort of ''current directory'' assumption that I didn''t
+    think existed in TFTP.
+
+
+    Another usual site: www.boot-land.net'
+- created: 2007-03-07 23:28:05.140625000 -06:00
+  author: cucu
+  email: cucumonster@optonline.net
+  content: hey i tried to do the (bcdedit –store c:\BCD –create {ramdiskoptions} /d
+    &quot;Ramdisk options&quot;) and it wont work in vista cmd promt i donno if anyone
+    els incountered this but i hope theirs a solution for this thanx alot
+- created: 2007-03-09 19:21:39.913653700 -06:00
+  author: d-v-8
+  email: davinderonline@gmail.com
+  content: ! "I followed the instructions precisely with the exception that i ran
+    virtual pc from the same pc i was hosting from. I got the guid, and was able to
+    deploy winpe 2.0 to another computer that was on my switch. \n\nthe real problem
+    is that when i try to copy my tftp folder to another computer and use a new computer
+    as a host, i get errors trying to load the image. 0xc0000022 or 0xc000000f\n\nis
+    the guid exclusive to the pc that generated it?"
+- created: 2007-03-12 17:57:50.319500000 -05:00
+  author: Miguel
+  content: ! "There is discussion/comments about whether or not bootmgr.exe must be
+    in the root. \n\nI have observed that the behavior changes depending upon whether
+    you use '/' or '\\' in the DHCP Option 67 Bootfile Name\n\nThis data was collected
+    on the tftp server running:\n win2k3r2\n some other tftp server\n MSFT DHCP service\n
+    wireshark network protocol analyzer http://wireshark.org/\n\nIf DHCP option 67
+    is configured with a backslash to say:\n  boot\\pxeboot.n12\n\nthen it will proceed
+    to load 'boot\\bootmgr.exe'\n\nIf DHCP option 67 is configured with a forward
+    slash to say:\n  boot/pxeboot.n12\n\nthen it will proceed to load 'bootmgr.exe'
+    out of the root of the tftp server\n\nFurther investigation leads to the following
+    observations:\n\n  \\pxeboot.n12 -&gt; \\bootmgr.exe\n  /pxeboot.n12 -&gt; bootmgr.exe\n
+    \ foo/pxeboot.n12 -&gt; bootmgr.exe\n  foo\\pxeboot.n12 -&gt; foo\\bootmgr.exe\n
+    \ foo/bar/pxeboot.n12 -&gt; bootmgr.exe\n  foo\\bar\\pxeboot.n12 -&gt; foo\\bar\\bootmgr.exe\n
+    \ /foo/bar/pxeboot.n12 -&gt; bootmgr.exe\n  \\foo\\bar\\pxeboot.n12 -&gt; \\foo\\bar\\bootmgr.exe\n\n\nThis
+    seems to imply that the implementation is grabbing everything up to the last '\\'
+    character as the path. If there are no '\\' chars, as in 'boot/pxeboot.n12' then
+    the code does not find a prefix and bootmgr.exe is fetched from the root of the
+    tftp server. \n\n\nMiguel"
+- created: 2007-03-13 10:12:41.553875000 -05:00
+  author: Robin
+  content: ! 'Unfortunately, I''m loading pxeboot.0 from PXELINUX so no option 67
+    set which is where it must be looking for the directory to prefix.
+
+    I tested all versions of \ and / in the pwflinux.cfg\default file and it made
+    no difference.'
+- created: 2007-03-13 23:46:59.991375000 -05:00
+  author: Miguel
+  content: ! "In this posting I am going to deal with getting WinPE booted from a
+    Linux tftp server. We'll also address the issue of loading WinPE 2.0 from under
+    pxelinux. \n\nWhen I posted my previous findings related to '\\' and '/' behavior
+    I had not yet made it through the entire boot process ... I had to go to bed :-)\n\nWhile
+    pxe bootstrap loader code uses the path prefix for fetching bootmgr.exe, it is
+    not consistent. \n\nI used Option 67 to specify &quot;foo\\pxeboot.n12&quot;\n\nThe
+    wireshark dump showed the following TFTP Read Requests:\n foo\\pxeboot.n12\n foo\\pxeboot.n12\n
+    foo\\bootmgr.exe\n \\Boot\\Fonts\\wgl4_boot.ttf\n \\foo\\boot.ini\n \\Boot\\BCD\n
+    \\Boot\\BCD\n \\Boot\\Fonts\\wgl4_boot.ttf\n \\hiberfil.sys\n \\boot\\testpe.wim\n
+    \\boot\\boot.sdi\n \\boot\\boot.sdi\n \\boot\\testpe.wim\n \\Boot\\Fonts\\wgl4_boot.ttf\n\nWe
+    can see that it is not consistent and that several things are wired to \\Boot.
+    The capitalized versions of \\Boot came from MSFT's loader code. The lower case
+    \\boot came from the entries that I put in my BCD file. \n\nSo, we have some more
+    issues when trying to use a Linux TFTP server. \n\n * \\backslash\\ vs /slash/
+    in the pathnames\n * some things are hard-wired to \\Boot\n * case insensitivity
+    on Windows could be an issue\n * Robin's issue of wanting to launch from pxelinux,\n
+    \  where it is too late to set Option 67\n\nThe solution on linux platforms is
+    to use the 'filename remapping' feature that is available in HPA's tftpd. I am
+    running tftp-server-0.42-3.1 on Fedora Core 6. I feel like I saw some reference
+    to a bug in this remapping feature at some point, so if you are using an older
+    version then you should investigate this. \n\nThe 'filename remapping' feature
+    allows you to use regular expressions to remap the filename string that is requested
+    by the tftp client. See 'man tftpd' for more details. \n\nWe are going to need
+    to pass the name of the remapping file to tftpd so that it will apply the remapping
+    rules. I created my remapping file as /etc/tftpdremap\n\nMy /etc/tftpdremap looks
+    like this:\n# remap WinPE 2.0 filenames\n#\n# Map these isolated file names and
+    go\nre ^pxeboot\\.n12 winpe20/pxeboot.n12\nre ^pxeboot\\.com winpe20/pxeboot.com\nre
+    ^pxeboot\\.0 winpe20/pxeboot.n12\nre ^bootmgr\\.exe winpe20/bootmgr.exe\n# map
+    these path prefixes\nr ^\\\\Boot\\\\ winpe20/\nr ^\\\\boot\\\\ winpe20/\nr ^\\\\
+    winpe20/\n# change all remaining \\ to /\nrg \\\\ /\n# THE END\n\nOn my linux
+    tftp server I put the winpe20 stuff in a subdir called 'winpe20' instead of 'boot'.
+    Some might want to call it 'Boot' so that it would be consistent with a Windows
+    tftp server configuration. Call it whatever you want, the remapping rules will
+    take care of it.  \n\nI encourage you to see 'man tftpd' to understand this remapping
+    syntax. \n\npxeboot.0 is in there so that you can boot this thing from underneath
+    pxelinux. For those of you who don't have a lot of experience with pxelinux, recall
+    that the filename extension is very important to the pxelinux loader. If you try
+    to load a .com file then pxelinux will think it is a MS-DOS .com file. If you
+    try to load a .n12 file then pxelinux will think it is a linux kernel ... since
+    it doesn't recognize the extension. If either of these things happens then you
+    are hosed. \n\nYou need to use the .0 extension so that pxelinux will load it
+    as a PXE network bootstrap program. The mappings that I showed above just mapped
+    pxeboot.0 to winpe20/pxeboot.n12. You can call it whatever you want, just change
+    the mapping file. \n\nNote that I did not put the font files up there. If you
+    play with them you may run into some case-sensitivity issue. If so, then you can
+    use the remapping rules to turn everything into lower case. \n\nSince you have
+    to use the remapping file anyway, I recommend that you make symbolic name changes
+    there, rather than renaming or copying the files. That way the files on your linux
+    box are simply a copy of the c:\\tftpboot\\Boot subdirectory on your Windows tftp
+    server. \n\nWhile playing with this filename remapping you are going to want to
+    make tftpd logging a little more verbose ... another argument to tftpd. \n\ntftpd
+    is spawned by xinetd, so the configuration is in /etc/xinetd.d/tftp\n\nMine now
+    looks like this:\n\nservice tftp\n{\n        socket_type             = dgram\n
+    \       protocol                = udp\n        wait                    = yes\n
+    \       user                    = root\n        server                  = /usr/sbin/in.tftpd\n
+    \       server_args             = -s /tftpboot -m /etc/tftpdremap -v\n        disable
+    \                = no\n        per_source              = 11\n        cps                     =
+    100 2\n        flags                   = IPv4\n}\n\nAfter making changes to this
+    file you need to do the following as root:\n #service xinetd reload\n #pkill in.tftpd\n\nYou
+    can then bring up a terminal that watches the log file for interesting tftpd stuff:\n
+    #tail -f /var/log/messages | grep tftpd\n\njust leave this running. \n\nIt should
+    now work for you. \n\nIn your /etc/dhcpd.conf you can specify the filename as
+    'pxeboot.n12' or pxeboot.com'\n\nIf you want to run under pxelinux then you can
+    say:\n  kernel pxeboot.0\n\nIf it doesn't work for you then:\n\n * watch the 'tail
+    -f /var/log/messages | grep tftp' to see that\n   the mappings are OK\n\n * if
+    you make changes to /etc/xinetd.d/tftp you must:\n     service xinetd reload\n\n
+    * if you make changes to your /etc/tftpdremap mappings you must:\n     pkill in.tftpd\n\n
+    * use wireshark to pick up DHCP and TFTP request on your tftp\n   server with
+    capture filter:\n     port 67 or port 68 or port 69\n\n\nGood luck!\nMiguel"
+- created: 2007-03-21 14:47:41.413875000 -05:00
+  author: wouter leeuwerck
+  email: wouwie@telenet.be
+  url: http://www.wouwie.be
+  content: ! 'Joshua,
+
+
+    We use the network boot with tftpd and winpe now for quite a while and it works
+    perfect! (on computers with minimum 512 MB RAM).
+
+    One thing I haven''t been able to figure out, is how to change the inputlocale
+    of winpe to belgian (point).  I know it''s 0813:00000813, but I can not change
+    the input.  Even the correct command &quot;wpeutil SetKeyboardLayout 0813:00000813&quot;
+    that gives a succesful result, does not change the input for the prompt.  But
+    if you start another program in winpe, then the program has the correct keyboard
+    layout.  Can you help me?'
+- created: 2007-04-04 09:12:38.187500000 -05:00
+  author: Robin
+  content: I believe the SetKeyboardLayout command only effects new processes, so
+    you need to start a new command shell to see any result.
+- created: 2007-04-30 09:12:25.034000000 -05:00
+  author: Joshua Weage
+  email: joshua.weage@arup.com
+  content: ! 'I managed to get PE 2.0 to PXE boot under Linux using the following:
+
+
+    # bcdedit –store c:\BCD –set {ramdiskoptions} ramdisksdidevice  Boot
+
+    # bcdedit –store c:\BCD –set {ramdiskoptions} ramdisksdipath  \Boot\boot.sdi
+
+
+    I changed &quot;boot&quot; to &quot;Boot&quot; as bootmgr.exe has this hard coded
+    for some reason.
+
+
+    My TFTP setup for Windows PE is placed in winpe/boot/, so I use the following
+    TFTP mapping rules:
+
+
+    r ^\\Boot\\ \\winpe\\Boot\\
+
+    rg \\ /
+
+
+    See Miguel''s post for further details, but these two rules are enough to make
+    everything work for me.
+
+
+    DHCP config as follows:
+
+
+    filename &quot;\\winpe\\Boot\\pxeboot.n12&quot;;
+
+
+    The Microsoft documentation says to load wdsnbp.com, which I cannot get to work.   I
+    assume that this loader requires WDS to work properly, but the documentation does
+    not say that.'
+- created: 2007-05-15 16:30:33.229675700 -05:00
+  author: Bryan
+  email: fxef79@comcast.net
+  content: ! 'I have been fighting the dreaded &quot;\boot\BCD Status: 0xc0000022&quot;
+    error for 2 days now.
+
+
+    I must have retyped the bcdedit commands a dozen times thinking I''m just impossibly
+    dumb.
+
+
+    What kept striking me as odd is that looking at the TFTP logs it looked like everything
+    was perfectly fine until it got here:
+
+    Read request for file &lt;\Boot\BCD&gt;. Mode octet [15/05 17:08:34.937]
+
+    Error EACCESS on file \Boot\BCD. Ext error The directory name is invalid
+
+
+    &quot;Directory name invalid&quot;???  That didn''t make sense because everything
+    else up to that point (pxeboot.n12, bootmgr.exe) was loading fine from that same
+    subdirectory.
+
+
+    Then I tried copying the BCD file all over the place - I had a copy in every subfolder
+    of my tftp root.  I even made a subfolder &quot;Boot&quot; of my folder &quot;Boot&quot;
+    (&quot;\tftproot\Boot\Boot&quot;) and put a copy of BCD there!
+
+
+    Nothing worked.
+
+
+    Then I realized that the earlier file loads in the log looked like this:
+
+    Read request for file &lt;Boot\pxeboot.n12&gt;. Mode octet [15/05 17:08:17.578]
+
+    Read request for file &lt;Boot\bootmgr.exe&gt;. Mode octet [15/05 17:08:17.672]
+
+    &lt;Boot\pxeboot.n12&gt;: sent 49 blks, 25068 bytes in 0 s. 0 blk resent [15/05
+    17:08:17.687]
+
+    &lt;Boot\bootmgr.exe&gt;: sent 817 blks, 417896 bytes in 1 s. 0 blk resent [15/05
+    17:08:18.453]
+
+
+    Those files loaded fine, but BCD wouldn''t load.  FINALLY I noticed the difference...
+    the earlier entries were &quot;&lt;Boot\blah&gt;&quot; but the BCD entry was &quot;&lt;\Boot\BCD&gt;&quot;
+    (notice the additional &quot;backslash&quot; at the beginning!!)
+
+
+    OK... so clearly the initial files loaded, based on the data they read from the
+    DHCP server option 067 (bootfile name) which was &quot;boot\pxeboot.n12&quot;
+    but then something changed to look at &quot;\Boot&quot; instead of &quot;Boot&quot;.
+
+
+    Something made me look at my TFTPD32 settings.  I''ve been using TFTPD32 for a
+    while (other projects) and never had to enable the value... but right there at
+    the bottom of the advanced tftp server options list is &quot;Allow ''\'' As virtual
+    root&quot;.
+
+
+    Holy crap.
+
+
+    &quot;ENABLED&quot;
+
+
+    Boot...
+
+
+    &lt;Boot\BCD&gt;: sent 25 blks, 12288 bytes in 0 s. 0 blk resent [15/05 17:20:15.880]
+
+
+    &quot;Windows is loading files&quot;...
+
+
+    :)
+
+
+    Fact is, Robin nailed it above in the post on 01 March... I just missed that one
+    comment - and wasted 2 days.
+
+
+    So if you''re still fighting this, and you haven''t switched to Miguel''s linux
+    TFTP server, enable that feature!
+
+
+    (learning experience, right?)'
+- created: 2007-05-26 23:55:25.465875000 -05:00
+  author: Graham
+  email: c0ld@pwns.eclipse.co.uk
+  content: ! "I finally got it to work!\n\nBCD, boot.sdi, Wdsconfig.inf and winpe.wim
+    need to be moved into a subdirectory called boot. So the finished tree looks like;\n\nC:\\apps\\tftpboot\\Boot\n|-abort.pxe\n|-bootmgr.exe\n|-hdlscom1.com\n|-hdlscom1.n12\n|-hdlscom2.com\n|-hdlscom2.n12\n|-pxeboot.n12\n|-wdsnbp.com\n
+    |[dir] Boot\n         |-BCD\n         |-boot.sdi\n         |-WdsConfig.inf\n         |-winpe.win\n\ntftpd32
+    was set to allow / as virtual root and pxe compatable"
+- created: 2007-08-02 08:28:37.582875000 -05:00
+  author: Dan
+  email: dharmon23@hotmail.com
+  content: I follow all of your steps but when it comes to the part where I copy the
+    BCD files with net use from the virtual pc to the technician computer, It gives
+    me an error saying that the workstation service is not running. Then I try to
+    type net start workstation to start that service and it says that it could not
+    be started, files not found. Any suggestions?
+- created: 2007-08-17 09:38:39.714000000 -05:00
+  author: Hunter DG
+  email: hdgjunk@gmail.com
+  content: ! 'Josh, you rock!
+
+    saved me a bunch of trial and error on my own part, though i did pull an all-nighter,
+    even with your wonderful guide.. (i made a custom WinPE image and a batch file
+    that auto generates the WinPE file.  I still don''t understand the NEED for the
+    lengthy BCDedit and GUID crap, but i''m sure i will understand soon.. (vista yadda
+    yadda),  this is a cool little tool i''m looking at, incase it may help in generating
+    those BCD''s...
+
+
+    http://neosmart.net/dl.php?id=1
+
+
+    i wonder if we could get THAT running on WinPE.. that would be spectacular..
+
+
+    anyway, thanks again for the writeup!.. now i''m off to learn how to image with
+    the new Vista ImageX..
+
+
+    batch files here i come!'
+- created: 2007-10-18 10:42:50.154000000 -05:00
+  author: PXE_Rules
+  content: ! "Just as a FYI I was having problems too, After checking the BCD file
+    4 or 5 times and redoing it. I looked at the tftp32 logs and for some reason the
+    path to the WinPE.wim file was getting mangled. It was trying to load \\Boot\\WinPE\\win
+    which I find very weird. .  But this was resulting in the infamous \n\nERROR\nStatus:
+    0xc000000f\nInfo: Boot selection failed because a required device is inaccessible
+    \n\nError.\n\nSo the work around I did was to copy \\Boot\\WinPE.wim to file called
+    \\Boot\\WinPE\\win and viola worked like a champ.\n\nI am curious to know though
+    what was mangling the path to the WinPE.wim file, If anyone has any ideas."
+- created: 2008-03-03 11:13:42.291750000 -06:00
+  author: Michael Brown
+  url: http://www.etherboot.org/wiki/winpe
+  content: ! "Thanks for the information.  I have used this (and several other sources)
+    to get WinPE up and running using gPXE.  I have also documented the full procedure
+    at\n\n  http://www.etherboot.org/wiki/winpe\n\nMichael Brown\nEtherboot Project"
+- created: 2008-04-11 16:03:39.233262600 -05:00
+  author: Scott Lightsey
+  email: scottlightsey@yahoo.com
+  content: ! "After half a day of aggravation I feel compelled to add my solution
+    for others. My configuration is much like Miguel's, mentioned above.  I am using
+    Linux as my pxe, tftp, and dhcp servers.  So the tftp remapping is a must.  However,
+    after all of that, I still had no luck.  I kept getting &quot;TFTP Download failed&quot;.
+    \ I did a wireshark (Etheral) capture, and found that pxeboot.n12 (renamed to
+    pxeboot.0) was loading correctly, but then bootmgr.exe was not being found.  Here
+    is the details of that:\n\n12080\t432.947088\t192.168.79.103\t0.0.0.0\tTFTP\tRead
+    Request, File: bootmgr.exe, Transfer type: octet, blksize=1456\n\nThe above looks
+    suspicious.  192.168.79.103 (the machine I am trying to PXE boot winpe on) is
+    the source of the read request, but look at the destination... It's all 0's.  It's
+    saying tftp the file bootmgr.exe from host 0.0.0.0.  Six attempts are made, and
+    then the message &quot;TFTP Download failed&quot; is given.\n\nMy pxe server and
+    tftp server are at IP address 192.168.79.101\n\nThis turned out to be a problem
+    with my dhcpd.  I did not have:\n\nnext-server 192.168.79.101;\n\nin my dhcpd.conf
+    file.  After adding that line to the correct place, I was able to boot winpe with
+    pxelinux.  My pxelinux.cfg file looks like:\n\nLABEL WinPE\n        MENU LABEL
+    ^WinPE\n        kernel pxeboot.0\n\n\nScott Lightsey"
+- created: 2008-04-21 14:32:32.237875000 -05:00
+  author: Philipp D&#246;rner
+  url: http://stereobit.de
+  content: ! 'Found this post via Google, I really appreciate the detailed walkthrough
+    and the feedback in the comments.
+
+
+    I had my own host of problems with the bcdedit lines, namely they would throw
+    syntax errors when I copy&amp;pasted them into Vista. Not very helpful ones, either.
+
+
+    You''re blog encodes the hyphen in &quot;bcdedit -store&quot; as a dash (slightly
+    longer, used for &quot;breaks&quot;) and that completly threw bcdedit off the
+    tracks. Only the first -createstore is encoded correctly. Even the official walkthrough
+    has that problem, which is even more puzzeling.
+
+
+    I actually studied bcdedit manual pages for half an hour until I figured out the
+    problem.  The solution is rather simple, of course: Replace the dashes with the
+    normal hyphen (the minus key).'
+- created: 2008-04-21 20:16:33.847250000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: Philipp - Nice catch! I bet that was tripping up a lot of readers. I've
+    fixed the instructions above, so hopefully they are safe to copy and paste now.
+- created: 2008-09-27 05:24:14.190500000 -05:00
+  author: Beedee
+  email: beedee@mailinator.com
+  content: ! "I m typing &quot;for net use y:\\\\TFTPCOMPUTER\\SHARE&quot;\n\nnet
+    use y:\\\\DESIGN\\TFTPBOOT\\Boot\n\n\nBut I have have the following error message:\n\nSystem
+    error 67 has occured. The network name cannot be found. \n\nWhy cant windows PE
+    find my network? The name ist Design and the folder is as described.\n\nWhat is
+    y:\n\nI know that I might need later y: drive to install Windows Vista trough
+    windows PE, by command NET USE y: \\\\servername\\sharename \n\nBut how can I
+    specify y:, what is y: or might y: be my HDD C: ?\n\nQuestions over question,
+    I mstucked\n\nIva asked nearly 10 forums on that subject.\n\nPlease help me. or
+    the world would have one more human less.\n\nHaha joke :D, but please, I m a little
+    frustrated."
+- created: 2008-09-30 21:29:07.471750000 -05:00
+  author: Joshua Flanagan
+  email: josh@flimflan.com
+  url: http://flimflan.com/blog
+  content: ! 'Make sure you have a space between y: and the \\server\share
+
+    The NET USE command maps a UNC path (\\server\share) to a driver letter (y:)
+
+
+    You should specify a driver letter that is NOT in use. Most people are already
+    using C: for their hard drive, and maybe D: for their CD-ROM. Y: is usually a
+    safe bet as an unused letter.'
+- created: 2008-11-10 08:56:22.451875000 -06:00
+  author: Andy
+  email: andy@comparch.co.za
+  url: http://www.comparch.co.za
+  content: ! 'this appears to be the only blog on the web where information regarding
+    TFTP booting is relavent, well done guys!!
+
+
+    my problem is that i am trying to boot diskless clients using wds. i have tried
+    wtware and tftpd32 but all my problems revert back to RIS (WDS is the replacement
+    for RIS in server 2k3 R2). i then uninstalled wtware (they have not tested their
+    software with WDS yet) and used WDS and then created the files as per the instructions
+    near the top of this blog. the files are created in a directory called remoteinstall
+    in the root of C:\. all the files i created form using the WAIK command prompt
+    are the same as the ones in the remoteinstall directory.
+
+
+    my erros are that when using wdsnbp.com it says the file is not a valid image
+    and if i use pxeboot. com it says the file is not found, both files are in the
+    same directory. by defualt wds puts all the files in a sub dir called x86. i moved
+    the files to the boot dir (as above) and i still get the same error.
+
+
+    any ideas of what i am doing wrong? i have configured all the scope options 60,
+    66 and 67 correctly and even pointed the default boot image for x86 architecter
+    to the boot folder and not the boot\x86 folder, still with the same results.
+
+
+    any help will be appreciated.
+
+
+    andy'
+- created: 2008-12-29 17:30:10.635395200 -06:00
+  author: Aleksandar
+  email: aleksacv@gmail.com
+  content: ! 'Hi,
+
+    What does &quot;MyWinPE Boot Image&quot; means in bcdedit -store c:\BCD -create
+    /d &quot;MyWinPE Boot Image&quot; /application osloader
+
+
+    Thanks'
+- created: 2009-05-19 07:51:35.983875000 -05:00
+  author: https://me.yahoo.com/a/r4Iotrs1lYCKhXNE1OuFgLp3Gp71djUD
+  email: none@none.com
+  url: https://me.yahoo.com/a/r4Iotrs1lYCKhXNE1OuFgLp3Gp71djUD
+  content: ! "Hi \nThanks for the great post sorted out almost all of the problems
+    I've been having execpt for one query....\n\nIt Loads Windows Files twice when
+    booting? Why\n(i.e it finds the TFTP server Displays Loads Windows Files the bar
+    gets to the end and it does it agin). Winpe then loads.\n\nIs this normal?"
 
 ---
 
