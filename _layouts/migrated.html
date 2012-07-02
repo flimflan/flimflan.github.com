@@ -2,3 +2,24 @@
 layout: post
 ---
 {{content}}
+
+<div class="comment-section">
+  {% for comment in page.comments %}
+    {% if comment["email"] == "josh@flimflan.com" %}
+      {% assign author_css="owner-comment" %}
+    {% else %}
+      {% assign author_css="" %}
+    {% endif %}
+
+    {% if comment["url"] %}
+    {% capture comment_author %}<a href="{{comment["url"]}}">{{comment["author"]}}</a>{% endcapture %}
+    {% else %}
+    {% assign comment_author = comment["author"] %}
+    {% endif %}
+
+    <div class="comment {{ author_css}}">
+      {{ comment["content"] | newline_to_br }}
+      <div class="comment-author">{{ comment_author }} - {{ comment["created"] | date:"%B %d, %Y %I:%M%P" }}</div>
+    </div>
+  {% endfor %}
+</div>
