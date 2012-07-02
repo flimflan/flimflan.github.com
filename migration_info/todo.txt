@@ -1,12 +1,14 @@
 rewrites:
   BONUS: change config.ru to load the redirects from another file
+  handle ct.ashx files
+  make redirects case-insensitive
+  allow querystrings at end of paths
 
 comments:
-  http://chrisrisner.com/Importing-Comments-into-Disqus
-  http://docs.disqus.com/developers/export/import_format/
+  styling
 
 logging:
   heroku app logs unforwarded urls
 
-add cname for github site
-move flimflan.com to point to heroku
+move flimflan.com to point to wwwizer.com
+www.flimflan.com already points to heroku
