@@ -7,8 +7,8 @@ replacements:
   !ruby/regexp /http:\/\/flimflan\.com\/blog\/content\/binary\// : /assets/post_images/
   !ruby/regexp /http:\/\/flimflan\.com\/[Ff]iles\// : /assets/downloads/
   !ruby/regexp /http:\/\/flimflan\.com\/blog\/(\S*)\.aspx/ : "/\\1.html"
-  !ruby/regexp /http:\/\/flimflan\.com\/blog[^\/]/ : /
   !ruby/regexp /http:\/\/flimflan\.com\/blog/#ac53679cd-3f10-45bd-bd65-ed89b0304064/ : /DigitalMusicToGoPart1Of2.html
+  !ruby/regexp /http:\/\/flimflan\.com\/blog/ : /
   !ruby/regexp /’/ : "'"
   !ruby/regexp /[“”]/ : '"' 
   !ruby/regexp /[–]/ : '-' 
