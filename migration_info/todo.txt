@@ -1,14 +1,8 @@
 rewrites:
   BONUS: change config.ru to load the redirects from another file
-  handle ct.ashx files
-  make redirects case-insensitive
   allow querystrings at end of paths
 
 comments:
   styling
 
-logging:
-  heroku app logs unforwarded urls
-
 move flimflan.com to point to wwwizer.com
-www.flimflan.com already points to heroku
