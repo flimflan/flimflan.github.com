@@ -14,7 +14,7 @@ layout: post
       {% assign author_css="" %}
     {% endif %}
 
-    {% if comment["url"] %}
+    {% if comment["url"] and comment["email"] != "josh@flimflan.com" %}
     {% capture comment_author %}<a href="{{comment["url"]}}">{{comment["author"]}}</a>{% endcapture %}
     {% else %}
     {% assign comment_author = comment["author"] %}
