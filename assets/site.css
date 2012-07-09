@@ -11,7 +11,7 @@ a:hover { text-decoration: underline; }
 .home {
   font-size: 18pt;
 }
-.home li {
+.home li, #header li {
   list-style: none;
   padding: 8px;
 }
@@ -23,7 +23,7 @@ pre {
   border: solid 1px #d0d0d0;
 }
 .comment-section {
-  width: 600px;
+  max-width: 50em;
 }
 
 .post-body {
@@ -41,9 +41,24 @@ pre {
 }
 
 .owner-comment {
-  background-color: lightblue;
+  background-color: #FFFF90;
 }
 
-.comment_author {
-  font-size: smaller;
+.comment-author {
+  margin-top: 1em;
+}
+
+#header {
+  height: 5em;
+  position:relative;
+  background-color: #bebebe;
+  border: thin solid #000;
+}
+#header h1 {
+  position:absolute;
+  left: 2px;
+}
+#vanity-list {
+  right: 0;
+  position: absolute;
 }
